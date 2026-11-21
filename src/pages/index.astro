@@ -1,4 +1,5 @@
 ---
-import LocalizedPage from './[lang]/[...page].astro';
+import LocalizedPage from '../components/LocalizedPage.astro';
+import { defaultLocale } from '../i18n';
 ---
-<LocalizedPage lang="fa" page="" />
+<LocalizedPage lang={defaultLocale} page="" />
