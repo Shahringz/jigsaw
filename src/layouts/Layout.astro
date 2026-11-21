@@ -1,23 +1,22 @@
+---
+import '../styles/site.css';
+import {navigation,slugs,copy} from '../data/content.js';
+const {lang='fa',page='',title='JIGSAW',description=''}=Astro.props;
+const other=lang==='fa'?'en':'fa';
+const labels=navigation[lang];
+const switchHref='/'+other+(page?'/'+page:'')+(Astro.url.hash||'');
+---
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
-		<link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.ico`} />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<html lang={lang} dir={lang==='fa'?'rtl':'ltr'}>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="theme-color" content="#20201f"/><meta name="description" content={description}/><title>{title}</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet"/></head>
+<body>
+<header class="site-header"><a class="wordmark" href={'/'+lang} aria-label="JIGSAW home"><span class="puzzle">✦</span> JIGSAW<span class="dot">.</span></a><button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label={lang==='fa'?'باز کردن منو':'Open menu'}>☰</button><nav id="site-nav" aria-label="Main navigation">{slugs.map((slug,i)=><a class={page===slug?'active':''} href={'/'+lang+(slug?'/'+slug:'')}>{labels[i]}</a>)}<a class="language" id="language-switch" href={switchHref}>{other==='en'?'English':'فارسی'}</a></nav></header>
+<main><slot/></main>
+<footer><strong>JIGSAW<span class="dot">.</span></strong><p>{copy[lang].footer}</p><p>{copy[lang].regions}</p><a href="https://jigsawstudio.ir">jigsawstudio.ir</a></footer>
+<script is:inline>
+const toggle=document.getElementById('menu-toggle'),nav=document.getElementById('site-nav');
+toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?(document.documentElement.lang==='fa'?'بستن منو':'Close menu'):(document.documentElement.lang==='fa'?'باز کردن منو':'Open menu'));toggle.textContent=open?'✕':'☰';nav.classList.toggle('open',open)});
+document.querySelectorAll('#site-nav a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false')}));
+const switcher=document.getElementById('language-switch');if(switcher)switcher.addEventListener('click',e=>{if(location.hash){e.preventDefault();location.href=switcher.getAttribute('href').split('#')[0]+location.hash;}});
+</script>
+</body></html>
