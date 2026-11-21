@@ -4,13 +4,15 @@ import {navigation,slugs,copy} from '../data/content.js';
 const {lang='fa',page='',title='JIGSAW',description=''}=Astro.props;
 const other=lang==='fa'?'en':'fa';
 const labels=navigation[lang];
-const switchHref='/'+other+(page?'/'+page:'')+(Astro.url.hash||'');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pageHref = (locale, slug = '') => `${base}/${locale}/${slug ? slug + '/' : ''}`;
+const switchHref = pageHref(other, page);
 ---
 <!doctype html>
 <html lang={lang} dir={lang==='fa'?'rtl':'ltr'}>
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="theme-color" content="#20201f"/><meta name="description" content={description}/><title>{title}</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet"/></head>
 <body>
-<header class="site-header"><a class="wordmark" href={'/'+lang} aria-label="JIGSAW home"><span class="puzzle">✦</span> JIGSAW<span class="dot">.</span></a><button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label={lang==='fa'?'باز کردن منو':'Open menu'}>☰</button><nav id="site-nav" aria-label="Main navigation">{slugs.map((slug,i)=><a class={page===slug?'active':''} href={'/'+lang+(slug?'/'+slug:'')}>{labels[i]}</a>)}<a class="language" id="language-switch" href={switchHref}>{other==='en'?'English':'فارسی'}</a></nav></header>
+<header class="site-header"><a class="wordmark" href={pageHref(lang)} aria-label="JIGSAW home"><span class="puzzle">✦</span> JIGSAW<span class="dot">.</span></a><button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label={lang==='fa'?'باز کردن منو':'Open menu'}>☰</button><nav id="site-nav" aria-label="Main navigation">{slugs.map((slug,i)=><a class={page===slug?'active':''} href={pageHref(lang, slug)}>{labels[i]}</a>)}<a class="language" id="language-switch" href={switchHref}>{other==='en'?'English':'فارسی'}</a></nav></header>
 <main><slot/></main>
 <footer><strong>JIGSAW<span class="dot">.</span></strong><p>{copy[lang].footer}</p><p>{copy[lang].regions}</p><a href="https://jigsawstudio.ir">jigsawstudio.ir</a></footer>
 <script is:inline>
