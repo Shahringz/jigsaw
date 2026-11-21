@@ -1,46 +1,56 @@
-# Astro Starter Kit: Basics
+# JIGSAW | جیگزا
 
-```sh
-npm create astro@latest -- --template basics
-```
+**هر قطعه، در جای درست.**  
+*Every piece in its place.*
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+جیگزا یک آژانس خلاق و دیجیتال مارکتینگ است که از سال ۱۳۹۳ در حوزه برند و ارتباطات بازاریابی فعالیت می‌کند. ما به کسب‌وکارها کمک می‌کنیم کیفیت واقعی محصولات و خدماتشان را به شکلی روشن، قابل‌درک و اثرگذار به مخاطبان نشان دهند.
 
-## 🚀 Project Structure
+## چرا جیگزا؟
 
-Inside of your Astro project, you'll see the following folders and files:
+نام جیگزا از مفهوم پازل می‌آید؛ جایی که هر قطعه برای کامل شدن تصویر اهمیت دارد. در نشان ما، دو دست به هم می‌رسند: یک طرف شناخت شما از محصول، مشتری و بازار است و طرف دیگر تخصص تیم ما در استراتژی، طراحی، روایت و اجرا. تصویر زمانی کامل می‌شود که این دو کنار هم قرار بگیرند.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+هدف ما صرفاً ساخت یک طرح زیبا یا ویدیوی جذاب نیست؛ می‌خواهیم مخاطب بتواند کیفیت کار شما را ببیند، بفهمد و با آگاهی بیشتری انتخاب کند.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## خدمات جیگزا
 
-## 🧞 Commands
+- **استراتژی برند و بازاریابی:** شناخت مخاطب، تعیین جایگاه برند، پیام‌های اصلی و برنامه اقدام.
+- **برندینگ و هویت بصری:** طراحی یا بازنگری نشان، رنگ، تایپوگرافی، لحن برند، تصویرسازی و کاراکتر.
+- **طراحی گرافیک و نگارش:** کاتالوگ، بروشور، معرفی خدمات، متن تبلیغاتی و سناریو.
+- **عکاسی و تولید ویدئو:** ایده‌پردازی، برنامه‌ریزی تولید، تصویربرداری، تدوین و آماده‌سازی خروجی.
+- **موشن‌گرافیک و سه‌بعدی:** استوری‌بورد، طراحی حرکت، مدل‌سازی و انیمیشن.
+- **شبکه‌های اجتماعی و کمپین:** برنامه‌ریزی، تولید محتوا، مدیریت ارتباط با مخاطبان و بررسی عملکرد.
+- **طراحی و توسعه وب‌سایت:** طراحی تجربه و رابط کاربری و توسعه با همراهی همکار فنی راهبردی جیگزا.
+- **تولید خلاق با هوش مصنوعی:** پیش‌تصویرسازی، تولید تصویر و ویدئو و ترکیب تکنیک‌های خلاقانه.
 
-All commands are run from the root of the project, from a terminal:
+خدمات می‌توانند به‌صورت مستقل یا در قالب یک برنامه یکپارچه ارائه شوند.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## حوزه‌های فعالیت
 
-## 👀 Want to learn more?
+ما با توجه به نیاز هر کسب‌وکار، مسیر متناسب با آن را طراحی می‌کنیم. پزشکی و زیبایی، کافه و رستوران، و مد و پوشاک از حوزه‌هایی هستند که در معرفی خدمات جیگزا به آن‌ها پرداخته‌ایم.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## شیوه همکاری
+
+همکاری می‌تواند پروژه‌ای یا مستمر باشد. مسیر معمول از **گفت‌وگوی اولیه و شناخت مسئله** شروع می‌شود، با **بررسی برند و پیشنهاد مسیر** ادامه پیدا می‌کند و پس از **توافق، طراحی و تولید، کنترل کیفیت و تحویل** به مرحله **ارزیابی و برنامه‌ریزی بعدی** می‌رسد.
+
+پیش از شروع، دامنه کار، خروجی‌ها، زمان‌بندی، بازبینی‌ها و مسئولیت‌ها مشخص می‌شوند.
+
+## کجا فعالیت می‌کنیم؟
+
+خدمات جیگزا برای کسب‌وکارهای **ایران، عمان و امارات متحده عربی** قابل ارائه است.
+
+**JIGSAW — Creative & Digital Marketing Agency**  
+وب‌سایت درج‌شده در کاتالوگ: [jigsawstudio.ir](https://jigsawstudio.ir)
+
+---
+
+### About JIGSAW
+
+JIGSAW is a creative and digital marketing agency working in brand and marketing communications since the Iranian calendar year 1393. We bring strategy, identity, storytelling, design and production together to make the quality of a business visible and understandable.
+
+Our name reflects the belief that every piece matters. You know your product, customers and market; we bring creative direction and execution. The picture comes together through collaboration.
+
+Our services span brand and marketing strategy, visual identity, graphic design and copywriting, photography and video, motion and 3D, social media and campaigns, website design and development, and creative production with AI.
+
+We work with businesses in **Iran, Oman and the UAE**, on individual projects or ongoing collaborations.
+
+**Every piece in its place.**
