@@ -1,18 +1,14 @@
 ---
 import LocalizedPage from '../../components/LocalizedPage.astro';
-import { slugs } from '../../data/content.js';
-import { locales } from '../../i18n';
+import { locales, pages } from '../../i18n';
 
 export function getStaticPaths() {
-  return locales.flatMap((lang) =>
-    slugs.map((page) => ({
-      params: { lang, page: page || undefined },
-      props: { lang, page },
-    }))
-  );
+  return locales.flatMap((lang) => pages.map((page) => ({
+    params: { lang, page: page === 'home' ? undefined : page },
+    props: { lang, page },
+  })));
 }
 
 const { lang, page } = Astro.props;
 ---
-
 <LocalizedPage lang={lang} page={page} />
