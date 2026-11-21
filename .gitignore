@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Astro generated files
+/dist/
+/.astro/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# npm logs
+npm-debug.log*
+
+# macOS metadata
+.DS_Store
