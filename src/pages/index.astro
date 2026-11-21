@@ -1,4 +1,4 @@
 ---
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-return Astro.redirect(`${base}/fa/`, 302);
+import LocalizedPage from './[lang]/[...page].astro';
 ---
+<LocalizedPage lang="fa" page="" />
