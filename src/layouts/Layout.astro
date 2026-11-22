@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import { SiteHeader, SiteFooter } from '../components/Shell';
 import { assetHref, defaultLocale, languages, locales, pageHref, type Locale, type PageKey } from '../i18n';
 import data from '../data/copy.json';
@@ -11,10 +12,13 @@ interface Props {
 const { lang, page } = Astro.props;
 const [title, description] = data.metadata[page][lang === 'fa' ? 0 : 1];
 const absolutePage = (locale: Locale) => new URL(pageHref(locale, page), Astro.site ?? Astro.url);
-const font = lang === 'fa' ? 'estedad-fa' : 'sora-bold';
+const estedad = assetHref('type/estedad-fa.woff2');
+const sora = assetHref('type/sora-bold.woff2');
+const manrope = assetHref('type/manrope.woff2');
+const headingFont = lang === 'fa' ? estedad : sora;
 ---
 <!doctype html>
-<html lang={lang} dir={languages[lang].direction}>
+<html lang={lang} dir={languages[lang].direction} transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,12 +29,35 @@ const font = lang === 'fa' ? 'estedad-fa' : 'sora-bold';
     {locales.map((locale) => <link rel="alternate" hreflang={locale} href={absolutePage(locale)} />)}
     <link rel="alternate" hreflang="x-default" href={absolutePage(defaultLocale)} />
     <link rel="icon" type="image/webp" href={assetHref('media/mark.webp')} />
-    <link rel="preload" as="font" type="font/woff2" href={assetHref(`type/${font}.woff2`)} crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={headingFont} crossorigin="anonymous" />
+    <style is:inline set:html={`
+      @font-face {
+        font-family: Estedad;
+        src: url("${estedad}") format("woff2");
+        font-weight: 100 900;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: Sora;
+        src: url("${sora}") format("woff2");
+        font-weight: 700;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: Manrope;
+        src: url("${manrope}") format("woff2");
+        font-weight: 200 800;
+        font-display: swap;
+      }
+    `}></style>
+    <ClientRouter />
   </head>
   <body>
     <SiteHeader language={lang} page={page} />
-    <main id="main"><slot /></main>
+    <main id="main" transition:animate="fade"><slot /></main>
     <SiteFooter language={lang} />
-    <script is:inline src={assetHref('studio.js')} defer></script>
+    <script>
+      import "../scripts/studio.js";
+    </script>
   </body>
 </html>

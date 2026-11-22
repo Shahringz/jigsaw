@@ -1,4 +1,4 @@
-(() => {
+function initPage(signal) {
   const locale = document.documentElement.lang;
   const fa = locale === "fa";
   const language = document.querySelector("[data-language]");
@@ -10,7 +10,7 @@
     window.addEventListener("hashchange", () => {
       target.hash = location.hash;
       language.href = target.href;
-    });
+    }, { signal });
   }
   const menu = document.querySelector(".mobile");
   document.addEventListener("keydown", (e) => {
@@ -18,14 +18,7 @@
       menu.open = false;
       menu.querySelector("summary").focus();
     }
-  });
-  function expand() {
-    const section = document.getElementById(location.hash.slice(1));
-    const disclosure = section?.closest("details");
-    if (disclosure) disclosure.open = true;
-  }
-  expand();
-  window.addEventListener("hashchange", expand);
+  }, { signal });
   const form = document.querySelector("#enquiry");
   if (!form) return;
   const interest = form.elements.namedItem("interest");
@@ -85,16 +78,16 @@
   form.elements
     .namedItem("contact")
     .addEventListener("input", (e) => e.target.setCustomValidity(""));
-})();
+}
 
-(() => {
+function initPoster(signal) {
   const poster = document.querySelector(".hero .poster");
   if (!poster || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
     return;
   const entry = document.querySelector(".entry-space");
-  let pending = false;
+  let frameRequest = null;
   const update = () => {
-    pending = false;
+    frameRequest = null;
     const rect = poster.getBoundingClientRect();
     const t = Math.min(1, Math.max(0, (80 - rect.top) / rect.height));
     poster.style.setProperty("--tilt", t * 18 + "deg");
@@ -109,12 +102,31 @@
     }
   };
   const queue = () => {
-    if (!pending) {
-      pending = true;
-      requestAnimationFrame(update);
-    }
+    if (frameRequest === null) frameRequest = requestAnimationFrame(update);
   };
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", queue);
+  window.addEventListener("scroll", queue, { passive: true, signal });
+  window.addEventListener("resize", queue, { signal });
+  signal.addEventListener("abort", () => {
+    if (frameRequest !== null) cancelAnimationFrame(frameRequest);
+  }, { once: true });
   update();
-})();
+}
+
+function expandSection(page, hash) {
+  const disclosure = page.getElementById(hash.slice(1))?.closest("details");
+  if (disclosure) disclosure.open = true;
+}
+
+let pageListeners;
+document.addEventListener("astro:before-swap", (event) => {
+  pageListeners?.abort();
+  expandSection(event.newDocument, event.to.hash);
+});
+document.addEventListener("astro:page-load", () => {
+  pageListeners?.abort();
+  pageListeners = new AbortController();
+  initPage(pageListeners.signal);
+  initPoster(pageListeners.signal);
+  expandSection(document, location.hash);
+});
+window.addEventListener("hashchange", () => expandSection(document, location.hash));
