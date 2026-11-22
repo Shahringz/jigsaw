@@ -263,26 +263,35 @@ export function StudioContent({
                 {tr("ایمیل یا شمارهٔ تماس", "Email or phone number")}
                 <input name="contact" dir="auto" required />
               </label>
-              <label>
-                {tr("موضوع همکاری", "Project interest")}
-                <select name="interest" defaultValue="unsure">
-                  {data.services.map((s, serviceIndex) => (
-                    <option
-                      data-legacy-service={serviceIndex}
-                      key={s.id}
-                      value={s.id}
-                    >
-                      {s.title[i]}
-                    </option>
-                  ))}
-                  <option value="unsure">
-                    {tr("هنوز مطمئن نیستم", "I’m not sure yet")}
-                  </option>
-                  <option data-legacy-service="related" value="samples">
-                    {tr("درخواست نمونهٔ مرتبط", "Request relevant work")}
-                  </option>
-                </select>
-              </label>
+              <div className="interest-field" data-interest>
+                <span id="interest-label">{tr("موضوع همکاری", "Project interest")}</span>
+                <input type="hidden" name="interest" value="unsure" />
+                <details className="interest-picker">
+                  <summary aria-labelledby="interest-label interest-value">
+                    <span id="interest-value">{tr("هنوز مطمئن نیستم", "I’m not sure yet")}</span>
+                    <span className="interest-chevron" aria-hidden="true" />
+                  </summary>
+                  <div className="interest-options" role="group" aria-labelledby="interest-label">
+                    {data.services.map((s, serviceIndex) => (
+                      <button
+                        type="button"
+                        data-value={s.id}
+                        data-legacy-service={serviceIndex}
+                        aria-pressed={false}
+                        key={s.id}
+                      >
+                        {s.title[i]}
+                      </button>
+                    ))}
+                    <button type="button" data-value="unsure" aria-pressed={true}>
+                      {tr("هنوز مطمئن نیستم", "I’m not sure yet")}
+                    </button>
+                    <button type="button" data-value="samples" data-legacy-service="related" aria-pressed={false}>
+                      {tr("درخواست نمونهٔ مرتبط", "Request relevant work")}
+                    </button>
+                  </div>
+                </details>
+              </div>
               <label className="wide">
                 {tr("توضیح پروژه", "Tell us about your project")}
                 <textarea

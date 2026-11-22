@@ -21,17 +21,47 @@ function initPage(signal) {
   }, { signal });
   const form = document.querySelector("#enquiry");
   if (!form) return;
+  const interestField = form.querySelector("[data-interest]");
+  const interestLabel = interestField.querySelector("#interest-label");
+  const interestValue = interestField.querySelector("#interest-value");
+  const picker = interestField.querySelector("details");
+  const trigger = picker.querySelector("summary");
+  const options = [...picker.querySelectorAll("[data-value]")];
   const interest = form.elements.namedItem("interest");
+  function choose(option) {
+    interest.value = option.dataset.value;
+    interestValue.textContent = option.textContent.trim();
+    options.forEach((item) => item.setAttribute("aria-pressed", String(item === option)));
+  }
   const params = new URLSearchParams(location.search);
-  const interestId = params.get("interest"),
-    previousService = params.get("service");
-  const selected = [...interest.options].find((option) =>
+  const interestId = params.get("interest");
+  const previousService = params.get("service");
+  const selected = options.find((option) =>
     interestId
-      ? option.value === interestId
-      : previousService !== null &&
-        option.dataset.legacyService === previousService,
+      ? option.dataset.value === interestId
+      : previousService !== null && option.dataset.legacyService === previousService,
   );
-  if (selected) interest.value = selected.value;
+  choose(selected ?? options.find((option) => option.dataset.value === interest.value));
+  picker.addEventListener("click", (event) => {
+    const option = event.target.closest("[data-value]");
+    if (!option) return;
+    choose(option);
+    picker.open = false;
+    trigger.focus();
+  }, { signal });
+  picker.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && picker.open) {
+      event.stopPropagation();
+      picker.open = false;
+      trigger.focus();
+    }
+  }, { signal });
+  picker.addEventListener("focusout", (event) => {
+    if (!picker.contains(event.relatedTarget)) picker.open = false;
+  }, { signal });
+  document.addEventListener("click", (event) => {
+    if (!picker.contains(event.target)) picker.open = false;
+  }, { signal });
   const download = document.querySelector("#download");
   function save(e) {
     e.preventDefault();
@@ -51,13 +81,12 @@ function initPage(signal) {
           : "Enter a valid email address or phone number.",
     );
     if (!form.reportValidity()) return;
-    const lines = Array.from(form.querySelectorAll("label"))
+    const lines = Array.from(form.querySelectorAll("label, [data-interest]"))
       .map((label) => {
-        const field = label.querySelector("input,textarea,select");
-        const answer =
-          field.tagName === "SELECT"
-            ? field.selectedOptions[0].text
-            : field.value.trim();
+        if (label === interestField) {
+          return interestLabel.textContent + " — " + interestValue.textContent;
+        }
+        const answer = label.querySelector("input, textarea").value.trim();
         return answer ? label.firstChild.textContent + " — " + answer : "";
       })
       .filter(Boolean);

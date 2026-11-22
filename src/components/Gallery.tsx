@@ -95,12 +95,14 @@ export function Gallery({ fa }: Props) {
   }, []);
   return (
     <div className="wrap exhibit">
-      <h1>{fa ? "تجربه‌های استودیو" : "Studio experiments"}</h1>
-      <p>
-        {fa
-          ? "از جلد جیگزا تا اتود پوستر و یک تجربهٔ متحرک. هر اثر را باز کنید تا از نزدیک ببینید."
-          : "Open a studio piece to explore our cover design, poster study or motion experiment."}
-      </p>
+      <div className="intro">
+        <h1>{fa ? "تجربه‌های استودیو" : "Studio experiments"}</h1>
+        <p>
+          {fa
+            ? "از جلد جیگزا تا اتود پوستر و یک تجربهٔ متحرک. هر اثر را باز کنید تا از نزدیک ببینید."
+            : "Open a studio piece to explore our cover design, poster study or motion experiment."}
+        </p>
+      </div>
       <div
         className="filters"
         role="group"
