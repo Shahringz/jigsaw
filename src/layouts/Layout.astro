@@ -8,14 +8,16 @@ import '../styles/site.css';
 interface Props {
   lang: Locale;
   page: PageKey;
+  metadata?: [string, string];
+  alternates?: Partial<Record<Locale, string>>;
 }
-const { lang, page } = Astro.props;
-const [title, description] = data.metadata[page][lang === 'fa' ? 0 : 1];
-const absolutePage = (locale: Locale) => new URL(pageHref(locale, page), Astro.site ?? Astro.url);
+const { lang, page, metadata, alternates } = Astro.props;
+const [title, description] = metadata ?? data.metadata[page][languages[lang].index];
+const absolutePage = (locale: Locale) => new URL(alternates?.[locale] ?? pageHref(locale, page), Astro.site ?? Astro.url);
 const estedad = assetHref('type/estedad-fa.woff2');
 const sora = assetHref('type/sora-bold.woff2');
 const manrope = assetHref('type/manrope.woff2');
-const headingFont = lang === 'fa' ? estedad : sora;
+const headingFont = languages[lang].direction === 'rtl' ? estedad : sora;
 ---
 <!doctype html>
 <html lang={lang} dir={languages[lang].direction} transition:animate="none">
@@ -26,8 +28,8 @@ const headingFont = lang === 'fa' ? estedad : sora;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={absolutePage(lang)} />
-    {locales.map((locale) => <link rel="alternate" hreflang={locale} href={absolutePage(locale)} />)}
-    <link rel="alternate" hreflang="x-default" href={absolutePage(defaultLocale)} />
+    {locales.filter(locale => !alternates || alternates[locale]).map((locale) => <link rel="alternate" hreflang={locale} href={absolutePage(locale)} />)}
+    <link rel="alternate" hreflang="x-default" href={absolutePage(alternates && !alternates[defaultLocale] ? lang : defaultLocale)} />
     <link rel="icon" type="image/webp" href={assetHref('media/mark.webp')} />
     <link rel="preload" as="font" type="font/woff2" href={headingFont} crossorigin="anonymous" />
     <style is:inline set:html={`
@@ -53,7 +55,7 @@ const headingFont = lang === 'fa' ? estedad : sora;
     <ClientRouter />
   </head>
   <body>
-    <SiteHeader language={lang} page={page} />
+    <SiteHeader language={lang} page={page} alternates={alternates} />
     <main id="main" transition:animate="fade"><slot /></main>
     <SiteFooter language={lang} />
     <script>

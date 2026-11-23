@@ -1,20 +1,27 @@
 function initPage(signal) {
   const locale = document.documentElement.lang;
   const fa = locale === "fa";
-  const language = document.querySelector("[data-language]");
-  if (language) {
-    const target = new URL(language.href);
-    target.search = location.search;
-    target.hash = location.hash;
-    language.href = target.href;
-    window.addEventListener("hashchange", () => {
+  const links = document.querySelectorAll("[data-language]");
+  const syncLanguageLinks = () => {
+    for (const link of links) {
+      const target = new URL(link.href);
+      target.search = location.search;
       target.hash = location.hash;
-      language.href = target.href;
-    }, { signal });
-  }
-  const menu = document.querySelector(".mobile");
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && menu?.open) {
+      link.href = target.href;
+    }
+  };
+  syncLanguageLinks();
+  window.addEventListener("hashchange", syncLanguageLinks, { signal });
+  const menus = document.querySelectorAll("header details");
+  document.addEventListener("click", (event) => {
+    for (const menu of menus) {
+      if (!menu.contains(event.target) || event.target.closest("a")) menu.open = false;
+    }
+  }, { signal });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const menu = event.target.closest("header details[open]");
+    if (menu) {
       menu.open = false;
       menu.querySelector("summary").focus();
     }
@@ -78,7 +85,7 @@ function initPage(signal) {
         ? ""
         : fa
           ? "یک ایمیل یا شمارهٔ تماس معتبر وارد کنید."
-          : "Enter a valid email address or phone number.",
+          : locale === "ar" ? "أدخل بريداً إلكترونياً أو رقم هاتف صالحاً." : "Enter a valid email address or phone number.",
     );
     if (!form.reportValidity()) return;
     const lines = Array.from(form.querySelectorAll("label, [data-interest]"))
@@ -100,7 +107,7 @@ function initPage(signal) {
     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
     document.querySelector("#status").textContent = fa
       ? "شرح پروژه برای دانلود آماده شد."
-      : "Your project brief is ready to download.";
+      : locale === "ar" ? "ملخّص مشروعك جاهز للتنزيل." : "Your project brief is ready to download.";
   }
   form.addEventListener("submit", save);
   download.addEventListener("click", save);

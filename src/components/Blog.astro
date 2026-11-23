@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import { assetHref, pageHref, translator, type Locale } from '../i18n';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const tr = translator(lang);
+const posts = (await getCollection('blog', post => post.id.startsWith(lang + '/')))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<div class="wrap inner">
+  <div class="intro"><h1>{tr('وبلاگ جیگزا', 'JIGSAW blog', 'مدوّنة جيغسو')}</h1>
+    <p>{tr('اینجا از تصمیم‌های پشت طراحی‌ها، تجربه‌های تولید و چیزهایی که وسط کار یاد می‌گیریم می‌نویسیم.', 'Notes on our design decisions, the production process and what we learn along the way.', 'نكتب هنا عن القرارات التي تقف خلف تصاميمنا، وعن الإنتاج وما نتعلّمه أثناء العمل.')}</p>
+  </div>
+  {posts.map(({ id, data }) => <article class="journal-entry">
+    <a href={pageHref(lang, 'blog') + id.split('/')[1] + '/'}>
+      {data.image && <div class="journal-art"><img src={assetHref(data.image)} alt={data.imageAlt ?? ''} width="600" height="800" loading="lazy" /></div>}
+      <div class="journal-summary"><time datetime={data.date.toISOString().slice(0,10)}>{data.date.toLocaleDateString(lang, { dateStyle: 'long', timeZone: 'UTC' })}</time>
+        <h2>{data.title}</h2><p>{data.description}</p>
+        <span class="textlink">{tr('خوندن یادداشت', 'Read the note', 'اقرأ المقال')}</span></div>
+    </a>
+  </article>)}
+</div>

@@ -1,4 +1,4 @@
-import { assetHref, pageHref } from "../i18n";
+import { assetHref, pageHref, translator, type Locale } from "../i18n";
 export function Mark() {
   return (
     <span className="brand" dir="ltr">
@@ -7,7 +7,8 @@ export function Mark() {
     </span>
   );
 }
-export function Cover({ fa }: { fa: boolean }) {
+export function Cover({ language }: { language: Locale }) {
+  const tr = translator(language);
   return (
     <span className="cover-frame">
       <picture>
@@ -27,11 +28,11 @@ export function Cover({ fa }: { fa: boolean }) {
             )
             .join(", ")}
           sizes="(max-width: 720px) min(72vw, 325px), (max-width: 1050px) 35vw, 410px"
-          alt={
-            fa
-              ? "جلد جیگزا؛ دو شخصیت قطعه‌های زرد و قرمز پازل را کنار هم می‌گذارند. شعار جلد «هر قطعه، در جای درست» است."
-              : "JIGSAW cover. Two figures assemble yellow and red puzzle pieces above the line “Every piece in its place.”"
-          }
+          alt={tr(
+            "جلد جیگزا؛ دو شخصیت قطعه‌های زرد و قرمز پازل را کنار هم می‌گذارند. شعار جلد «هر قطعه، در جای درست» است.",
+            "JIGSAW cover. Two figures assemble yellow and red puzzle pieces above the line “Every piece in its place.”",
+            "غلاف جيغسو. شخصيتان تجمعان قطعتي أحجية باللونين الأصفر والأحمر.",
+          )}
         />
       </picture>
       <span className="cover-ink" aria-hidden="true" />
@@ -97,18 +98,25 @@ export function Trace() {
     </svg>
   );
 }
-export function ProjectEntry({ fa }: { fa: boolean }) {
+export function ProjectEntry({ language }: { language: Locale }) {
+  const tr = translator(language);
   return (
     <section className="motion-entry">
       <a
         className="entry-inner wrap"
-        href={pageHref(fa ? "fa" : "en", "work") + "#motion"}
+        href={pageHref(language, "work") + "#motion"}
       >
         <div>
-          <small>{fa ? "تجربهٔ موشن جیگزا" : "JIGSAW motion study"}</small>
-          <h2>{fa ? "مدار اتصال" : "Orbit in motion"}</h2>
+          <small>
+            {tr(
+              "تجربهٔ موشن جیگزا",
+              "JIGSAW motion study",
+              "تجربة حركية من جيغسو",
+            )}
+          </small>
+          <h2>{tr("مدار اتصال", "Orbit in motion", "مدارات تلتقي")}</h2>
           <span className="entry-cta">
-            {fa ? "ورود به پروژه" : "Enter the project"}
+            {tr("ورود به پروژه", "Enter the project", "اكتشفوا المشروع")}
           </span>
         </div>
         <div className="entry-space">
