@@ -1,7 +1,7 @@
 # JIGSAW | جیگزا
 
-**هر قطعه، در جای درست.**  
-*Every piece in its place.*
+**Can we help you?**
+*می‌تونیم بهتون کمک کنیم؟*
 
 جیگزا یک آژانس خلاق و دیجیتال مارکتینگ است که از سال ۱۳۹۳ در حوزه برند و ارتباطات بازاریابی فعالیت می‌کند. ما به کسب‌وکارها کمک می‌کنیم کیفیت واقعی محصولات و خدماتشان را به شکلی روشن، قابل‌درک و اثرگذار به مخاطبان نشان دهند.
 
@@ -53,4 +53,9 @@ Our services span brand and marketing strategy, visual identity, graphic design 
 
 We work with businesses in **Iran, Oman and the UAE**, on individual projects or ongoing collaborations.
 
-**Every piece in its place.**
+**Can we help you?**
+
+
+### انتشار یادداشت در وبلاگ
+
+از یکی از فایل‌های پوشهٔ `src/content/blog/fa/` یک کپی بگیرید، نام فایل، عنوان، توضیح، نویسنده، تاریخ و متن را عوض کنید. تصویر و پیوند به گالری اختیاری‌اند. برای ترجمه، فایلی هم‌نام در پوشهٔ `en` یا `ar` بگذارید. با انتشار تغییرات در شاخهٔ اصلی، مقاله به فهرست همان زبان اضافه می‌شود.

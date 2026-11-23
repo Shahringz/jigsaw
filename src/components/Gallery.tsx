@@ -1,49 +1,63 @@
 import { Orbit } from "./Artwork";
-import { assetHref, pageHref } from "../i18n";
+import {
+  assetHref,
+  pageHref,
+  languages,
+  translator,
+  type Locale,
+} from "../i18n";
 import { useEffect, useState } from "react";
-type Props = { fa: boolean };
+type Props = { language: Locale };
 const pieces = [
   {
     id: "cover",
-    tag: ["هویت بصری", "Identity"],
-    title: ["دو دست، یک تصویر", "Two hands, one image"],
+    tag: ["هویت بصری", "Identity", "هوية بصرية"],
+    title: ["دو دست، یک تصویر", "Two hands, one image", "يدان وصورة واحدة"],
     body: [
       "دست‌های دو شخصیت دور یک قطعه به هم می‌رسند. همین لحظه را برای جلد معرفی جیگزا انتخاب کردیم.",
       "The two figures reach around a single piece. That shared gesture became the cover of our studio catalogue.",
+      "تمتدّ يدا الشخصيتين حول قطعة واحدة. اخترنا تلك اللحظة لتكون غلاف كتيّب الاستوديو.",
     ],
   },
   {
     id: "print",
-    tag: ["پوستر", "Poster"],
-    title: ["آخرین قطعه", "The last piece"],
+    tag: ["پوستر", "Poster", "ملصق"],
+    title: ["آخرین قطعه", "The last piece", "القطعة الأخيرة"],
     body: [
       "در این اتود، بخشی از یک صورت روی قطعهٔ زرد چاپ شده. دست که قطعه را سر جایش می‌گذارد، پرتره کامل می‌شود.",
       "In this poster study, a fragment of the portrait is printed on a yellow piece. The hand completes the picture by putting it in place.",
+      "في هذا الملصق طُبع جزء من الوجه على قطعة صفراء. حين تضعها اليد في مكانها تكتمل الصورة.",
     ],
   },
   {
     id: "motion",
-    tag: ["موشن", "Motion"],
-    title: ["مدار اتصال", "Orbit in motion"],
+    tag: ["موشن", "Motion", "حركة"],
+    title: ["مدار اتصال", "Orbit in motion", "مدارات تلتقي"],
     body: [
       "برای این تجربهٔ تعاملی، رنگ‌های جلد را از کاغذ جدا کردیم. سه حلقه در عمق می‌چرخند و دور یک هسته به هم نزدیک می‌شوند.",
       "For this interactive study we lifted the cover colours off the page. Three rings turn in depth around a shared centre.",
+      "أخرجنا ألوان الغلاف من الورق. في هذه التجربة التفاعلية تدور ثلاث حلقات في العمق حول مركز واحد.",
     ],
   },
 ];
-function Art({ id, fa }: { id: string; fa: boolean }) {
+function Art({ id, language }: Props & { id: string }) {
+  const tr = translator(language);
   if (id === "motion") return <Orbit />;
   return (
     <img
       loading="lazy"
       alt={
         id === "cover"
-          ? fa
-            ? "جلد تصویری جیگزا"
-            : "Illustrated JIGSAW studio cover"
-          : fa
-            ? "دست و قطعهٔ زرد روی یک پرترهٔ چاپی"
-            : "A hand fitting a yellow piece into a printed portrait"
+          ? tr(
+              "جلد تصویری جیگزا",
+              "Illustrated JIGSAW studio cover",
+              "غلاف جيغسو المرسوم",
+            )
+          : tr(
+              "دست و قطعهٔ زرد روی یک پرترهٔ چاپی",
+              "A hand fitting a yellow piece into a printed portrait",
+              "يد تضع قطعة صفراء في صورة وجه مطبوعة",
+            )
       }
       src={assetHref(
         id === "cover" ? "media/jigsaw-600.webp" : "media/last-piece.webp",
@@ -54,31 +68,35 @@ function Art({ id, fa }: { id: string; fa: boolean }) {
 const stages = [
   {
     id: "composition",
-    title: ["قاب تصویر", "The composition"],
+    title: ["قاب تصویر", "The composition", "تكوين الصورة"],
     text: [
       "دو دست و یک فاصله. برش نزدیک نشان می‌دهد چشم چطور از دست چپ به قطعهٔ وسط و بعد به دست راست می‌رسد.",
       "Follow the cropped illustration from the left hand, across the gap, to the right hand.",
+      "تابعوا الرسم من اليد اليسرى عبر الفراغ إلى اليد اليمنى. يكشف الاقتصاص كيف تنتقل العين بين العناصر.",
     ],
   },
   {
     id: "ink",
-    title: ["رنگ‌های چاپ", "The ink colours"],
+    title: ["رنگ‌های چاپ", "The ink colours", "ألوان الطباعة"],
     text: [
       "زرد نقطهٔ اتصال را جلو می‌آورد. قرمز بین دو شخصیت وزن تصویر را متعادل می‌کند و زغالی به خطوط سفید وضوح می‌دهد.",
       "Yellow brings the meeting point forward. Red balances the figures and charcoal gives the white outlines their contrast.",
+      "يُبرز الأصفر نقطة الالتقاء، ويوازن الأحمر بين الشخصيتين، ويمنح الفحمي الخطوط البيضاء تباينها.",
     ],
   },
   {
     id: "sheet",
-    title: ["جلد کامل", "The finished cover"],
+    title: ["جلد کامل", "The finished cover", "الغلاف الكامل"],
     text: [
       "حالا همان جزئیات را در جلد کامل ببین. فاصلهٔ تیتر و تصویر برای خوانده‌شدن در قطع عمودی در نظر گرفته شده.",
       "See those details together in the finished cover, with room between the lettering and the figures in the portrait format.",
+      "اجمعوا التفاصيل في نظرة واحدة إلى الغلاف النهائي. تفصل مسافة مدروسة بين العنوان والرسم في هذا التكوين العمودي.",
     ],
   },
 ];
-export function Gallery({ fa }: Props) {
-  const idx = fa ? 0 : 1,
+export function Gallery({ language }: Props) {
+  const tr = translator(language);
+  const idx = languages[language].index,
     [filter, setFilter] = useState("all"),
     [stage, setStage] = useState(0);
   useEffect(() => {
@@ -96,19 +114,23 @@ export function Gallery({ fa }: Props) {
   return (
     <div className="wrap exhibit">
       <div className="intro">
-        <h1>{fa ? "تجربه‌های استودیو" : "Studio experiments"}</h1>
+        <h1>
+          {tr("تجربه‌های استودیو", "Studio experiments", "تجارب الاستوديو")}
+        </h1>
         <p>
-          {fa
-            ? "از جلد جیگزا تا اتود پوستر و یک تجربهٔ متحرک. هر اثر را باز کنید تا از نزدیک ببینید."
-            : "Open a studio piece to explore our cover design, poster study or motion experiment."}
+          {tr(
+            "از جلد جیگزا تا اتود پوستر و یک تجربهٔ متحرک. هر اثر را باز کنید تا از نزدیک ببینید.",
+            "Open a studio piece to explore our cover design, poster study or motion experiment.",
+            "افتحوا أحد الأعمال لإلقاء نظرة أقرب على غلاف الاستوديو أو الملصق أو تجربة الحركة.",
+          )}
         </p>
       </div>
       <div
         className="filters"
         role="group"
-        aria-label={fa ? "فیلتر آثار" : "Filter work"}
+        aria-label={tr("فیلتر آثار", "Filter work", "تصفية الأعمال")}
       >
-        {[{ id: "all", tag: ["همه", "All"] }, ...pieces].map((p) => (
+        {[{ id: "all", tag: ["همه", "All", "الكل"] }, ...pieces].map((p) => (
           <button
             key={p.id}
             aria-pressed={filter === p.id}
@@ -125,7 +147,7 @@ export function Gallery({ fa }: Props) {
             <details id={p.id} key={p.id} className={"ex-card art-" + p.id}>
               <summary>
                 <div className="ex-art">
-                  <Art id={p.id} fa={fa} />
+                  <Art id={p.id} language={language} />
                 </div>
                 <div className="ex-caption">
                   <div>
@@ -140,7 +162,7 @@ export function Gallery({ fa }: Props) {
           ))}
       </div>
       <section id="backstage" className="backstage">
-        <h2>{fa ? "پشت صحنهٔ جلد" : "Inside the cover"}</h2>
+        <h2>{tr("پشت صحنهٔ جلد", "Inside the cover", "من كواليس الغلاف")}</h2>
         <div className="bench">
           <div className={"bench-frame frame-" + stages[stage].id} key={stage}>
             {stage === 1 ? (
@@ -158,7 +180,9 @@ export function Gallery({ fa }: Props) {
             )}
           </div>
           <div className="bench-text" aria-live="polite">
-            <small>{fa ? "یادداشت طراحی" : "Design notes"}</small>
+            <small>
+              {tr("یادداشت طراحی", "Design notes", "ملاحظات التصميم")}
+            </small>
             <h3>{stages[stage].title[idx]}</h3>
             <p>{stages[stage].text[idx]}</p>
             <div className="stage-controls">
@@ -169,7 +193,7 @@ export function Gallery({ fa }: Props) {
                   aria-label={s.title[idx]}
                   onClick={() => setStage(n)}
                 >
-                  {fa ? ["۱", "۲", "۳"][n] : n + 1}
+                  {tr(["۱", "۲", "۳"][n], String(n + 1), ["١", "٢", "٣"][n])}
                 </button>
               ))}
             </div>
@@ -177,16 +201,20 @@ export function Gallery({ fa }: Props) {
               className="stage-next"
               onClick={() => setStage((stage + 1) % stages.length)}
             >
-              {fa ? "ورق بعدی" : "Turn the page"}
+              {tr("ورق بعدی", "Turn the page", "الصفحة التالية")}
             </button>
           </div>
         </div>
       </section>
       <a
         className="button"
-        href={pageHref(fa ? "fa" : "en", "contact") + "?interest=samples"}
+        href={pageHref(language, "contact") + "?interest=samples"}
       >
-        {fa ? "درخواست نمونهٔ مرتبط" : "Ask about relevant work"}
+        {tr(
+          "درخواست نمونهٔ مرتبط",
+          "Ask about relevant work",
+          "طلب أعمال مشابهة",
+        )}
       </a>
     </div>
   );

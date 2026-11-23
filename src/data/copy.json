@@ -1,59 +1,39 @@
 {
-  "nav": [
-    [
-      "خانه",
-      "Home"
-    ],
-    [
-      "دربارهٔ جیگزا",
-      "About"
-    ],
-    [
-      "خدمات",
-      "Services"
-    ],
-    [
-      "پروژه‌ها",
-      "Work"
-    ],
-    [
-      "شیوهٔ همکاری",
-      "How we work"
-    ],
-    [
-      "شروع گفت‌وگو",
-      "Start a conversation"
-    ]
-  ],
   "about": [
     {
       "title": [
         "چرا اسم ما جیگزاست؟",
-        "Why JIGSAW?"
+        "Why JIGSAW?",
+        "لماذا اخترنا اسم جيغسو؟"
       ],
       "body": [
         "جیگزا از سال ۱۳۹۳ در زمینهٔ برند و ارتباطات بازاریابی فعالیت می‌کند. در نشان ما دو دست به هم می‌رسند. یک طرف، شناخت شما از محصول، مشتری و بازار است. طرف دیگر، کاری است که تیم ما در طراحی، روایت و اجرا انجام می‌دهد. پازل از کنار هم قرار گرفتن این دو کامل می‌شود.",
-        "Our studio began in the Iranian calendar year 1393. The two hands in our mark tell the story behind our name. You know your product, your customers and your market. We bring design, storytelling and production. The picture comes together when we work on it together."
+        "Our studio began in the Iranian calendar year 1393. The two hands in our mark tell the story behind our name. You know your product, your customers and your market. We bring design, storytelling and production. The picture comes together when we work on it together.",
+        "بدأ الاستوديو رحلته عام ١٣٩٣ بالتقويم الإيراني. في شعارنا يدان تلتقيان. تعرفون أنتم المنتج والعملاء والسوق، ونأتي نحن بالتصميم والسرد والإنتاج. عندما نعمل معاً تكتمل الصورة."
       ]
     },
     {
       "title": [
         "کاری که می‌خواهیم برای برند شما انجام دهیم",
-        "What we want to do for your brand"
+        "What we want to do for your brand",
+        "ماذا نضيف إلى علامتكم؟"
       ],
       "body": [
         "اگر مزیت محصول شما در ظرافت ساخت آن است، یک نمای نزدیک می‌تواند بیشتر از یک صفت تبلیغاتی توضیح بدهد. اگر انتخاب بین دو خدمت دشوار است، یک مقایسهٔ ساده می‌تواند مسیر را روشن کند. مأموریت ما این است که مخاطب بتواند کیفیتی را که در کار شما هست، ببیند و بفهمد.",
-        "A close-up can tell a customer more about craftsmanship than an adjective ever could. A clear comparison can help someone choose between two services. Our job is to make the quality of your work visible and understandable."
+        "A close-up can tell a customer more about craftsmanship than an adjective ever could. A clear comparison can help someone choose between two services. Our job is to make the quality of your work visible and understandable.",
+        "إذا كانت جودة المنتج في تفاصيل صناعته، فقد تحكي لقطة مقرّبة أكثر مما تحكيه صفة في إعلان. وإذا احتار العميل بين خدمتين، فقد تساعده مقارنة بسيطة على الاختيار. هكذا نجعل قيمة عملكم واضحة لمن يراه."
       ]
     },
     {
       "title": [
         "چه کسانی روی پروژه کار می‌کنند؟",
-        "Who works on your project?"
+        "Who works on your project?",
+        "من يعمل على مشروعكم؟"
       ],
       "body": [
         "ترکیب تیم را با توجه به نیاز پروژه می‌چینیم. استراتژیست، طراح، نویسنده و تیم تولید روی یک ایدهٔ مشترک کار می‌کنند. برای عکاسی، فیلم، موشن و سه‌بعدی، تخصص متناسب با اجرا وارد پروژه می‌شود. توسعهٔ وب و نرم‌افزار با همراهی همکار فنی راهبردی جیگزا انجام می‌شود. از ابتدا می‌دانید چه کسی هماهنگی را بر عهده دارد و کجا بازخورد بدهید.",
-        "We build the team around the brief. Strategy, design, writing and production share one creative direction. Photography, film, motion and 3D specialists join where needed. Our strategic technology partner works with us on web and software development. From the start, you know who coordinates the project and where to give feedback."
+        "We build the team around the brief. Strategy, design, writing and production share one creative direction. Photography, film, motion and 3D specialists join where needed. Our strategic technology partner works with us on web and software development. From the start, you know who coordinates the project and where to give feedback.",
+        "نختار الفريق وفق احتياجات المشروع. يعمل المختصون بالاستراتيجية والتصميم والكتابة والإنتاج على فكرة واحدة، وينضم مصوّرون ومختصون بالحركة والتصميم ثلاثي الأبعاد عند الحاجة. ونتعاون مع شريكنا التقني في تطوير المواقع والبرامج. من البداية تعرفون من يتابع المشروع ومع من تشاركون ملاحظاتكم."
       ]
     }
   ],
@@ -62,88 +42,104 @@
       "id": "strategy",
       "title": [
         "استراتژی و مشاورهٔ برند و بازاریابی",
-        "Brand and marketing strategy"
+        "Brand and marketing strategy",
+        "استراتيجية العلامة والتسويق"
       ],
       "body": [
         "پیش از تولید، مشخص می‌کنیم مخاطب شما کیست، چرا باید شما را انتخاب کند و کدام تصمیم در اولویت است. خروجی می‌تواند شامل جایگاه برند، پیام‌های اصلی و برنامهٔ اقدام باشد. برای ارزیابی هم از ابتدا روی یک هدف مشخص توافق می‌کنیم؛ مثلاً دریافت درخواست‌های مرتبط‌تر.",
-        "Before production, we work out who you need to reach, why they would choose you and what to do first. Deliverables can include positioning, key messages and an action plan. We agree on a practical measure from the start, such as receiving more relevant enquiries."
+        "Before production, we work out who you need to reach, why they would choose you and what to do first. Deliverables can include positioning, key messages and an action plan. We agree on a practical measure from the start, such as receiving more relevant enquiries.",
+        "قبل الإنتاج، نحدّد من نخاطب، ولماذا سيختاركم، وما الخطوة الأولى. قد يشمل العمل تحديد مكانة العلامة ورسائلها وخطة تنفيذها. ونتفق على طريقة عملية لتقييم النتيجة، مثل الحصول على استفسارات أقرب إلى خدماتكم."
       ]
     },
     {
       "id": "identity",
       "title": [
         "برندینگ و هویت بصری",
-        "Branding and visual identity"
+        "Branding and visual identity",
+        "بناء العلامة وهويتها البصرية"
       ],
       "body": [
         "داستان برند و کاربردهای روزمره‌اش را می‌شناسیم، سپس نشان، رنگ، تایپوگرافی و لحن را طراحی یا بازنگری می‌کنیم. نتیجه را روی نمونه‌ای واقعی، مثل بسته‌بندی یا صفحهٔ موبایل، امتحان می‌کنیم. فایل‌های نهایی و راهنمای استفاده طبق توافق به تیم شما تحویل داده می‌شوند. تصویرسازی و کاراکتر هم می‌توانند بخشی از این مجموعه باشند.",
-        "We learn your brand’s story and where its identity will appear, then develop or refine its mark, colour palette, typography and voice. We test the design on a real application, such as packaging or a mobile screen. Your team receives the agreed files and usage guide. Illustration and character design can form part of the identity."
+        "We learn your brand’s story and where its identity will appear, then develop or refine its mark, colour palette, typography and voice. We test the design on a real application, such as packaging or a mobile screen. Your team receives the agreed files and usage guide. Illustration and character design can form part of the identity.",
+        "نتعرّف إلى قصة العلامة وأماكن ظهورها، ثم نطوّر الشعار والألوان والخطوط ونبرة الخطاب. نجرّب الهوية على تطبيق حقيقي مثل عبوة أو شاشة هاتف، ونسلّم الملفات والدليل المتفق عليهما. ويمكن أن يشمل العمل رسوماً وشخصيات خاصة بالعلامة."
       ]
     },
     {
       "id": "graphic",
       "title": [
         "طراحی گرافیک و نگارش",
-        "Graphic design and copywriting"
+        "Graphic design and copywriting",
+        "التصميم الغرافيكي وكتابة المحتوى"
       ],
       "body": [
         "برای کاتالوگ، بروشور، معرفی خدمات و رسانه‌های دیجیتال، متن و طراحی را با هم پیش می‌بریم. از انتخاب تیتر و ترتیب اطلاعات تا پیام تبلیغاتی و سناریو، هر تصمیم باید به یک سؤال جواب بدهد؛ مخاطب بعد از دیدن این محتوا چه چیزی را بهتر می‌فهمد؟",
-        "We develop the words and layout together for catalogues, brochures, service guides and digital materials. Headlines, information order, campaign copy and scripts all follow one question. What should the reader understand by the end?"
+        "We develop the words and layout together for catalogues, brochures, service guides and digital materials. Headlines, information order, campaign copy and scripts all follow one question. What should the reader understand by the end?",
+        "نطوّر النص والتصميم معاً في الكتيّبات وأدلة الخدمات والمواد الرقمية. عند اختيار العنوان وترتيب المعلومات وكتابة الإعلان أو السيناريو، نسأل ماذا سيفهم القارئ بعد الاطّلاع على هذه المادة؟"
       ]
     },
     {
       "id": "film",
       "title": [
         "عکاسی و تولید ویدئو",
-        "Photography and video production"
+        "Photography and video production",
+        "التصوير وإنتاج الفيديو"
       ],
       "body": [
         "پیش از روز تولید، موضوع، سناریو، نماهای لازم و شرایط لوکیشن را با شما مرور می‌کنیم. بعد از تصویربرداری، تدوین، رنگ، صدا و نوشته‌ها را برای رسانهٔ مقصد آماده می‌کنیم. تعداد خروجی‌ها، برش‌های کوتاه، نسبت تصویر و تحویل فایل خام یا پروژه در پیشنهاد مشخص می‌شود.",
-        "Before the shoot, we agree on the story, script, shot list and location requirements. Editing, colour, sound and on-screen text are prepared for the intended channel. The proposal specifies deliverables, cutdowns, aspect ratios and whether raw footage or project files are included."
+        "Before the shoot, we agree on the story, script, shot list and location requirements. Editing, colour, sound and on-screen text are prepared for the intended channel. The proposal specifies deliverables, cutdowns, aspect ratios and whether raw footage or project files are included.",
+        "قبل التصوير نراجع القصة والسيناريو واللقطات المطلوبة وظروف الموقع. ثم نجهّز المونتاج والألوان والصوت والنصوص للقناة المقصودة. ويحدّد العرض عدد النسخ والمقاطع القصيرة وأبعادها وما إذا كان التسليم يشمل الملفات الأصلية."
       ]
     },
     {
       "id": "motion",
       "title": [
         "موشن‌گرافیک و سه‌بعدی",
-        "Motion graphics and 3D"
+        "Motion graphics and 3D",
+        "الرسوم المتحركة والتصميم ثلاثي الأبعاد"
       ],
       "body": [
         "گاهی مهم‌ترین بخش یک محصول از بیرون دیده نمی‌شود. با استوری‌بورد مشخص می‌کنیم حرکت چه چیزی را توضیح خواهد داد. سپس طراحی، مدل‌سازی یا انیمیشن را پیش می‌بریم و در صورت نیاز آن را با تصویر واقعی ترکیب می‌کنیم.",
-        "Sometimes the most important part of a product is hidden from view. A storyboard establishes what movement needs to explain. We then develop the graphics, models or animation, combining them with live footage where it helps tell the story."
+        "Sometimes the most important part of a product is hidden from view. A storyboard establishes what movement needs to explain. We then develop the graphics, models or animation, combining them with live footage where it helps tell the story.",
+        "أحياناً يكون أهم ما في المنتج مخفياً عن الأنظار. نرسم تسلسل المشاهد لنحدّد ما الذي ستشرحه الحركة، ثم نصمّم ونبني النماذج ونحرّكها. ويمكننا دمجها مع لقطات حقيقية إذا خدم ذلك الفكرة."
       ]
     },
     {
       "id": "social",
       "title": [
         "شبکه‌های اجتماعی و کمپین",
-        "Social media and campaigns"
+        "Social media and campaigns",
+        "التواصل الاجتماعي والحملات"
       ],
       "body": [
         "از سؤال‌های واقعی مخاطب برای انتخاب موضوع و قالب شروع می‌کنیم. تقویم محتوا، تولید، انتشار، پاسخ‌گویی و پیگیری درخواست‌ها بر اساس دامنهٔ همکاری تنظیم می‌شوند. برای کمپین، پیام، رسانه و بودجه را پیش از اجرا مشخص می‌کنیم. در گزارش، داده‌های در دسترس مثل تعامل، مراجعه به سایت و درخواست‌ها را به تصمیمی برای دورهٔ بعد تبدیل می‌کنیم.",
-        "Audience questions guide the topics and formats. The agreed scope covers the relevant parts of planning, production, publishing, community management and enquiry follow-up. For campaigns, we define the message, channels and budget before launch. We use available data on engagement, site visits and enquiries to decide what to do next."
+        "Audience questions guide the topics and formats. The agreed scope covers the relevant parts of planning, production, publishing, community management and enquiry follow-up. For campaigns, we define the message, channels and budget before launch. We use available data on engagement, site visits and enquiries to decide what to do next.",
+        "نبدأ من أسئلة الجمهور لاختيار المواضيع والصيغ. وقد يشمل التعاون التخطيط والإنتاج والنشر والتفاعل مع الجمهور ومتابعة الاستفسارات. نحدّد للحملة رسالتها وقنواتها وميزانيتها، ثم نستفيد من بيانات التفاعل وزيارات الموقع والاستفسارات لتخطيط المرحلة التالية."
       ]
     },
     {
       "id": "web",
       "title": [
         "طراحی و توسعهٔ وب‌سایت",
-        "Website design and development"
+        "Website design and development",
+        "تصميم المواقع وتطويرها"
       ],
       "body": [
         "از کاری شروع می‌کنیم که بازدیدکننده برایش به سایت می‌آید. نقشهٔ صفحات، متن، تصویر و رابط را بر همان اساس می‌چینیم. توسعه با همکار فنی جیگزا پیش می‌رود. امکاناتی مثل رزرو، پنل یا چندزبانگی پس از بررسی وارد پیشنهاد می‌شوند. پیش از راه‌اندازی، فرم‌ها، مسیرهای اصلی، نمایش موبایل و معیارهای فنی توافق‌شده را می‌آزماییم. مالکیت دامنه، میزبانی، دسترسی‌ها، آموزش، پشتیبانی و سئو در توافق روشن می‌شوند.",
-        "We start with what visitors come to do, then plan the pages, copy, imagery and interface around that task. Our technology partner works with us on development. Booking, account areas or multiple languages can be scoped after review. Before launch, we test key journeys, forms, mobile layouts and agreed technical criteria. Domain ownership, hosting, access, handover, support and SEO are clarified in the agreement."
+        "We start with what visitors come to do, then plan the pages, copy, imagery and interface around that task. Our technology partner works with us on development. Booking, account areas or multiple languages can be scoped after review. Before launch, we test key journeys, forms, mobile layouts and agreed technical criteria. Domain ownership, hosting, access, handover, support and SEO are clarified in the agreement.",
+        "نبدأ بالمهمة التي جاء الزائر لإنجازها، ونبني على أساسها الصفحات والنصوص والصور والواجهة. نتعاون مع شريكنا التقني في التطوير. نحدّد احتياجات الحجز والحسابات واللغات، ونختبر المسارات والنماذج وعرض الهاتف قبل الإطلاق. ونوضّح في الاتفاق تفاصيل النطاق والاستضافة والصلاحيات والتدريب والدعم والظهور في البحث."
       ]
     },
     {
       "id": "ai",
       "title": [
         "تولید خلاق با هوش مصنوعی",
-        "Creative production with AI"
+        "Creative production with AI",
+        "الإنتاج الإبداعي بالذكاء الاصطناعي"
       ],
       "body": [
         "برای یک ایده، چند مسیر تصویری را پیش از تولید امتحان می‌کنیم. از هوش مصنوعی برای پیش‌تصویرسازی، تولید تصویر یا ویدئو و ترکیب آن با عکاسی، فیلم و طراحی استفاده می‌کنیم. انتخاب تکنیک به چیزی بستگی دارد که باید در خروجی دیده شود.",
-        "We explore visual directions before committing to production. AI can support previsualisation, image-making and video, alongside photography, live action and design. We choose the technique according to what the finished piece needs to show."
+        "We explore visual directions before committing to production. AI can support previsualisation, image-making and video, alongside photography, live action and design. We choose the technique according to what the finished piece needs to show.",
+        "نجرّب مسارات بصرية مختلفة قبل الإنتاج. نستخدم أدوات الذكاء الاصطناعي في تصوّر المشاهد وصنع الصور أو الفيديو، إلى جانب التصوير والتصميم. ونختار التقنية وفق ما نريد أن يراه الجمهور في العمل النهائي."
       ]
     }
   ],
@@ -156,6 +152,10 @@
       [
         "First conversation",
         "We define the challenge, audience, constraints and the outcome you need."
+      ],
+      [
+        "اللقاء الأول",
+        "نحدّد معاً المسألة والجمهور والقيود والنتيجة التي تتطلعون إليها."
       ]
     ],
     [
@@ -166,6 +166,10 @@
       [
         "Discovery",
         "We review your brand, existing channels and competitive context."
+      ],
+      [
+        "البحث والتعرّف",
+        "نراجع العلامة وقنواتها الحالية وبيئة المنافسة."
       ]
     ],
     [
@@ -176,6 +180,10 @@
       [
         "Proposal",
         "You receive the scope, deliverables, timeline, estimate and evaluation criteria."
+      ],
+      [
+        "عرض العمل",
+        "نقدّم نطاق الخدمات والمخرجات والمدة والتكلفة وطريقة التقييم."
       ]
     ],
     [
@@ -186,6 +194,10 @@
       [
         "Agreement",
         "We document responsibilities, payments, approvals, revisions and handover terms."
+      ],
+      [
+        "الاتفاق وخطة التنفيذ",
+        "نوثّق المسؤوليات والدفعات والموافقات وحدود التعديلات وشروط التسليم."
       ]
     ],
     [
@@ -196,6 +208,10 @@
       [
         "Design and production",
         "You review concepts and work in progress at agreed checkpoints."
+      ],
+      [
+        "التصميم والإنتاج",
+        "تطّلعون على الأفكار والنسخ الأولية وتشاركون ملاحظاتكم في المواعيد المتفق عليها."
       ]
     ],
     [
@@ -206,6 +222,10 @@
       [
         "Quality review and handover",
         "We check the work and hand over the agreed files, access and guidance."
+      ],
+      [
+        "المراجعة والتسليم",
+        "نراجع العمل ونسلّم الملفات والصلاحيات والإرشادات المتفق عليها."
       ]
     ],
     [
@@ -216,6 +236,10 @@
       [
         "Review and next steps",
         "We wrap up a standalone project. For ongoing work, results and audience feedback inform the next plan."
+      ],
+      [
+        "التقييم والخطوة التالية",
+        "نختتم المشروع المستقل بمراجعة. وفي التعاون المستمر تساعدنا النتائج وآراء الجمهور في تحديد الخطة التالية."
       ]
     ]
   ],
@@ -223,31 +247,37 @@
     [
       [
         "هزینه و زمان پروژه چطور مشخص می‌شود؟",
-        "How are cost and timing set?"
+        "How are cost and timing set?",
+        "كيف تُحدّد التكلفة والمدة؟"
       ],
       [
         "بعد از شناخت مسئله، برآورد را با ذکر خروجی‌ها، تعداد نسخه‌ها و مراحل بازبینی ارائه می‌دهیم تا پیش از شروع بتوانید تصمیم بگیرید.",
-        "After discovery, we provide an estimate with deliverables, versions and review stages so you can decide before work begins."
+        "After discovery, we provide an estimate with deliverables, versions and review stages so you can decide before work begins.",
+        "بعد فهم المشروع نرسل تقديراً يبيّن المخرجات وعدد النسخ ومراحل المراجعة، لتتمكنوا من اتخاذ القرار قبل البدء."
       ]
     ],
     [
       [
         "می‌توانیم فقط یک خدمت انتخاب کنیم؟",
-        "Can we book one service?"
+        "Can we book one service?",
+        "هل يمكن اختيار خدمة واحدة؟"
       ],
       [
         "بله. یک پروژهٔ عکاسی، بازطراحی هویت یا طراحی سایت می‌تواند به‌صورت مستقل تعریف شود.",
-        "Yes. A shoot, an identity refresh or a website can each be scoped as a standalone project."
+        "Yes. A shoot, an identity refresh or a website can each be scoped as a standalone project.",
+        "نعم. يمكن أن نعمل معاً على جلسة تصوير أو تحديث للهوية أو موقع إلكتروني كمشروع مستقل."
       ]
     ],
     [
       [
         "فایل‌های قابل‌ویرایش را هم تحویل می‌گیریم؟",
-        "Are editable files included?"
+        "Are editable files included?",
+        "هل نستلم الملفات القابلة للتعديل؟"
       ],
       [
         "فایل‌های نهایی، خام و قابل‌ویرایش را پیش از شروع در فهرست تحویل مشخص می‌کنیم.",
-        "We agree on the list of final, raw and editable files before the project begins."
+        "We agree on the list of final, raw and editable files before the project begins.",
+        "نتّفق قبل البدء على قائمة الملفات النهائية والأصلية والقابلة للتعديل المشمولة في التسليم."
       ]
     ]
   ],
@@ -260,6 +290,10 @@
       [
         "Health and aesthetics",
         "What does a patient need to understand before booking? That question guides the copy and visuals. Specialist content goes through the appropriate clinical reviewer."
+      ],
+      [
+        "الصحة والتجميل",
+        "ما الذي يحتاج المراجع إلى معرفته قبل الحجز؟ نرتّب النص والصور حول هذا السؤال، ويراجع المختص المعلومات الطبية قبل نشرها."
       ]
     ],
     [
@@ -270,6 +304,10 @@
       [
         "Cafés and restaurants",
         "From the texture of a dish to the light in the room, we photograph the details a guest will experience at the table."
+      ],
+      [
+        "المقاهي والمطاعم",
+        "من قوام الطبق إلى الإضاءة، نصوّر التفاصيل التي يختبرها الضيف حين يجلس إلى المائدة."
       ]
     ],
     [
@@ -280,6 +318,10 @@
       [
         "Fashion and apparel",
         "We show the drape, fit and stitching from angles that help people choose."
+      ],
+      [
+        "الأزياء والملابس",
+        "نصوّر انسياب القماش والقصّة وتفاصيل الخياطة من زوايا تساعد العميل على الاختيار."
       ]
     ]
   ],
@@ -292,6 +334,10 @@
       [
         "JIGSAW | Creative & Digital Marketing Agency",
         "Brand strategy, visual identity, content production and web design for businesses in Iran, Oman and the UAE."
+      ],
+      [
+        "جيغسو | استوديو إبداعي وتسويق رقمي",
+        "استراتيجية العلامات والهويات البصرية وإنتاج المحتوى وتصميم المواقع في إيران وعُمان والإمارات."
       ]
     ],
     "about": [
@@ -302,6 +348,10 @@
       [
         "About JIGSAW | Our Story and Team",
         "Meet the studio, discover the thinking behind its name and learn how our specialists work together."
+      ],
+      [
+        "عن جيغسو | القصة والفريق",
+        "تعرّفوا إلى قصة الاسم والفريق الذي يحوّل الأفكار إلى أعمال."
       ]
     ],
     "services": [
@@ -312,6 +362,10 @@
       [
         "JIGSAW Services | Strategy, Creative Production and Web",
         "Explore eight services, their deliverables and the ways they can fit your brief."
+      ],
+      [
+        "خدمات جيغسو | من الاستراتيجية إلى الإنتاج والتطوير",
+        "تعرّفوا إلى خدمات الاستوديو الثماني وما يمكن أن تقدّمه لمشروعكم."
       ]
     ],
     "process": [
@@ -322,6 +376,10 @@
       [
         "Working with JIGSAW | Project Process",
         "Learn how discovery, estimates, approvals, production and handover work."
+      ],
+      [
+        "كيف نعمل | جيغسو",
+        "من اللقاء الأول وتقدير التكلفة إلى المراجعة والتسليم."
       ]
     ],
     "work": [
@@ -332,6 +390,10 @@
       [
         "Work and Behind the Scenes | JIGSAW",
         "Explore our approach to creative decisions and production, or enquire about work relevant to your brief."
+      ],
+      [
+        "أعمال الاستوديو وكواليسها | جيغسو",
+        "اكتشفوا غلاف جيغسو ودراسة الملصق وتجربة الحركة التفاعلية."
       ]
     ],
     "contact": [
@@ -342,23 +404,73 @@
       [
         "Start a Conversation | JIGSAW",
         "Tell us about your business, the challenge and the outcome you have in mind."
+      ],
+      [
+        "تواصل معنا | جيغسو",
+        "أخبرونا عن فكرة مشروعكم وجهّزوا ملخّصاً يمكنكم تنزيله."
+      ]
+    ],
+    "network": [
+      [
+        "شبکهٔ جیگزا | شرکا و برندها",
+        "با شریک تجاری جیگزا در عمان و برندهایی که داریم می‌سازیم آشنا بشید."
+      ],
+      [
+        "JIGSAW Network | Partners and brands",
+        "Meet our business partner in Oman and the brands in development."
+      ],
+      [
+        "شبكة جيغسو | الشركاء والعلامات",
+        "تعرّفوا إلى شريكنا في عُمان والعلامات التي نعمل على تطويرها."
+      ]
+    ],
+    "network/sbc": [
+      [
+        "SBC | شبکهٔ جیگزا",
+        "معرفی کوتاه شریک نرم‌افزاری جیگزا در مسقط و لینک وب‌سایت رسمی آن."
+      ],
+      [
+        "SBC | JIGSAW Network",
+        "Meet our software partner in Muscat and visit its official website."
+      ],
+      [
+        "SBC | شبكة جيغسو",
+        "نبذة عن شريكنا البرمجي في مسقط ورابط موقعه الرسمي."
+      ]
+    ],
+    "blog": [
+      [
+        "وبلاگ جیگزا | یادداشت‌های استودیو",
+        "یادداشت‌هایی دربارهٔ طراحی، تولید محتوا و تصمیم‌های پشت کارهای جیگزا."
+      ],
+      [
+        "JIGSAW Blog | Studio notes",
+        "Notes on design, content and the decisions behind the studio’s work."
+      ],
+      [
+        "مدوّنة جيغسو | من الاستوديو",
+        "مقالات عن التصميم والمحتوى والقرارات الإبداعية في الاستوديو."
       ]
     ]
   },
   "serviceIntro": [
     "خدمات را می‌توانید جداگانه یا در قالب یک برنامهٔ مشترک انتخاب کنید. در پیشنهاد هر پروژه روشن می‌کنیم چه چیزی طراحی یا تولید می‌شود، چند نسخه تحویل می‌گیرید و بازبینی‌ها چه زمانی انجام می‌شوند.",
-    "Choose an individual service or bring several together in one brief. Your proposal sets out what we will make, how many versions you will receive and when you can review them."
+    "Choose an individual service or bring several together in one brief. Your proposal sets out what we will make, how many versions you will receive and when you can review them.",
+    "يمكنكم اختيار خدمة واحدة أو جمع عدّة خدمات في مشروع واحد. نوضّح في العرض ما سننتجه وعدد النسخ ومواعيد المراجعة."
   ],
   "processIntro": [
     "همکاری می‌تواند برای یک پروژه یا به‌صورت مستمر باشد. در گفت‌وگوی اول دربارهٔ وضعیت فعلی، تجربه‌های قبلی، بودجه و امکانات اجرایی صحبت می‌کنیم. اگر در آستانهٔ راه‌اندازی هستید، می‌توانیم از تعیین جایگاه برند تا آماده‌سازی محتوای شروع فعالیت همراهتان باشیم. تصمیم‌های کسب‌وکار با شماست و مسئولیت‌های مشاوره و اجرا در پیشنهاد روشن می‌شوند.",
-    "We work on individual projects and ongoing programmes. Our first conversation covers where things stand, what you have tried, your budget and what your team can support. If you are preparing to launch, we can help with positioning, identity and launch content. You make the business decisions. Our proposal defines our advisory and production responsibilities."
+    "We work on individual projects and ongoing programmes. Our first conversation covers where things stand, what you have tried, your budget and what your team can support. If you are preparing to launch, we can help with positioning, identity and launch content. You make the business decisions. Our proposal defines our advisory and production responsibilities.",
+    "نعمل على مشاريع منفردة وبرامج مستمرة. في اللقاء الأول نتحدّث عن وضعكم الحالي وتجاربكم وميزانيتكم وإمكانات فريقكم. وإذا كنتم تستعدّون للإطلاق، يمكننا العمل معكم من تحديد مكانة العلامة إلى تجهيز محتوى البداية. تبقى قرارات العمل بأيديكم، ونحدّد مسؤولياتنا في العرض."
   ],
   "workIntro": [
     "دنبال نمونه‌ای نزدیک به پروژهٔ خودتان هستید؟ حوزهٔ فعالیت و نوع خروجی مدنظرتان را بنویسید تا دربارهٔ نمونه‌های مرتبط گفت‌وگو کنیم.",
-    "Looking for work relevant to your brief? Tell us your industry and the type of work you have in mind so we can discuss suitable examples."
+    "Looking for work relevant to your brief? Tell us your industry and the type of work you have in mind so we can discuss suitable examples.",
+    "هل تبحثون عن مثال قريب من مشروعكم؟ أخبرونا عن قطاعكم ونوع العمل الذي تفكّرون فيه."
   ],
   "contactIntro": [
-    "می‌خواهید خدمت تازه‌ای معرفی کنید، هویت برندتان را بازبینی کنید یا برای سایت و محتوایتان مسیر روشن‌تری پیدا کنید؟ چند خط دربارهٔ وضعیت امروز و نتیجه‌ای که انتظار دارید بنویسید. اگر نمونه‌ای دارید، لینک آن هم برای شروع کافی است.",
-    "Are you introducing a service, revisiting your identity or looking for a clearer direction for your website or content? Tell us where things stand and what you want to achieve. A link to an example is a useful starting point."
+    "چه چیزی توی کارتون هست که دوست دارید بهتر دیده بشه؟ چند خط ازش برامون بنویسید. اگه نمونه‌ای توی ذهنتونه، لینکش هم برای شروع کافیه.",
+    "Are you introducing a service, revisiting your identity or looking for a clearer direction for your website or content? Tell us where things stand and what you want to achieve. A link to an example is a useful starting point.",
+    "هل لديكم فكرة جديدة، أو جانب من عملكم يحتاج إلى نظرة أخرى؟ أخبرونا عنه بكلماتكم، وإذا كان لديكم مثال فرابط واحد يكفي."
   ]
 }
