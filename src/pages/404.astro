@@ -1,210 +1,202 @@
 ---
-import { assetHref, pageHref } from '../i18n';
+import { SiteHeader } from '../components/Shell';
+import { assetHref, pageHref, locales, type Locale } from '../i18n';
+import '../styles/site.css';
 const translations = {
-  fa: { dir: 'rtl', title: 'صفحه پیدا نشد', message: 'شاید آدرس تغییر کرده یا این صفحه دیگه وجود نداره.', home: 'بازگشت به صفحه اصلی', href: pageHref('fa') },
-  en: { dir: 'ltr', title: 'Page not found', message: 'The address may have changed, or this page may no longer exist.', home: 'Back to home', href: pageHref('en') },
-  ar: { dir: 'rtl', title: 'الصفحة غير موجودة', message: 'ربما تغيّر العنوان أو لم تعد هذه الصفحة موجودة.', home: 'العودة إلى الصفحة الرئيسية', href: pageHref('ar') },
+  fa: { dir:'rtl', kicker:'صفحه پیدا نشد', title:'می‌تونیم بهتون کمک کنیم؟', message:'انگار یکی از قطعه‌های پازل گم شده. بیاید برگردیم به مسیر درست.', home:'بازگشت به صفحه اصلی', contact:'تماس با ما', href:pageHref('fa'), contactHref:pageHref('fa','contact') },
+  en: { dir:'ltr', kicker:'Page not found', title:'Can we help you?', message:'Looks like a piece is missing. Let’s get you back on track.', home:'Back to home', contact:'Get in touch', href:pageHref('en'), contactHref:pageHref('en','contact') },
+  ar: { dir:'rtl', kicker:'الصفحة غير موجودة', title:'هل يمكننا مساعدتكم؟', message:'يبدو أن إحدى قطع الأحجية مفقودة. لنعد إلى المسار الصحيح.', home:'العودة إلى الرئيسية', contact:'تواصل معنا', href:pageHref('ar'), contactHref:pageHref('ar','contact') },
 };
+const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+'/404/'])) as Record<Locale,string>;
 ---
 <!doctype html>
 <html lang="fa" dir="rtl">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, follow" />
-    <meta name="theme-color" content="#22221f" />
-    <title>صفحه پیدا نشد | JIGSAW</title>
-    <link rel="icon" type="image/webp" href={assetHref('media/mark.webp')} />
-    <style is:inline set:html={`
-      @font-face { font-family: Estedad; src: url("${assetHref('type/estedad-fa.woff2')}") format("woff2"); font-weight: 100 900; font-display: swap; }
-      @font-face { font-family: Sora; src: url("${assetHref('type/sora-bold.woff2')}") format("woff2"); font-weight: 700; font-display: swap; }
-      @font-face { font-family: Manrope; src: url("${assetHref('type/manrope.woff2')}") format("woff2"); font-weight: 200 800; font-display: swap; }
-    `}></style>
-    <script is:inline define:vars={{ translations }}>
-      (() => {
-        const prefix = location.pathname.split('/').filter(Boolean)[0];
-        const lang = prefix === 'en' || prefix === 'ar' ? prefix : 'fa';
-        const copy = translations[lang];
-        document.documentElement.lang = lang;
-        document.documentElement.dir = copy.dir;
-        document.title = copy.title + ' | JIGSAW';
-        document.addEventListener('DOMContentLoaded', () => {
-          document.getElementById('error-title').textContent = copy.title;
-          document.getElementById('error-message').textContent = copy.message;
-          const home = document.getElementById('error-home');
-          home.textContent = copy.home;
-          home.href = copy.href;
-          document.getElementById('brand-home').href = copy.href;
-        });
-      })();
-    </script>
-  </head>
-  <body>
-    <main>
-      <a id="brand-home" class="brand" href={translations.fa.href} dir="ltr"><img src={assetHref('media/mark.webp')} width="32" height="32" alt="" /> JIGSAW</a>
-      <div class="puzzle-stage" id="puzzle-stage" aria-hidden="true">
-        <svg class="puzzle-fallback" viewBox="-250 300 1586 760" fill="none" focusable="false" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <radialGradient id="handoff-halo">
-              <stop stop-color="#f5bd13" stop-opacity=".18"/>
-              <stop offset="1" stop-color="#f5bd13" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="piece-face" x1="0" y1="0" x2="1" y2="1">
-              <stop stop-color="#ffe17a"/><stop offset=".42" stop-color="#f5bd13"/><stop offset="1" stop-color="#c88b00"/>
-            </linearGradient>
-          </defs>
-          <circle cx="543" cy="420" r="205" fill="url(#handoff-halo)"/>
-          <!-- The polygon outlines are traced from the supplied JIGSAW artwork.
-               Keep the original handshake geometry and the source's two flat colors. -->
-          <g class="graphic-hand-yellow">
-            <path d="M-600 235 L278 552 L388 486 L564 486 L389 602 L389 699 L498 700 L579 640 L653 640 L816 811 L763 861 L605 699 L592 709 L750 873 L703 919 L542 755 L531 769 L690 931 L643 978 L478 812 L467 824 L628 989 L572 1043 L502 972 L513 939 L464 892 L439 893 L447 883 L397 835 L374 834 L386 832 L388 825 L381 825 L317 763 L312 767 L264 721 L184 799 L-600 587 Z" fill="#eeb202"/>
-          </g>
-          <g class="graphic-hand-charcoal" fill="#4b494a" stroke="#f7f5ed" stroke-width="2.5" stroke-linejoin="miter" stroke-opacity=".65">
-            <path d="M1686 205 L836 536 L736 480 L611 480 L410 612 L409 679 L490 679 L583 610 L655 610 L827 788 L1686 452 Z"/>
-            <path d="M264 724 L143 840 L191 887 L311 768 Z"/>
-            <path d="M329 777 L207 899 L256 946 L380 826 Z"/>
-            <path d="M397 837 L272 959 L321 1006 L444 884 Z"/>
-            <path d="M464 895 L352 1003 L400 1049 L511 941 Z"/>
-          </g>
-          <g class="static-piece" transform="translate(543 405) rotate(-13)">
-            <path d="M-66 -66 H-20 C-29 -103 29 -103 20 -66 H66 V-20 C103 -29 103 29 66 20 V66 H20 C29 29 -29 29 -20 66 H-66 V20 C-29 29 -29 -29 -66 -20 Z" fill="#9e6c0b" transform="translate(4 13)"/>
-            <path d="M-66 -66 H-20 C-29 -103 29 -103 20 -66 H66 V-20 C103 -29 103 29 66 20 V66 H20 C29 29 -29 29 -20 66 H-66 V20 C-29 29 -29 -29 -66 -20 Z" fill="url(#piece-face)" stroke="#ffe394" stroke-width="1.5"/>
-          </g>
-        </svg>
-      </div>
-      <div class="error-copy">
-        <div class="error-code" aria-hidden="true" dir="ltr">404<span>.</span></div>
-        <h1 id="error-title">{translations.fa.title}</h1>
-        <p id="error-message">{translations.fa.message}</p>
-        <a class="button" id="error-home" href={translations.fa.href}>{translations.fa.home}</a>
-      </div>
-    </main>
-    <script is:inline type="module">
-      const stage = document.getElementById('puzzle-stage');
-      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-      if (stage && !reduced.matches) {
-        try {
-          const T = await import('https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js');
-          if (!reduced.matches && stage.isConnected) {
-            const renderer = new T.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
-            renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
-            renderer.outputColorSpace = T.SRGBColorSpace;
-            renderer.setClearColor(0x22221f, 0);
-            const scene = new T.Scene();
-            const camera = new T.OrthographicCamera(-5, 5, 2.1, -2.1, .1, 50);
-            camera.position.set(0, 0, 12);
-            const key = new T.DirectionalLight(0xffe9c5, 2.8);
-            key.position.set(-2, 5, 6);
-            scene.add(key, new T.HemisphereLight(0xfff5e5, 0x39312a, 1.4));
-            const rim = new T.DirectionalLight(0xffe7bb, 2.1);
-            rim.position.set(4, 2, -3);
-            scene.add(rim);
-            const centerLight = new T.PointLight(0xffc42a, 5, 4, 2);
-            centerLight.position.set(0, .12, .8);
-            scene.add(centerLight);
-
-            // Only the central puzzle piece is rendered in Three.js.
-            // The flat artwork stays in SVG to preserve the brand's exact silhouettes.
-            const p = new T.Shape();
-            p.moveTo(-1,-1);p.lineTo(-.3,-1);p.bezierCurveTo(-.47,-.48,.47,-.48,.3,-1);
-            p.lineTo(1,-1);p.lineTo(1,-.3);p.bezierCurveTo(1.52,-.47,1.52,.47,1,.3);
-            p.lineTo(1,1);p.lineTo(.3,1);p.bezierCurveTo(.47,1.52,-.47,1.52,-.3,1);
-            p.lineTo(-1,1);p.lineTo(-1,.3);p.bezierCurveTo(-.48,.47,-.48,-.47,-1,-.3);p.closePath();
-            const geom=new T.ExtrudeGeometry(p,{depth:.28,bevelEnabled:true,bevelSegments:4,steps:1,bevelSize:.055,bevelThickness:.045,curveSegments:24});
-            geom.translate(0,0,-.14);
-            const piece=new T.Mesh(geom,[new T.MeshStandardMaterial({color:0xf5bd13,emissive:0x8c5300,emissiveIntensity:.16,roughness:.36,metalness:.06}),new T.MeshStandardMaterial({color:0xba8413,roughness:.53})]);
-            const pivot=new T.Group();pivot.add(piece);pivot.scale.setScalar(.49);scene.add(pivot);
-            renderer.domElement.setAttribute('aria-hidden', 'true');
-            stage.append(renderer.domElement);
-            let targetX = 0, targetY = 0, x = 0, y = 0, raf = 0, stopped = false;
-            const resize = () => {
-              const w = Math.max(1, stage.clientWidth), h = Math.max(1, stage.clientHeight);
-              const aspect=w/h, artAspect=1586/760, halfWidth=4.55*Math.max(1,aspect/artAspect), halfHeight=halfWidth/aspect;
-              camera.left=-halfWidth;camera.right=halfWidth;camera.top=halfHeight;camera.bottom=-halfHeight;
-              camera.updateProjectionMatrix();
-              renderer.setSize(w, h, false);
-            };
-            const observer = new ResizeObserver(resize);
-            observer.observe(stage);
-            resize();
-            stage.addEventListener('pointermove', e => {
-              if (e.pointerType === 'touch') return;
-              const rect = stage.getBoundingClientRect();
-              targetX = (e.clientX - rect.left) / rect.width * 2 - 1;
-              targetY = (e.clientY - rect.top) / rect.height * 2 - 1;
-            }, { passive: true });
-            stage.addEventListener('pointerleave', () => { targetX = targetY = 0; });
-            const start = performance.now();
-            function frame(now) {
-              raf = 0;
-              if (stopped || document.hidden || reduced.matches) return;
-              const t = (now - start) / 1000;
-              x += (targetX - x) * .065;
-              y += (targetY - y) * .065;
-              const wave=Math.sin(t*1.05);
-              pivot.position.set(x*.09,275*9.1/1586+wave*.09,.38);
-              pivot.rotation.set(.22+y*.17,-.35+x*.24+Math.sin(t*.7)*.18,-.20+wave*.10);
-              centerLight.position.copy(pivot.position);
-              centerLight.position.z+=.7;
-              renderer.render(scene, camera);
-              stage.classList.add('is-rendered');
-              raf = requestAnimationFrame(frame);
-            }
-            function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; }
-            function resume() { if (!raf && !stopped && !document.hidden && !reduced.matches) raf = requestAnimationFrame(frame); }
-            document.addEventListener('visibilitychange', () => document.hidden ? stop() : resume());
-            reduced.addEventListener('change', () => {
-              if (reduced.matches) { stop(); stage.classList.remove('is-rendered'); }
-              else resume();
-            });
-            renderer.domElement.addEventListener('webglcontextlost', e => {
-              e.preventDefault(); stopped = true; stop(); stage.classList.remove('is-rendered');
-            });
-            window.addEventListener('pagehide', e => {
-              stop();
-              if (e.persisted) return;
-              stopped = true; observer.disconnect();
-              scene.traverse(obj => {
-                obj.geometry?.dispose();
-                const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
-                mats.forEach(m => m?.dispose());
-              });
-              renderer.dispose();
-            });
-            window.addEventListener('pageshow', resume);
-            resume();
-          }
-        } catch {
-          // The localized page and static puzzle remain usable without WebGL or CDN access.
-        }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#22221f" />
+  <title>صفحه پیدا نشد | JIGSAW</title>
+  <link rel="icon" type="image/webp" href={assetHref('media/mark.webp')} />
+  <style is:inline set:html={`
+    @font-face { font-family: Estedad; src: url("${assetHref('type/estedad-fa.woff2')}") format("woff2"); font-weight:100 900; font-display:swap; }
+    @font-face { font-family: Sora; src: url("${assetHref('type/sora-bold.woff2')}") format("woff2"); font-weight:700; font-display:swap; }
+    @font-face { font-family: Manrope; src: url("${assetHref('type/manrope.woff2')}") format("woff2"); font-weight:200 800; font-display:swap; }
+  `}></style>
+  <script is:inline define:vars={{ translations }}>
+    const parts = location.pathname.split('/').filter(Boolean);
+    const lang = parts[0] === 'en' || parts[0] === 'ar' ? parts[0] : 'fa';
+    document.documentElement.lang = lang;
+    document.documentElement.dir = translations[lang].dir;
+    document.title = translations[lang].kicker + ' | JIGSAW';
+    document.addEventListener('DOMContentLoaded', () => {
+      const t = translations[lang];
+      for (const [id,value] of Object.entries({'error-kicker':t.kicker,'error-title':t.title,'error-description':t.message,'error-home-label':t.home,'error-contact':t.contact})) document.getElementById(id).textContent=value;
+      const headline = document.getElementById('error-title');
+      const words = t.title.split(' ');
+      const cut = Math.ceil(words.length / 2);
+      headline.replaceChildren();
+      [words.slice(0,cut).join(' '),words.slice(cut).join(' ')].filter(Boolean).forEach((phrase,i)=>{
+        if(i) headline.append(' ');
+        const span=document.createElement('span');
+        span.className='title-phrase';
+        span.textContent=phrase;
+        span.style.setProperty('--phrase-delay', i*100+'ms');
+        headline.append(span);
+      });
+      document.getElementById('error-home').href=t.href;
+      document.getElementById('error-contact').href=t.contactHref;
+      // On the static 404, preserve the missing route when switching language.
+      const tail = ['fa','en','ar'].includes(parts[0]) ? parts.slice(1) : parts;
+      const suffix = tail.length && tail[0] !== '404.html' ? tail.join('/') : '404';
+      for (const a of document.querySelectorAll('[data-error-header] [data-language]')) {
+        a.href = '/'+a.hreflang+'/'+suffix+'/' + location.search + location.hash;
       }
-    </script>
-  </body>
+      const visibleHeader = document.querySelector('[data-error-header="'+lang+'"]');
+      const menus = visibleHeader.querySelectorAll('details');
+      document.querySelector('.error-layout').classList.add('motion-ready');
+      document.addEventListener('click', e => {
+        if (!(e.target instanceof Element)) return;
+        for (const menu of menus) if (!menu.contains(e.target) || e.target.closest('a')) menu.open=false;
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key !== 'Escape' || !(e.target instanceof Element)) return;
+        const menu=e.target.closest('details[open]');
+        if(menu && visibleHeader.contains(menu)){menu.open=false;menu.querySelector('summary')?.focus();}
+      });
+    });
+  </script>
+</head>
+<body>
+  {locales.map(locale => <div data-error-header={locale}><SiteHeader language={locale} page="home" alternates={alternates}/></div>)}
+  <main class="error-layout" id="main">
+    <div class="error-copy">
+      <div class="error-heading">
+        <p class="error-kicker" id="error-kicker">{translations.fa.kicker}</p>
+        <div class="error-code" dir="ltr" aria-label="404"><span class="error-digit" aria-hidden="true">4</span><span class="error-digit zero" aria-hidden="true">0</span><span class="error-digit" aria-hidden="true">4</span></div>
+        <h1 class="error-title" id="error-title">{translations.fa.title}</h1>
+      </div>
+      <div class="error-details">
+        <div class="error-rule"></div>
+        <p class="error-description" id="error-description">{translations.fa.message}</p>
+        <div class="error-actions">
+          <a class="error-home" id="error-home" href={translations.fa.href}><span id="error-home-label">{translations.fa.home}</span><span class="error-arrow" aria-hidden="true">→</span></a>
+          <a class="error-contact" id="error-contact" href={translations.fa.contactHref}>{translations.fa.contact}</a>
+        </div>
+      </div>
+    </div>
+    <div class="handoff-art" aria-hidden="true">
+      <svg viewBox="0 0 720 550" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <g class="art-parallax">
+          <path class="art-track" d="M280 112 A163 163 0 0 1 475 115 M295 342 Q305 382 350 401"/>
+          <rect class="art-mark" x="316" y="94" width="13" height="13" fill="#AE373A"/>
+          <rect class="art-mark" x="344" y="395" width="13" height="13" fill="#AE373A"/>
+          <g class="hand-left-entry"><g class="hand-left" fill="#F5BD13">
+            <path d="M0 48 L184 125 L153 202 L0 138 Z"/>
+            <path d="M194 130 L207 136 L175 213 L162 207 Z"/>
+            <path d="M216 140 L237 151 L280 134 Q294 129 309 135 L367 156 Q379 161 373 173 Q370 183 355 181 L306 169 L278 185 L314 230 L357 239 Q372 243 371 253 L370 258 L310 248 L285 226 L280 233 L306 255 L369 266 Q383 269 381 282 L380 285 L304 273 L278 251 L273 258 L300 281 L359 290 Q372 293 369 305 L369 308 L293 295 Q280 293 268 282 L220 241 L184 218 Z"/>
+            <path d="M268 186 L303 167 L307 174 L272 194 Z" fill="#FFFFFF"/>
+          </g></g>
+          <g class="hand-right-entry"><g class="hand-right" fill="#22221F">
+            <path d="M720 350 L590 394 L619 476 L720 442 Z"/>
+            <path d="M581 397 L568 401 L597 484 L610 479 Z"/>
+            <path d="M559 406 L536 413 L516 380 L474 355 Q460 348 454 357 Q448 367 460 378 L489 400 L490 426 L461 445 L432 438 L400 403 Q391 394 381 402 Q373 410 382 420 L420 462 L454 471 L450 478 L413 469 L369 422 Q360 413 350 421 Q342 429 351 440 L404 493 L448 503 L446 510 L398 499 L346 449 Q337 440 328 449 Q320 457 329 467 L388 525 L448 538 L502 521 L586 470 Z"/>
+          </g></g>
+          <g class="piece-entry"><g class="piece-response"><g class="piece-float"><g transform="translate(455 265) rotate(24) scale(.82)">
+            <path d="M-57 -57 H-17 A23 23 0 1 1 17 -57 H57 V-17 A23 23 0 1 0 57 17 V57 H-57 V17 A23 23 0 1 0 -57 -17 Z" fill="#F5BD13"/>
+          </g></g></g></g>
+          <g class="art-mark" fill="#AE373A" transform="translate(535 190)"><path d="M0 0 L9 -27 L17 -24 L6 2Z M14 13 L40 -3 L45 5 L18 19Z M18 31 L46 34 L45 42 L17 38Z"/></g>
+        </g>
+      </svg>
+    </div>
+  </main>
+  <script is:inline>
+    const art=document.querySelector('.handoff-art');
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+    art.addEventListener('pointermove',e=>{
+      if(e.pointerType==='touch'||reduced.matches)return;
+      const r=art.getBoundingClientRect();
+      const x=Math.max(-.5,Math.min(.5,(e.clientX-r.left)/r.width-.5));
+      const y=Math.max(-.5,Math.min(.5,(e.clientY-r.top)/r.height-.5));
+      art.style.setProperty('--mx',x*12+'px');
+      art.style.setProperty('--my',y*8+'px');
+      art.style.setProperty('--px',x*5+'px');
+      art.style.setProperty('--py',y*4+'px');
+    },{passive:true});
+    art.addEventListener('pointerleave',()=>{
+      for(const prop of ['--mx','--my','--px','--py'])art.style.setProperty(prop,'0px');
+    });
+  </script>
+</body>
 </html>
 <style is:global>
-  * { box-sizing:border-box; }
-  body { margin:0; background:#22221f; color:#f7f5ed; font:1rem/1.8 Manrope,system-ui,sans-serif; }
-  html[dir="rtl"] body { font-family:Estedad,Tahoma,sans-serif; }
-  main { width:min(76rem,94vw); min-height:100vh; min-height:100svh; margin-inline:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1rem 0 2rem; }
-  .brand { align-self:flex-start; display:inline-flex; align-items:center; gap:.55rem; color:inherit; font:700 1.35rem Sora,sans-serif; text-decoration:none; margin-block-end:.15rem; }
-  .brand img { object-fit:contain; }
-  .puzzle-stage { position:relative; width:100%; aspect-ratio:2.1; max-height:48vh; overflow:hidden; isolation:isolate; background:radial-gradient(ellipse at 50% 25%,#493a22 0%,#2d2922 28%,#22221f 68%); }
-  .puzzle-fallback,.puzzle-stage canvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
-  .puzzle-stage canvas { opacity:0; }
-  .puzzle-stage.is-rendered canvas { opacity:1; }
-  .puzzle-stage.is-rendered .static-piece { visibility:hidden; }
-  .graphic-hand-yellow { animation: yellow-approach 7s ease-in-out infinite; }
-  .graphic-hand-charcoal { animation: charcoal-approach 7s ease-in-out infinite; }
-  @keyframes yellow-approach { 0%,100% { transform:translateX(-8px); } 50% { transform:translateX(0); } }
-  @keyframes charcoal-approach { 0%,100% { transform:translateX(8px); } 50% { transform:translateX(0); } }
-  @media(prefers-reduced-motion:reduce) { .graphic-hand-yellow,.graphic-hand-charcoal { animation:none; } }
-  .error-copy { display:flex; flex-direction:column; align-items:center; text-align:center; margin-top:0; position:relative; }
-  .error-code { font:700 clamp(4rem,8vw,6.5rem)/1 Sora,sans-serif; letter-spacing:-.075em; color:#f7f5ed; }
-  .error-code span { color:#f5bd13; }
-  h1 { font-size:clamp(1.5rem,4vw,2.45rem); line-height:1.4; margin-block:.7rem .4rem; }
-  p { margin-block:0 1.4rem; max-width:49ch; color:#cfc9bd; }
-  .button { background:#f5bd13; color:#22221f; padding:.7rem 1.45rem; border-radius:100px; font-weight:700; text-decoration:none; }
-  .button:hover { background:#ffd153; }
-  a:focus-visible { outline:3px solid #f5bd13; outline-offset:5px; }
-  @media(max-width:720px) { main { width:94vw; padding:1.3rem 0 2.5rem; } .brand { margin-inline-start:3vw; } .puzzle-stage { aspect-ratio:1.85; max-height:none; } .error-copy { width:90%; margin-top:0; } }
+  html:has(.error-layout),body:has(.error-layout){background:#fff}
+  [data-error-header]{display:none}
+  html[lang=fa] [data-error-header=fa],html[lang=en] [data-error-header=en],html[lang=ar] [data-error-header=ar]{display:block}
+  .error-layout{width:min(1240px,90%);margin-inline:auto;min-height:calc(100svh - 76px);display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);align-items:center;gap:clamp(20px,3vw,48px);padding-block:clamp(36px,7vh,85px);overflow:hidden}
+  .error-copy{min-width:0;position:relative;z-index:1}
+  .error-kicker{display:flex;align-items:center;gap:9px;margin:0 0 17px;font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+  .error-kicker:before{content:'';width:11px;height:11px;background:#ae373a;flex:none}
+  .error-code{font-family:Sora,Arial,sans-serif;font-size:clamp(100px,12.5vw,194px);font-weight:700;line-height:.89;letter-spacing:-.065em;margin:0 0 27px;display:flex;align-items:center;direction:ltr;width:max-content}
+  .error-code .zero{color:#f5bd13}
+  .error-title{font-size:clamp(30px,4vw,59px);line-height:1.12;letter-spacing:-.055em;font-weight:800;margin:0 0 17px;max-width:16ch}
+  .error-rule{width:46px;height:5px;background:#ae373a;margin-block:0 18px}
+  .error-description{font-size:clamp(16px,1.5vw,20px);line-height:1.6;max-width:34ch;margin:0 0 26px;color:#4b494a}
+  .error-actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px 22px}
+  .error-home{display:inline-flex;align-items:center;justify-content:center;gap:22px;background:#f5bd13;color:#22221f;padding:13px 19px;font-weight:700;min-height:48px;transition:background .2s,color .2s}
+  .error-home:hover{background:#22221f;color:#fff}
+  .error-arrow{font-size:21px;line-height:1;transition:transform .2s}
+  .error-home:hover .error-arrow{transform:translateX(4px)}
+  .error-contact{font-size:.94rem;font-weight:700;border-bottom:1px solid #22221f;padding-block:5px}
+  .error-contact:hover{color:#ae373a;border-color:#ae373a}
+  .handoff-art{position:relative;width:100%;min-width:0;direction:ltr}
+  .handoff-art svg{display:block;width:100%;height:auto;overflow:hidden}
+  .art-track{fill:none;stroke:#4b494a;stroke-width:1.4;stroke-linecap:round}
+  /* Independent entrance and idle layers: no competing transforms. */
+  .title-phrase{display:inline-block;max-width:100%}
+  .motion-ready{--motion-ease:cubic-bezier(.22,1,.36,1)}
+  .motion-ready .error-kicker{animation:copy-in .48s var(--motion-ease) .06s backwards}
+  .motion-ready .error-digit{display:inline-block;animation:digit-in .72s var(--motion-ease) .15s backwards}
+  .motion-ready .error-digit:nth-child(2){animation-delay:.22s}
+  .motion-ready .error-digit:nth-child(3){animation-delay:.29s}
+  .motion-ready .title-phrase{animation:copy-in .66s var(--motion-ease) calc(.66s + var(--phrase-delay,0ms)) backwards}
+  .motion-ready .error-rule{transform-origin:left;animation:rule-in .55s var(--motion-ease) .85s backwards}
+  html[dir=rtl] .motion-ready .error-rule{transform-origin:right}
+  .motion-ready .error-description{animation:copy-in .6s var(--motion-ease) .88s backwards}
+  .motion-ready .error-home{animation:copy-in .55s var(--motion-ease) 1.02s backwards}
+  .motion-ready .error-contact{animation:copy-in .55s var(--motion-ease) 1.14s backwards}
+  .motion-ready .error-actions:focus-within a{animation:none}
+  .motion-ready .hand-left-entry{animation:enter-left .95s var(--motion-ease) .25s backwards}
+  .motion-ready .hand-right-entry{animation:enter-right 1s var(--motion-ease) .36s backwards}
+  .motion-ready .piece-entry{transform-box:fill-box;transform-origin:center;animation:piece-in .8s var(--motion-ease) .52s backwards}
+  .hand-left,.hand-right{transform-box:fill-box;transform-origin:center}
+  .motion-ready .hand-left{animation:reach-left 5.8s ease-in-out 1.36s infinite}
+  .motion-ready .hand-right{animation:reach-right 5.8s ease-in-out 1.36s infinite}
+  .piece-float{transform-box:fill-box;transform-origin:center}
+  .motion-ready .piece-float{animation:piece-float 5.8s ease-in-out 1.36s infinite}
+  .piece-response{transform:translate(var(--px,0px),var(--py,0px));transition:transform .36s ease-out}
+  .motion-ready .art-mark{animation:mark-pulse 5.8s ease-in-out 1.36s infinite}
+  .motion-ready .art-track{animation:track-in .9s var(--motion-ease) .58s backwards}
+  .art-parallax{transform:translate(var(--mx,0px),var(--my,0px));transition:transform .32s ease-out}
+  .error-home:active{transform:translateY(1px)}
+  .error-contact{transition:color .2s,border-color .2s}
+  @keyframes copy-in{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes digit-in{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+  @keyframes rule-in{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:scaleX(1)}}
+  @keyframes enter-left{from{opacity:0;transform:translate(-78px,-10px)}to{opacity:1;transform:translate(0,0)}}
+  @keyframes enter-right{from{opacity:0;transform:translate(78px,10px)}to{opacity:1;transform:translate(0,0)}}
+  @keyframes piece-in{from{opacity:0;transform:translateY(10px) scale(.88)}to{opacity:1;transform:translateY(0) scale(1)}}
+  @keyframes track-in{from{opacity:0}to{opacity:1}}
+  @keyframes reach-left{0%,100%{transform:translate(0,0)}50%{transform:translate(-25px,-5px) rotate(-1deg)}}
+  @keyframes reach-right{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,5px) rotate(1deg)}}
+  @keyframes piece-float{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-7px) rotate(-2deg)}75%{transform:translateY(6px) rotate(2deg)}}
+  @keyframes mark-pulse{0%,100%{opacity:1}50%{opacity:.72}}
+  @media(prefers-reduced-motion:reduce){.error-layout *, .error-layout *::before,.error-layout *::after{animation:none!important;transition:none!important}.art-parallax,.piece-response{transform:none}}
+  @media(max-width:900px){.error-layout{grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:15px}.error-code{font-size:clamp(90px,13vw,142px)}.error-title{font-size:clamp(29px,4vw,44px)}}
+  @media(max-width:680px){.error-layout{grid-template-columns:1fr;align-content:start;gap:18px;padding-block:30px 42px;min-height:calc(100svh - 76px);overflow:visible}.error-copy{display:contents}.error-heading{grid-row:1}.handoff-art{grid-row:2;width:min(100%,460px);justify-self:center}.error-details{grid-row:3}.error-code{font-size:clamp(100px,26vw,150px);margin-bottom:16px}.error-kicker{margin-bottom:13px}.error-title{max-width:none;font-size:clamp(30px,8.5vw,43px);margin-bottom:0}.error-rule{margin-bottom:12px}.error-description{margin-bottom:19px}.error-actions{gap:12px 20px}.error-home{min-height:46px}}
+  html[dir=rtl] .error-title{letter-spacing:0;line-height:1.5}
+  html[dir=rtl] .error-kicker{letter-spacing:0}
+  html[dir=rtl] .error-code{margin-inline-end:auto}
+  html[dir=rtl] .error-arrow{display:inline-block;transform:scaleX(-1)}
+  html[dir=rtl] .error-home:hover .error-arrow{transform:scaleX(-1) translateX(4px)}
 </style>
