@@ -116,7 +116,7 @@ export function ProjectEntry({ language }: { language: Locale }) {
           </small>
           <h2>{tr("مدار اتصال", "Orbit in motion", "مدارات تلتقي")}</h2>
           <span className="entry-cta">
-            {tr("ورود به پروژه", "Enter the project", "اكتشفوا المشروع")}
+            {tr("بریم سراغ پروژه", "Take a closer look", "شوفوا المشروع")}
           </span>
         </div>
         <div className="entry-space">
