@@ -1395,3 +1395,8 @@ bdi[lang="en"]{font-family:Manrope,Arial,sans-serif}
 @supports not (clip-path:polygon(0 0,100% 0,100% 100%,0 100%)){.connection-quiz[open]{animation:quiz-step-in .35s ease both}}
 
 .connection-quiz:not([open]){display:none!important}
+
+/* Keep all language-specific headings and form controls on the shared type system. */
+:root[lang="ar"] .intro h1,:root[lang="ar"] .quiz-step h2{line-height:1.45;letter-spacing:0}
+:root[lang="fa"] .intro h1,:root[lang="fa"] .quiz-step h2{letter-spacing:0}
+button,input,textarea,select{font-family:inherit}

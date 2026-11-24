@@ -14,9 +14,9 @@ const pieces = [
     tag: ["هویت بصری", "Identity", "هوية بصرية"],
     title: ["دو دست، یک تصویر", "Two hands, one image", "يدان وصورة واحدة"],
     body: [
-      "دست‌های دو شخصیت دور یک قطعه به هم می‌رسند. همین لحظه را برای جلد معرفی جیگزا انتخاب کردیم.",
-      "The two figures reach around a single piece. That shared gesture became the cover of our studio catalogue.",
-      "تمتدّ يدا الشخصيتين حول قطعة واحدة. اخترنا تلك اللحظة لتكون غلاف كتيّب الاستوديو.",
+      "دو تا شخصیت دست‌هاشون رو به سمت یه قطعه می‌برن. همین لحظه رو برای جلد کاتالوگ جیگزا انتخاب کردیم.",
+      "Two characters reach for the same piece. That little moment of connection became our studio catalogue cover.",
+      "شخصيتان تمدّان أيديهما نحو قطعة واحدة. اخترنا لحظة التواصل هذي لغلاف كتالوج الاستوديو.",
     ],
   },
   {
@@ -24,9 +24,9 @@ const pieces = [
     tag: ["پوستر", "Poster", "ملصق"],
     title: ["آخرین قطعه", "The last piece", "القطعة الأخيرة"],
     body: [
-      "در این اتود، بخشی از یک صورت روی قطعهٔ زرد چاپ شده. دست که قطعه را سر جایش می‌گذارد، پرتره کامل می‌شود.",
-      "In this poster study, a fragment of the portrait is printed on a yellow piece. The hand completes the picture by putting it in place.",
-      "في هذا الملصق طُبع جزء من الوجه على قطعة صفراء. حين تضعها اليد في مكانها تكتمل الصورة.",
+      "توی این اتود، یه تکه از صورت روی قطعه زرد چاپ شده. وقتی دست قطعه رو سر جاش می‌ذاره، پرتره کامل می‌شه.",
+      "A fragment of a face sits on the yellow piece. Put it in place and the whole portrait comes together.",
+      "في هالتجربة، جزء من الوجه مطبوع على القطعة الصفراء. أول ما ترجع القطعة لمكانها، تكتمل الصورة.",
     ],
   },
   {
@@ -34,9 +34,9 @@ const pieces = [
     tag: ["موشن", "Motion", "حركة"],
     title: ["مدار اتصال", "Orbit in motion", "مدارات تلتقي"],
     body: [
-      "برای این تجربهٔ تعاملی، رنگ‌های جلد را از کاغذ جدا کردیم. سه حلقه در عمق می‌چرخند و دور یک هسته به هم نزدیک می‌شوند.",
-      "For this interactive study we lifted the cover colours off the page. Three rings turn in depth around a shared centre.",
-      "أخرجنا ألوان الغلاف من الورق. في هذه التجربة التفاعلية تدور ثلاث حلقات في العمق حول مركز واحد.",
+      "این بار رنگ‌های جلد رو از روی کاغذ آوردیم توی یه تجربه تعاملی. سه حلقه در فضا می‌چرخن و دور یه هسته به هم نزدیک می‌شن.",
+      "We took our cover colours off the page and set them in motion. Three rings turn in depth around a shared centre.",
+      "هالمرة طلعنا ألوان الغلاف من الورق وخلّيناها تتحرك. ثلاث حلقات تدور في الفضاء حول مركز مشترك.",
     ],
   },
 ];
@@ -70,27 +70,27 @@ const stages = [
     id: "composition",
     title: ["قاب تصویر", "The composition", "تكوين الصورة"],
     text: [
-      "دو دست و یک فاصله. برش نزدیک نشان می‌دهد چشم چطور از دست چپ به قطعهٔ وسط و بعد به دست راست می‌رسد.",
-      "Follow the cropped illustration from the left hand, across the gap, to the right hand.",
-      "تابعوا الرسم من اليد اليسرى عبر الفراغ إلى اليد اليمنى. يكشف الاقتصاص كيف تنتقل العين بين العناصر.",
+      "دو تا دست و یه فاصله. توی نمای نزدیک ببینید چشمتون چطور از دست چپ به قطعه وسط و بعد به دست راست می‌رسه.",
+      "Two hands, one little gap. Follow your eye from the left hand, across the piece, to the right.",
+      "يدان وبينهما مسافة صغيرة. شوفوا كيف تنتقل العين من اليد اليسرى للقطعة في الوسط، ثم لليد اليمنى.",
     ],
   },
   {
     id: "ink",
     title: ["رنگ‌های چاپ", "The ink colours", "ألوان الطباعة"],
     text: [
-      "زرد نقطهٔ اتصال را جلو می‌آورد. قرمز بین دو شخصیت وزن تصویر را متعادل می‌کند و زغالی به خطوط سفید وضوح می‌دهد.",
-      "Yellow brings the meeting point forward. Red balances the figures and charcoal gives the white outlines their contrast.",
-      "يُبرز الأصفر نقطة الالتقاء، ويوازن الأحمر بين الشخصيتين، ويمنح الفحمي الخطوط البيضاء تباينها.",
+      "زرد نگاه رو به نقطه اتصال می‌بره، قرمز بین دو شخصیت تعادل ایجاد می‌کنه و زمینه زغالی باعث می‌شه خطوط سفید بهتر دیده بشن.",
+      "Yellow draws your eye to the connection, red balances the figures, and charcoal makes the white outlines pop.",
+      "الأصفر يلفت النظر لنقطة الالتقاء، والأحمر يوازن بين الشخصيتين، والخلفية الفحمية تبرز الخطوط البيضاء.",
     ],
   },
   {
     id: "sheet",
     title: ["جلد کامل", "The finished cover", "الغلاف الكامل"],
     text: [
-      "حالا همان جزئیات را در جلد کامل ببین. فاصلهٔ تیتر و تصویر برای خوانده‌شدن در قطع عمودی در نظر گرفته شده.",
-      "See those details together in the finished cover, with room between the lettering and the figures in the portrait format.",
-      "اجمعوا التفاصيل في نظرة واحدة إلى الغلاف النهائي. تفصل مسافة مدروسة بين العنوان والرسم في هذا التكوين العمودي.",
+      "حالا همون جزئیات رو توی جلد کامل ببینید. فاصله تیتر و تصویر رو طوری در نظر گرفتیم که توی قطع عمودی راحت خونده بشه.",
+      "Now see how it all comes together. We left breathing room between the lettering and the illustration so the portrait-format cover is easy to read.",
+      "الحين شوفوا التفاصيل كلها على الغلاف الكامل. تركنا مساحة بين العنوان والرسم عشان تكون القراءة واضحة في التصميم العمودي.",
     ],
   },
 ];
@@ -119,9 +119,9 @@ export function Gallery({ language }: Props) {
         </h1>
         <p>
           {tr(
-            "از جلد جیگزا تا اتود پوستر و یک تجربهٔ متحرک. هر اثر را باز کنید تا از نزدیک ببینید.",
-            "Open a studio piece to explore our cover design, poster study or motion experiment.",
-            "افتحوا أحد الأعمال لإلقاء نظرة أقرب على غلاف الاستوديو أو الملصق أو تجربة الحركة.",
+            "از طراحی جلد جیگزا تا پوستر و موشن؛ هر اثر رو باز کنید تا از نزدیک ببینیدش.",
+            "From cover design to posters and motion, take a closer look at what we’ve been making.",
+            "من تصميم الغلاف إلى الملصق والموشن، خذوا جولة قريبة في تجاربنا.",
           )}
         </p>
       </div>
@@ -211,9 +211,9 @@ export function Gallery({ language }: Props) {
         href={pageHref(language, "contact") + "?interest=samples"}
       >
         {tr(
-          "درخواست نمونهٔ مرتبط",
-          "Ask about relevant work",
-          "طلب أعمال مشابهة",
+          "دنبال نمونه‌ای شبیه پروژه‌تون هستید؟",
+          "Looking for something similar?",
+          "تدورون على أعمال مشابهة؟",
         )}
       </a>
     </div>
