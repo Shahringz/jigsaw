@@ -1299,7 +1299,7 @@ html[dir=rtl] .connection-section-heading h2{letter-spacing:0;line-height:1.45}
 @keyframes connection-card-in{from{opacity:0;transform:translateX(65px) rotate(4deg)}to{opacity:1;transform:none}}
 @keyframes connection-copy-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @media(max-width:900px){.connection-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.connection-form form{max-width:none}.connection-form .connection-section-heading{margin-bottom:26px}}
-@media(max-width:700px){.connection-stage-inner{padding-top:32px}.connection-scene{display:block;padding:12px 5% 24px}.connection-photo-motion{width:80%}.connection-card-motion{width:86%;margin-left:14%;margin-top:-22%}.connection-card{padding:25px}.connection-card h1{font-size:clamp(2.15rem,9vw,3.6rem)}.connection-word-wrap{margin-top:-20px}.connection-word{font-size:23vw}.connection-grid{gap:8px}.connection-route{min-height:195px;padding:14px;gap:15px}.connection-route-art{transform:scale(.85);transform-origin:top right}.connection-route h3{font-size:1.05rem}.connection-route p{font-size:.84rem}.connection-route-tail{font-size:1.15rem}.connection-route.is-pending .connection-route-tail{font-size:.68rem}}
+@media(max-width:700px){.connection-stage-inner{padding-top:32px}.connection-scene{display:block;padding:12px 5% 24px}.connection-photo-motion{width:80%}.connection-card-motion{width:86%;margin-left:14%;margin-top:-22%}.connection-card{padding:25px}.connection-card h1{font-size:clamp(2.15rem,9vw,3.6rem)}.connection-word-wrap{margin-top:-43px}.connection-word{font-size:23vw}.connection-grid{gap:8px}.connection-route{min-height:195px;padding:14px;gap:15px}.connection-route-art{transform:scale(.85);transform-origin:top right}.connection-route h3{font-size:1.05rem}.connection-route p{font-size:.84rem}.connection-route-tail{font-size:1.15rem}.connection-route.is-pending .connection-route-tail{font-size:.68rem}}
 @media(max-width:350px){.connection-grid{grid-template-columns:1fr}.connection-route-project{grid-column:auto}.connection-route{min-height:170px}}
 @media(prefers-reduced-motion:reduce){.connection-page *{animation:none!important;transition:none!important}.connection-page [data-contact-reveal]{opacity:1!important;transform:none!important}.connection-photo{transform:rotate(-3deg)}.connection-card{transform:rotate(3deg)}.connection-word,.connection-word span{transform:none}}
 
@@ -1335,7 +1335,7 @@ html.connection-quiz-open{overflow:hidden}
 .quiz-progress i.is-active{background:#f5bd13}
 .quiz-step{text-align:center;animation:quiz-step-in .48s cubic-bezier(.22,1,.36,1) both}
 .connection-page .quiz-step-number{color:#ae373a;font:700 clamp(1.15rem,2.5vw,2rem)/1 Sora,Arial,sans-serif;margin-bottom:10px}
-.connection-page .quiz-step h2,.connection-page .quiz-success h2{font-size:clamp(2rem,4.4vw,4rem);line-height:1.18;letter-spacing:-.055em;margin:0 auto 14px;max-width:16ch;outline:none}
+.connection-page .quiz-step h2,.connection-page .quiz-success h2{font-size:clamp(2rem,4.4vw,4rem);line-height:1.18;letter-spacing:-.055em;margin:0 auto 14px;max-width:20ch;text-wrap:balance;outline:none}
 html[dir=rtl] .connection-page .quiz-step h2,html[dir=rtl] .connection-page .quiz-success h2{line-height:1.55;letter-spacing:0;max-width:none}
 .connection-page .quiz-intro{color:#4b494a;font-size:clamp(.88rem,1.25vw,1rem);line-height:1.7;margin-bottom:25px}
 .quiz-options{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
@@ -1363,7 +1363,7 @@ html[dir=rtl] .connection-page .quiz-step h2,html[dir=rtl] .connection-page .qui
 .quiz-success{text-align:center;animation:quiz-step-in .5s ease both}
 .quiz-connected{width:140px;height:auto;margin:20px auto}
 .quiz-success p{line-height:1.7}
-@keyframes quiz-wipe{from{clip-path:polygon(0 0,0 0,0 48%,0 48%,0 100%,0 100%)}to{clip-path:polygon(0 0,100% 0,100% 48%,100% 48%,100% 100%,0 100%)}}
+@keyframes quiz-wipe{0%{clip-path:polygon(0 0,0 0,0 48%,0 48%,0 100%,0 100%)}50%{clip-path:polygon(0 0,62% 0,62% 48%,35% 48%,35% 100%,0 100%)}100%{clip-path:polygon(0 0,100% 0,100% 48%,100% 48%,100% 100%,0 100%)}}
 @keyframes quiz-step-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @media(max-width:900px){.quiz-side-art{left:-15%;opacity:.75}.quiz-piece-a{right:-13%}.quiz-piece-b{left:-14%}}
 @media(max-width:700px){.connection-form{display:block}.connection-brief-card{margin-top:20px}.quiz-shell{width:90%;padding-top:18px;justify-content:flex-start}.quiz-scenery .quiz-side-art{display:none}.quiz-piece{width:105px;opacity:.13}.quiz-piece-a{right:-42px;top:60px}.quiz-piece-b{left:-52px;bottom:-22px}.quiz-red-square{display:none}.quiz-options{gap:7px}.quiz-option{padding:9px 10px;max-width:100%}.quiz-option span{font-size:.83rem}.quiz-fields{gap:12px;grid-template-columns:1fr}.quiz-wide{grid-column:auto}.quiz-progress{margin-bottom:25px}.quiz-actions{margin-top:22px}.quiz-close{width:42px;height:42px}}
