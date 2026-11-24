@@ -1,9 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-import { assetHref, pageHref, translator, type Locale } from '../i18n';
+import { assetHref, pageHref, translator, blogCategories, languages, type Locale } from '../i18n';
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const tr = translator(lang);
+const i = languages[lang].index;
+const categories = Object.keys(blogCategories) as (keyof typeof blogCategories)[];
 const posts = (await getCollection('blog', post => post.id.startsWith(lang + '/')))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
@@ -11,12 +13,18 @@ const posts = (await getCollection('blog', post => post.id.startsWith(lang + '/'
   <div class="intro"><h1>{tr('وبلاگ جیگزا', 'JIGSAW blog', 'مدوّنة جيغسو')}</h1>
     <p>{tr('اینجا از تصمیم‌های پشت طراحی‌ها، تجربه‌های تولید و چیزهایی که وسط کار یاد می‌گیریم می‌نویسیم.', 'Notes on our design decisions, the production process and what we learn along the way.', 'نكتب هنا عن القرارات التي تقف خلف تصاميمنا، وعن الإنتاج وما نتعلّمه أثناء العمل.')}</p>
   </div>
-  {posts.map(({ id, data }) => <article class="journal-entry">
+  <nav class="section-links" aria-label={tr('دسته‌بندی مطالب', 'Article categories', 'تصنيفات المقالات')}>
+    {categories.filter(category => posts.some(post => post.data.category === category)).map(category => <a href={'#' + category}>{blogCategories[category][i]}</a>)}
+  </nav>
+  {categories.filter(category => posts.some(post => post.data.category === category)).map(category => <section id={category} class="journal-category">
+    <h2>{blogCategories[category][i]}</h2>
+    {posts.filter(post => post.data.category === category).map(({ id, data }) => <article class="journal-entry">
     <a href={pageHref(lang, 'blog') + id.split('/')[1] + '/'}>
       {data.image && <div class="journal-art"><img src={assetHref(data.image)} alt={data.imageAlt ?? ''} width="600" height="800" loading="lazy" /></div>}
       <div class="journal-summary"><time datetime={data.date.toISOString().slice(0,10)}>{data.date.toLocaleDateString(lang, { dateStyle: 'long', timeZone: 'UTC' })}</time>
         <h2>{data.title}</h2><p>{data.description}</p>
         <span class="textlink">{tr('خوندن یادداشت', 'Read the note', 'اقرأ المقال')}</span></div>
     </a>
-  </article>)}
+    </article>)}
+  </section>)}
 </div>
