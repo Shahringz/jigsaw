@@ -1,6 +1,6 @@
 ---
-title: Why is the middle piece on our cover yellow?
-description: Two hands reach towards one piece on the JIGSAW cover. Take a closer look at what each colour does.
+title: Why did we make that piece yellow?
+description: Two hands, one piece and a few carefully chosen colours. Let’s take a closer look at our cover.
 date: 2026-11-23
 author: JIGSAW Studio
 image: media/jigsaw-600.webp
@@ -8,7 +8,7 @@ imageAlt: Two figures reaching towards a yellow piece on the JIGSAW cover
 relatedWork: cover
 ---
 
-Cover the title with your hand. Where does your eye go first? When we designed this cover, we wanted you to notice the small gap between two hands. That’s where two people are working on the same thing.
+Try covering the title for a second. Where does your eye go first? When we designed this cover, we wanted you to notice the small gap between two hands. That’s where two people are working on the same thing.
 
 ## Follow the yellow
 
