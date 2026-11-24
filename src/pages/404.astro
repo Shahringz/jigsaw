@@ -43,18 +43,32 @@ const translations = {
     <main>
       <a id="brand-home" class="brand" href={translations.fa.href} dir="ltr"><img src={assetHref('media/mark.webp')} width="32" height="32" alt="" /> JIGSAW</a>
       <div class="puzzle-stage" id="puzzle-stage" aria-hidden="true">
-        <svg class="puzzle-fallback" viewBox="0 0 960 420" fill="none" focusable="false" preserveAspectRatio="xMidYMid meet">
+        <svg class="puzzle-fallback" viewBox="-250 300 1586 760" fill="none" focusable="false" preserveAspectRatio="xMidYMid meet">
           <defs>
-            <linearGradient id="dark-hand" x1="0" y1="300" x2="420" y2="70" gradientUnits="userSpaceOnUse"><stop stop-color="#252522"/><stop offset=".65" stop-color="#68645c"/><stop offset="1" stop-color="#b2a28a"/></linearGradient>
-            <linearGradient id="light-hand" x1="960" y1="320" x2="540" y2="95" gradientUnits="userSpaceOnUse"><stop stop-color="#7e715d"/><stop offset=".58" stop-color="#e1c9a4"/><stop offset="1" stop-color="#f7eddb"/></linearGradient>
-            <radialGradient id="glow"><stop stop-color="#f5bd13" stop-opacity=".2"/><stop offset="1" stop-color="#f5bd13" stop-opacity="0"/></radialGradient>
+            <radialGradient id="handoff-halo">
+              <stop stop-color="#f5bd13" stop-opacity=".18"/>
+              <stop offset="1" stop-color="#f5bd13" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="piece-face" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#ffe17a"/><stop offset=".42" stop-color="#f5bd13"/><stop offset="1" stop-color="#c88b00"/>
+            </linearGradient>
           </defs>
-          <circle cx="480" cy="206" r="176" fill="url(#glow)"/>
-          <path d="M-40 279 C86 297 153 259 223 219 C256 200 285 169 309 155 L372 112 Q391 103 399 115 Q405 127 387 138 L342 171 Q367 166 387 178 L405 195 Q414 209 399 216 Q390 220 379 211 L349 196 Q344 207 353 221 L386 244 Q403 255 391 269 Q380 281 360 272 L307 247 Q275 263 243 282 C164 328 70 351 -40 340 Z" fill="url(#dark-hand)"/>
-          <path d="M1000 311 C868 320 818 278 752 246 Q718 225 684 214 L613 192 Q590 184 578 197 Q568 210 588 222 L631 244 Q605 244 586 258 L565 277 Q554 290 568 299 Q578 305 591 297 L638 272 Q643 286 660 294 L735 326 C816 362 903 379 1000 374 Z" fill="url(#light-hand)"/>
-          <g transform="translate(480 210) rotate(-12) scale(.7)">
-            <path d="M-66 -66 H-20 C-29 -103 29 -103 20 -66 H66 V-20 C103 -29 103 29 66 20 V66 H20 C29 29 -29 29 -20 66 H-66 V20 C-29 29 -29 -29 -66 -20 Z" fill="#9e6c0b" transform="translate(0 9)"/>
-            <path d="M-66 -66 H-20 C-29 -103 29 -103 20 -66 H66 V-20 C103 -29 103 29 66 20 V66 H20 C29 29 -29 29 -20 66 H-66 V20 C-29 29 -29 -29 -66 -20 Z" fill="#f5bd13" stroke="#ffe394" stroke-width="1.5"/>
+          <circle cx="543" cy="420" r="205" fill="url(#handoff-halo)"/>
+          <!-- The polygon outlines are traced from the supplied JIGSAW artwork.
+               Keep the original handshake geometry and the source's two flat colors. -->
+          <g class="graphic-hand-yellow">
+            <path d="M-600 235 L278 552 L388 486 L564 486 L389 602 L389 699 L498 700 L579 640 L653 640 L816 811 L763 861 L605 699 L592 709 L750 873 L703 919 L542 755 L531 769 L690 931 L643 978 L478 812 L467 824 L628 989 L572 1043 L502 972 L513 939 L464 892 L439 893 L447 883 L397 835 L374 834 L386 832 L388 825 L381 825 L317 763 L312 767 L264 721 L184 799 L-600 587 Z" fill="#eeb202"/>
+          </g>
+          <g class="graphic-hand-charcoal" fill="#4b494a" stroke="#f7f5ed" stroke-width="2.5" stroke-linejoin="miter" stroke-opacity=".65">
+            <path d="M1686 205 L836 536 L736 480 L611 480 L410 612 L409 679 L490 679 L583 610 L655 610 L827 788 L1686 452 Z"/>
+            <path d="M264 724 L143 840 L191 887 L311 768 Z"/>
+            <path d="M329 777 L207 899 L256 946 L380 826 Z"/>
+            <path d="M397 837 L272 959 L321 1006 L444 884 Z"/>
+            <path d="M464 895 L352 1003 L400 1049 L511 941 Z"/>
+          </g>
+          <g class="static-piece" transform="translate(543 405) rotate(-13)">
+            <path d="M-66 -66 H-20 C-29 -103 29 -103 20 -66 H66 V-20 C103 -29 103 29 66 20 V66 H20 C29 29 -29 29 -20 66 H-66 V20 C-29 29 -29 -29 -66 -20 Z" fill="#9e6c0b" transform="translate(4 13)"/>
+            <path d="M-66 -66 H-20 C-29 -103 29 -103 20 -66 H66 V-20 C103 -29 103 29 66 20 V66 H20 C29 29 -29 29 -20 66 H-66 V20 C-29 29 -29 -29 -66 -20 Z" fill="url(#piece-face)" stroke="#ffe394" stroke-width="1.5"/>
           </g>
         </svg>
       </div>
@@ -89,90 +103,8 @@ const translations = {
             centerLight.position.set(0, .12, .8);
             scene.add(centerLight);
 
-            // Sculpt the five fingers, palm and flowing wrist as one continuous
-            // implicit surface, rather than disconnected primitive meshes.
-            const segments = [];
-            function chain(points, radii) {
-              for (let i = 0; i < points.length - 1; i++) {
-                const a = points[i], b = points[i+1];
-                const d = b.map((v,j) => v-a[j]);
-                segments.push({ a, d, len2:d.reduce((v,n)=>v+n*n,0), r:radii[i], dr:radii[i+1]-radii[i] });
-              }
-            }
-            chain([[-4.0,-.48,-.18],[-2.65,-.33,-.12],[-1.55,-.08,0],[-1.02,0,0]],[.51,.45,.32,.37]);
-            chain([[-.60,.39,0],[-.12,.53,.015],[.39,.70,.04],[.83,.73,.06],[1.15,.64,.13]],[.175,.16,.145,.12,.095]);
-            chain([[-.44,.14,.02],[.03,.20,.08],[.44,.16,.24],[.65,.04,.38],[.52,-.04,.47]],[.17,.155,.14,.12,.10]);
-            chain([[-.46,-.13,.015],[-.07,-.08,.13],[.28,-.13,.32],[.40,-.27,.43],[.29,-.35,.48]],[.16,.145,.13,.115,.09]);
-            chain([[-.67,-.37,-.02],[-.30,-.34,.10],[-.03,-.43,.25],[.05,-.57,.34],[-.07,-.63,.37]],[.135,.12,.105,.09,.075]);
-            chain([[-1.04,-.35,.04],[-.64,-.57,.16],[-.22,-.73,.26],[.27,-.68,.30],[.70,-.52,.24]],[.23,.205,.175,.14,.105]);
-            function blend(a,b,k) {
-              const h=Math.max(k-Math.abs(a-b),0)/k;
-              return Math.min(a,b)-h*h*k*.25;
-            }
-            function field(x,y,z) {
-              // Ellipsoidal palm: approximate signed distance, blended into tapered digits.
-              const px=(x+.94)/.72, py=y/.57, pz=z/.32;
-              let d=(Math.sqrt(px*px+py*py+pz*pz)-1)*.32;
-              for (const c of segments) {
-                const ax=x-c.a[0], ay=y-c.a[1], az=z-c.a[2];
-                const t=Math.max(0,Math.min(1,(ax*c.d[0]+ay*c.d[1]+az*c.d[2])/c.len2));
-                const dx=ax-c.d[0]*t, dy=ay-c.d[1]*t, dz=az-c.d[2]*t;
-                d=blend(d,Math.sqrt(dx*dx+dy*dy+dz*dz)-(c.r+c.dr*t),.095);
-              }
-              return d;
-            }
-            function sculpt() {
-              const step=.085, min=[-4.6,-1.1,-.85], nx=72,ny=29,nz=23;
-              const total=nx*ny*nz, values=new Float32Array(total);
-              const id=(x,y,z)=>x+nx*(y+ny*z);
-              const coords=i=>[min[0]+i%nx*step,min[1]+Math.floor(i/nx)%ny*step,min[2]+Math.floor(i/(nx*ny))*step];
-              for(let z=0;z<nz;z++)for(let y=0;y<ny;y++)for(let x=0;x<nx;x++){
-                const i=id(x,y,z); values[i]=field(min[0]+x*step,min[1]+y*step,min[2]+z*step);
-              }
-              const pos=[],norm=[],indices=[],cache=new Map();
-              function vertex(a,b) {
-                const key=Math.min(a,b)*total+Math.max(a,b);
-                if(cache.has(key))return cache.get(key);
-                const A=coords(a), B=coords(b), t=values[a]/(values[a]-values[b]);
-                const [x,y,z]=A.map((v,i)=>v+(B[i]-v)*t);
-                const e=.002, dx=field(x+e,y,z)-field(x-e,y,z),dy=field(x,y+e,z)-field(x,y-e,z),dz=field(x,y,z+e)-field(x,y,z-e);
-                const len=Math.hypot(dx,dy,dz)||1, i=pos.length/3;
-                pos.push(x,y,z);norm.push(dx/len,dy/len,dz/len);cache.set(key,i);return i;
-              }
-              function tri(a,b,c) {
-                const i=a*3,j=b*3,k=c*3;
-                const ux=pos[j]-pos[i],uy=pos[j+1]-pos[i+1],uz=pos[j+2]-pos[i+2];
-                const vx=pos[k]-pos[i],vy=pos[k+1]-pos[i+1],vz=pos[k+2]-pos[i+2];
-                const dot=(uy*vz-uz*vy)*(norm[i]+norm[j]+norm[k])+(uz*vx-ux*vz)*(norm[i+1]+norm[j+1]+norm[k+1])+(ux*vy-uy*vx)*(norm[i+2]+norm[j+2]+norm[k+2]);
-                if(dot>=0)indices.push(a,b,c);else indices.push(a,c,b);
-              }
-              const tetra=[[0,5,1,6],[0,1,2,6],[0,2,3,6],[0,3,7,6],[0,7,4,6],[0,4,5,6]];
-              for(let z=0;z<nz-1;z++)for(let y=0;y<ny-1;y++)for(let x=0;x<nx-1;x++){
-                const cube=[id(x,y,z),id(x+1,y,z),id(x+1,y+1,z),id(x,y+1,z),id(x,y,z+1),id(x+1,y,z+1),id(x+1,y+1,z+1),id(x,y+1,z+1)];
-                if(cube.every(i=>values[i]>=0)||cube.every(i=>values[i]<0))continue;
-                for(const tet of tetra){
-                  const inside=[],outside=[];
-                  for(const k of tet)(values[cube[k]]<0?inside:outside).push(cube[k]);
-                  if(inside.length===1)tri(...outside.map(b=>vertex(inside[0],b)));
-                  else if(inside.length===3)tri(...inside.map(a=>vertex(a,outside[0])));
-                  else if(inside.length===2){
-                    const [a,b]=inside,[c,d]=outside;
-                    const ac=vertex(a,c),ad=vertex(a,d),bc=vertex(b,c),bd=vertex(b,d);
-                    tri(ac,ad,bd);tri(ac,bd,bc);
-                  }
-                }
-              }
-              const geometry=new T.BufferGeometry();
-              geometry.setAttribute('position',new T.Float32BufferAttribute(pos,3));
-              geometry.setAttribute('normal',new T.Float32BufferAttribute(norm,3));
-              geometry.setIndex(indices);
-              return geometry;
-            }
-            const handGeometry=sculpt();
-            const left=new T.Group(), right=new T.Group();
-            left.add(new T.Mesh(handGeometry,new T.MeshStandardMaterial({color:0x57534d,roughness:.78,metalness:.02})));
-            right.add(new T.Mesh(handGeometry,new T.MeshStandardMaterial({color:0xe7d2b5,roughness:.74,metalness:.02})));
-            scene.add(left,right);
+            // Only the central puzzle piece is rendered in Three.js.
+            // The flat artwork stays in SVG to preserve the brand's exact silhouettes.
             const p = new T.Shape();
             p.moveTo(-1,-1);p.lineTo(-.3,-1);p.bezierCurveTo(-.47,-.48,.47,-.48,.3,-1);
             p.lineTo(1,-1);p.lineTo(1,-.3);p.bezierCurveTo(1.52,-.47,1.52,.47,1,.3);
@@ -181,13 +113,13 @@ const translations = {
             const geom=new T.ExtrudeGeometry(p,{depth:.28,bevelEnabled:true,bevelSegments:4,steps:1,bevelSize:.055,bevelThickness:.045,curveSegments:24});
             geom.translate(0,0,-.14);
             const piece=new T.Mesh(geom,[new T.MeshStandardMaterial({color:0xf5bd13,emissive:0x8c5300,emissiveIntensity:.16,roughness:.36,metalness:.06}),new T.MeshStandardMaterial({color:0xba8413,roughness:.53})]);
-            const pivot=new T.Group();pivot.add(piece);pivot.scale.setScalar(.48);scene.add(pivot);
+            const pivot=new T.Group();pivot.add(piece);pivot.scale.setScalar(.49);scene.add(pivot);
             renderer.domElement.setAttribute('aria-hidden', 'true');
             stage.append(renderer.domElement);
             let targetX = 0, targetY = 0, x = 0, y = 0, raf = 0, stopped = false;
             const resize = () => {
               const w = Math.max(1, stage.clientWidth), h = Math.max(1, stage.clientHeight);
-              const aspect=w/h, halfWidth=Math.max(4.55,1.85*aspect), halfHeight=halfWidth/aspect;
+              const aspect=w/h, artAspect=1586/760, halfWidth=4.55*Math.max(1,aspect/artAspect), halfHeight=halfWidth/aspect;
               camera.left=-halfWidth;camera.right=halfWidth;camera.top=halfHeight;camera.bottom=-halfHeight;
               camera.updateProjectionMatrix();
               renderer.setSize(w, h, false);
@@ -209,14 +141,9 @@ const translations = {
               const t = (now - start) / 1000;
               x += (targetX - x) * .065;
               y += (targetY - y) * .065;
-              const reach=(1-Math.cos(t*.85))*.5;
               const wave=Math.sin(t*1.05);
-              left.position.set(-2.22+reach*.32,.20+wave*.055,-.05);
-              left.rotation.set(.10+y*.075,-.13+x*.12,.05+reach*.09);
-              right.position.set(2.22-reach*.32,-.25-wave*.05,.03);
-              right.rotation.set(-.17+y*.075,Math.PI+.15+x*.12,-.05-reach*.07);
-              pivot.position.set(x*.12,.04+wave*.11,.38);
-              pivot.rotation.set(.12+y*.17,-.22+x*.24+Math.sin(t*.7)*.11,-.20+wave*.10);
+              pivot.position.set(x*.09,275*9.1/1586+wave*.09,.38);
+              pivot.rotation.set(.22+y*.17,-.35+x*.24+Math.sin(t*.7)*.18,-.20+wave*.10);
               centerLight.position.copy(pivot.position);
               centerLight.position.z+=.7;
               renderer.render(scene, camera);
@@ -258,21 +185,26 @@ const translations = {
   * { box-sizing:border-box; }
   body { margin:0; background:#22221f; color:#f7f5ed; font:1rem/1.8 Manrope,system-ui,sans-serif; }
   html[dir="rtl"] body { font-family:Estedad,Tahoma,sans-serif; }
-  main { width:min(76rem,94vw); min-height:100vh; min-height:100svh; margin-inline:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.5rem 0 3rem; }
-  .brand { align-self:flex-start; display:inline-flex; align-items:center; gap:.55rem; color:inherit; font:700 1.35rem Sora,sans-serif; text-decoration:none; margin-block-end:.75rem; }
+  main { width:min(76rem,94vw); min-height:100vh; min-height:100svh; margin-inline:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1rem 0 2rem; }
+  .brand { align-self:flex-start; display:inline-flex; align-items:center; gap:.55rem; color:inherit; font:700 1.35rem Sora,sans-serif; text-decoration:none; margin-block-end:.15rem; }
   .brand img { object-fit:contain; }
-  .puzzle-stage { position:relative; width:100%; aspect-ratio:2.6; max-height:48vh; overflow:hidden; isolation:isolate; background:radial-gradient(ellipse at 50% 52%,#493a22 0%,#2d2922 30%,#22221f 69%); }
+  .puzzle-stage { position:relative; width:100%; aspect-ratio:2.1; max-height:48vh; overflow:hidden; isolation:isolate; background:radial-gradient(ellipse at 50% 25%,#493a22 0%,#2d2922 28%,#22221f 68%); }
   .puzzle-fallback,.puzzle-stage canvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
   .puzzle-stage canvas { opacity:0; }
   .puzzle-stage.is-rendered canvas { opacity:1; }
-  .puzzle-stage.is-rendered .puzzle-fallback { visibility:hidden; }
-  .error-copy { display:flex; flex-direction:column; align-items:center; text-align:center; margin-top:-.4rem; position:relative; }
-  .error-code { font:700 clamp(4.8rem,10vw,8rem)/1 Sora,sans-serif; letter-spacing:-.075em; color:#f7f5ed; }
+  .puzzle-stage.is-rendered .static-piece { visibility:hidden; }
+  .graphic-hand-yellow { animation: yellow-approach 7s ease-in-out infinite; }
+  .graphic-hand-charcoal { animation: charcoal-approach 7s ease-in-out infinite; }
+  @keyframes yellow-approach { 0%,100% { transform:translateX(-8px); } 50% { transform:translateX(0); } }
+  @keyframes charcoal-approach { 0%,100% { transform:translateX(8px); } 50% { transform:translateX(0); } }
+  @media(prefers-reduced-motion:reduce) { .graphic-hand-yellow,.graphic-hand-charcoal { animation:none; } }
+  .error-copy { display:flex; flex-direction:column; align-items:center; text-align:center; margin-top:0; position:relative; }
+  .error-code { font:700 clamp(4rem,8vw,6.5rem)/1 Sora,sans-serif; letter-spacing:-.075em; color:#f7f5ed; }
   .error-code span { color:#f5bd13; }
   h1 { font-size:clamp(1.5rem,4vw,2.45rem); line-height:1.4; margin-block:.7rem .4rem; }
   p { margin-block:0 1.4rem; max-width:49ch; color:#cfc9bd; }
   .button { background:#f5bd13; color:#22221f; padding:.7rem 1.45rem; border-radius:100px; font-weight:700; text-decoration:none; }
   .button:hover { background:#ffd153; }
   a:focus-visible { outline:3px solid #f5bd13; outline-offset:5px; }
-  @media(max-width:720px) { main { width:94vw; padding:1.3rem 0 2.5rem; } .brand { margin-inline-start:3vw; } .puzzle-stage { aspect-ratio:1.65; max-height:none; } .error-copy { width:90%; margin-top:0; } }
+  @media(max-width:720px) { main { width:94vw; padding:1.3rem 0 2.5rem; } .brand { margin-inline-start:3vw; } .puzzle-stage { aspect-ratio:1.85; max-height:none; } .error-copy { width:90%; margin-top:0; } }
 </style>
