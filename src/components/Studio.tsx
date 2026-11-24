@@ -294,7 +294,7 @@ export function StudioContent({
                     <p className="connection-kicker"><i aria-hidden="true"/>{tr("تماس با ما","Contact us","تواصل معنا")}</p>
                     <h1 lang="en" dir="ltr"><span>Can we</span><span>help you?</span></h1>
                     <p className="connection-card-copy">{tr("از ایده‌هاتون برامون بگید. از همین‌جا شروع می‌کنیم.","Tell us what you have in mind. Let’s start here.","أخبرونا بما يدور في أذهانكم. لنبدأ من هنا.")}</p>
-                    <a className="connection-primary" href="#contact-form">{tr("بیا صحبت کنیم","Let's talk","لنتحدّث")} <span aria-hidden="true">↗</span></a>
+                    <a className="connection-primary" href="#contact-form" data-open-quiz="">{tr("بیا صحبت کنیم","Let's talk","لنتحدّث")} <span aria-hidden="true">↗</span></a>
                   </div>
                 </div>
               </div>
@@ -317,12 +317,12 @@ export function StudioContent({
                 {id:"phone",title:tr("تماس تلفنی","Call us","اتصلوا بنا"),text:tr("برای یک گفت‌وگوی مستقیم.","For a direct conversation.","لحوار مباشر."),href:null},
                 {id:"whatsapp",title:"WhatsApp",text:tr("برای یک پیام کوتاه و راحت.","For a quick, easy message.","لرسالة سريعة وسهلة."),href:null},
                 {id:"email",title:tr("ارسال ایمیل","Email us","راسلونا"),text:tr("برای معرفی، فایل یا مکاتبات.","For introductions, files or correspondence.","للتعريف أو الملفات أو المراسلات."),href:null},
-                {id:"team",title:tr("همکاری با تیم جیگزا","Join our team","انضموا إلى فريقنا"),text:tr("جایی برای آدم‌های خلاق.","A place for creative people.","مكان للمبدعين."),href:null},
-                {id:"partner",title:tr("پیشنهاد شراکت","Become a partner","اقترحوا شراكة"),text:tr("ببینیم چه چیزی می‌تونیم با هم بسازیم.","Let’s see what we can build together.","لنكتشف ما يمكننا بناؤه معاً."),href:url("contact")+"?interest=partnership#contact-form"}
+                {id:"team",title:tr("همکاری با تیم جیگزا","Join our team","انضموا إلى فريقنا"),text:tr("جایی برای آدم‌های خلاق.","A place for creative people.","مكان للمبدعين."),href:"#contact-form"},
+                {id:"partner",title:tr("پیشنهاد شراکت","Become a partner","اقترحوا شراكة"),text:tr("ببینیم چه چیزی می‌تونیم با هم بسازیم.","Let’s see what we can build together.","لنكتشف ما يمكننا بناؤه معاً."),href:"#contact-form"}
               ].map((item,n)=>{
                 const inside=<><span className="connection-route-index">0{n+1}</span><span className={"connection-route-art route-"+item.id} aria-hidden="true"><i/><b/></span><div><h3>{item.title}</h3><p>{item.text}</p></div><span className="connection-route-tail">{item.href?"↗":tr("به‌زودی","Coming soon","قريباً")}</span></>;
                 const className="connection-route connection-route-"+item.id;
-                return item.href?<a key={item.id} className={className} href={item.href} data-astro-reload={item.id==="partner"?"true":undefined} data-contact-reveal>{inside}</a>:<div key={item.id} className={className+" is-pending"} data-contact-reveal>{inside}</div>;
+                return item.href?<a key={item.id} className={className} href={item.href} data-open-quiz={item.id==="partner"?"partnership":item.id==="team"?"careers":""} data-contact-reveal>{inside}</a>:<div key={item.id} className={className+" is-pending"} data-contact-reveal>{inside}</div>;
               })}
             </div>
           </section>
@@ -332,145 +332,73 @@ export function StudioContent({
               <h2 id="connection-form-title">{tr("از ایده‌تون بگید.","Tell us your story.","حدّثونا عن فكرتكم.")}</h2>
               <p>{data.contactIntro[i]}</p>
             </div>
-          <form id="enquiry">
-            <p className="notice">
-              {tr(
-                "فرم در حالت پیش‌نمایش است. می‌توانید یک نسخه از شرح پروژه را برای خودتان دانلود کنید.",
-                "This form is in preview mode. You can download a copy of your project brief.",
-                "يمكنكم تنزيل نسخة من ملخّص المشروع للاحتفاظ بها. لا يرسل هذا النموذج البيانات إلى الاستوديو.",
-              )}
-            </p>
-            <div className="fields">
-              <label>
-                {tr("نام شما", "Your name", "الاسم")}
-                <input name="name" autoComplete="name" required />
-              </label>
-              <label>
-                {tr(
-                  "نام مجموعه (اختیاری)",
-                  "Business name (optional)",
-                  "اسم الشركة (اختياري)",
-                )}
-                <input name="business" autoComplete="organization" />
-              </label>
-              <label>
-                {tr(
-                  "ایمیل یا شمارهٔ تماس",
-                  "Email or phone number",
-                  "البريد الإلكتروني أو رقم الهاتف",
-                )}
-                <input name="contact" dir="auto" required />
-              </label>
-              <div className="interest-field" data-interest>
-                <span id="interest-label">
-                  {tr("موضوع همکاری", "Project interest", "موضوع التعاون")}
-                </span>
-                <input type="hidden" name="interest" value="unsure" />
-                <details className="interest-picker">
-                  <summary aria-labelledby="interest-label interest-value">
-                    <span id="interest-value">
-                      {tr(
-                        "هنوز مطمئن نیستم",
-                        "I’m not sure yet",
-                        "لم أقرّر بعد",
-                      )}
-                    </span>
-                    <span className="interest-chevron" aria-hidden="true" />
-                  </summary>
-                  <div
-                    className="interest-options"
-                    role="group"
-                    aria-labelledby="interest-label"
-                  >
-                    {data.services.map((s, serviceIndex) => (
-                      <button
-                        type="button"
-                        data-value={s.id}
-                        data-legacy-service={serviceIndex}
-                        aria-pressed={false}
-                        key={s.id}
-                      >
-                        {s.title[i]}
-                      </button>
-                    ))}
-                    <button
-                      type="button"
-                      data-value="unsure"
-                      aria-pressed={true}
-                    >
-                      {tr(
-                        "هنوز مطمئن نیستم",
-                        "I’m not sure yet",
-                        "لم أقرّر بعد",
-                      )}
-                    </button>
-                    <button
-                      type="button"
-                      data-value="partnership"
-                      aria-pressed={false}
-                    >
-                      {tr(
-                        "پیشنهاد شراکت",
-                        "Business partnership",
-                        "اقتراح شراكة",
-                      )}
-                    </button>
-                    <button
-                      type="button"
-                      data-value="samples"
-                      data-legacy-service="related"
-                      aria-pressed={false}
-                    >
-                      {tr(
-                        "درخواست نمونهٔ مرتبط",
-                        "Request relevant work",
-                        "طلب أعمال مشابهة",
-                      )}
-                    </button>
-                  </div>
-                </details>
-              </div>
-              <label className="wide">
-                {tr(
-                  "توضیح پروژه",
-                  "Tell us about your project",
-                  "حدّثونا عن مشروعكم",
-                )}
-                <textarea
-                  name="brief"
-                  required
-                  rows={4}
-                  placeholder={tr(
-                    "دوست دارید چه تغییری ایجاد شود؟",
-                    "What would you like to change?",
-                    "ما الذي تودّون تغييره؟",
-                  )}
-                />
-              </label>
-              <label className="wide">
-                {tr(
-                  "لینک نمونه (اختیاری)",
-                  "Reference link (optional)",
-                  "رابط مرجعي (اختياري)",
-                )}
-                <input
-                  name="reference"
-                  type="url"
-                  dir="ltr"
-                  placeholder="https://"
-                />
-              </label>
+            <div className="connection-brief-card" data-contact-reveal>
+              <span className="connection-brief-number" dir="ltr">01 — 03</span>
+              <h3>{tr("سه قدم برای شروع.","Three steps to get started.","ثلاث خطوات للبداية.")}</h3>
+              <p>{tr("موضوع همکاری، آشنایی با شما و چند خط درباره ایده‌تون.","Choose a topic, introduce yourself and tell us a little about your idea.","اختاروا الموضوع، عرّفوا بأنفسكم وأخبرونا عن فكرتكم.")}</p>
+              <a className="connection-primary" href="#contact-form" data-open-quiz="">{tr("شروع پرسش‌نامه","Start the questionnaire","ابدأوا الاستبيان")} <span aria-hidden="true">↗</span></a>
+              <p className="connection-brief-note">{tr("نسخه آزمایشی: پاسخ‌ها فقط به‌صورت فایل دانلود می‌شن و هنوز برای جیگزا ارسال نمی‌شن.","Preview: responses can be downloaded, but are not yet sent to JIGSAW.","نسخة تجريبية: يمكن تنزيل الإجابات، ولا تُرسل إلى جيغسو بعد.")}</p>
+              <noscript>{tr("برای باز کردن پرسش‌نامه، جاوااسکریپت را فعال کنید.","Enable JavaScript to open the questionnaire.","فعّلوا جافاسكريبت لفتح الاستبيان.")}</noscript>
             </div>
-            <button className="button" type="button" id="download">
-              {tr(
-                "دانلود شرح پروژه",
-                "Download my brief",
-                "تنزيل ملخّص المشروع",
-              )}
-            </button>
-            <p role="status" id="status" />
-          </form>
           </section>
+          <dialog className="connection-quiz" id="connection-quiz" aria-labelledby="quiz-heading-1" data-preview-note={tr("شرح پروژه آماده دانلود شد؛ هیچ اطلاعاتی ارسال نشده.","Your brief is ready to download. Nothing has been sent.","الملخص جاهز للتنزيل. لم تُرسل أي بيانات.")} data-contact-required={tr("حداقل یک ایمیل یا شماره تماس معتبر وارد کنید.","Enter at least one valid email or phone number.","أدخلوا بريداً إلكترونياً أو رقم هاتف صالحاً.")} data-topic-required={tr("حداقل یک گزینه انتخاب کنید.","Choose at least one option.","اختاروا خياراً واحداً على الأقل.")}>
+            <div className="quiz-scenery" aria-hidden="true">
+              <svg viewBox="0 0 160 160" className="quiz-piece quiz-piece-a"><path fill="#F5BD13" d="M0 0H58C48 35 95 35 85 0H160V65C125 55 125 105 160 95V160H0Z"/></svg>
+              <svg viewBox="0 0 160 160" className="quiz-piece quiz-piece-b"><path fill="#22221F" d="M0 0H160V160H95C105 125 55 125 65 160H0V95C35 105 35 55 0 65Z"/></svg>
+              <img className="quiz-side-art" src={assetHref("media/jigsaw-600.webp")} alt="" width="600" height="800" loading="lazy"/>
+              <span className="quiz-red-square"/>
+            </div>
+            <div className="quiz-shell">
+              <div className="quiz-top">
+                <span className="quiz-brand" dir="ltr">JIGSAW<span>.</span></span>
+                <button type="button" className="quiz-close" data-quiz-close aria-label={tr("بستن پرسش‌نامه","Close questionnaire","إغلاق الاستبيان")}>×</button>
+                <span className="quiz-counter" dir="ltr" aria-live="polite">01 / 03</span>
+              </div>
+              <div className="quiz-progress" aria-hidden="true"><i/><i/><i/></div>
+              <form id="connection-quiz-form" noValidate>
+                <section className="quiz-step" data-quiz-step="1">
+                  <p className="quiz-step-number" dir="ltr">01.</p>
+                  <h2 id="quiz-heading-1" tabIndex={-1}>{tr("روی چی با هم کار کنیم؟","What can we work on?","على ماذا نعمل معاً؟")}</h2>
+                  <p className="quiz-intro">{tr("هر چندتا گزینه که به کارتون میاد، انتخاب کنید.","Choose as many as you like.","اختاروا كل ما يناسبكم.")}</p>
+                  <div className="quiz-options">
+                    {[...data.services.map((service,n)=>({id:service.id,title:service.title[i],legacy:String(n)})),{id:"partnership",title:tr("پیشنهاد شراکت تجاری","Business partnership","اقتراح شراكة"),legacy:""},{id:"careers",title:tr("همکاری با تیم جیگزا","Join the JIGSAW team","انضموا إلى فريق جيغسو"),legacy:""},{id:"samples",title:tr("دیدن نمونه‌کار مرتبط","Request relevant work","طلب أعمال مشابهة"),legacy:"related"},{id:"unsure",title:tr("هنوز نمی‌دونم از کجا شروع کنم!","Not sure where to start!","لم أقرر من أين أبدأ!"),legacy:""},{id:"hello",title:tr("فقط اومدم سلام کنم!","Just saying hello!","أردت فقط إلقاء التحية!"),legacy:""}].map(item=><label className="quiz-option" key={item.id}><input type="checkbox" name="topics" value={item.id} data-legacy-service={item.legacy}/><span>{item.title}</span></label>)}
+                  </div>
+                  <div className="quiz-actions"><button type="button" className="quiz-next" data-quiz-next>{tr("مرحله بعد","Next step","الخطوة التالية")} <span aria-hidden="true">↗</span></button></div>
+                </section>
+                <section className="quiz-step" data-quiz-step="2" hidden>
+                  <p className="quiz-step-number" dir="ltr">02.</p>
+                  <h2 id="quiz-heading-2" tabIndex={-1}>{tr("یکم بیشتر آشنا بشیم.","Let’s get to know you.","لنتعرّف عليكم أكثر.")}</h2>
+                  <p className="quiz-intro">{tr("اسم‌تون و حداقل یک راه ارتباطی برای شروع کافیه.","Your name and at least one way to reach you are enough.","اسمكم وطريقة واحدة للتواصل تكفيان.")}</p>
+                  <div className="quiz-fields">
+                    <label>{tr("نام","First name","الاسم")}<input name="firstName" autoComplete="given-name" required maxLength={100}/></label>
+                    <label>{tr("نام خانوادگی","Last name","اسم العائلة")}<input name="lastName" autoComplete="family-name" required maxLength={100}/></label>
+                    <label>{tr("نام مجموعه (اختیاری)","Business name (optional)","اسم الشركة (اختياري)")}<input name="business" autoComplete="organization" maxLength={150}/></label>
+                    <label>{tr("ایمیل","Email","البريد الإلكتروني")}<input name="email" type="email" autoComplete="email" dir="ltr" placeholder="name@example.com" maxLength={254}/></label>
+                    <label className="quiz-wide">{tr("شماره تماس با کد کشور","Phone number with country code","رقم الهاتف مع رمز الدولة")}<span className="quiz-phone" dir="ltr"><select name="country" aria-label={tr("کد کشور","Country code","رمز الدولة")}><option value="">{tr("کد کشور","Country code","رمز الدولة")}</option><option value="+98">IR +98</option><option value="+968">OM +968</option><option value="+971">AE +971</option><option value="other">{tr("سایر (شماره کامل)","Other (full number)","أخرى (الرقم الكامل)")}</option></select><input name="phone" type="tel" autoComplete="tel" placeholder="+..." maxLength={32}/></span></label>
+                  </div>
+                  <div className="quiz-actions"><button type="button" className="quiz-back" data-quiz-back>{tr("مرحله قبل","Previous","السابق")}</button><button type="button" className="quiz-next" data-quiz-next>{tr("مرحله آخر","Final step","الخطوة الأخيرة")} <span aria-hidden="true">↗</span></button></div>
+                </section>
+                <section className="quiz-step" data-quiz-step="3" hidden>
+                  <p className="quiz-step-number" dir="ltr">03.</p>
+                  <h2 id="quiz-heading-3" tabIndex={-1}>{tr("چیزی هست که بخواید بگید؟","Anything else?","هل من شيء آخر؟")}</h2>
+                  <p className="quiz-intro">{tr("از ایده یا پروژه‌تون برامون بگید؛ چند خط هم کافیه.","Tell us a little about your idea or project. A few lines are enough.","أخبرونا عن فكرتكم أو مشروعكم. بضعة أسطر تكفي.")}</p>
+                  <div className="quiz-fields">
+                    <label className="quiz-wide">{tr("پیام شما (اختیاری)","Your message (optional)","رسالتكم (اختياري)")}<textarea name="brief" rows={4} maxLength={5000} placeholder={tr("از اینجا شروع کنید...","Start here...","ابدأوا هنا...")}/></label>
+                    <label className="quiz-wide">{tr("لینک نمونه‌کار یا رفرنس (اختیاری)","Portfolio or reference link (optional)","رابط الأعمال أو المرجع (اختياري)")}<input name="reference" type="url" dir="ltr" placeholder="https://" maxLength={2048}/></label>
+                  </div>
+                  <p className="quiz-preview-note">{tr("نسخه آزمایشی: این اطلاعات فقط روی دستگاه شما به فایل تبدیل می‌شن؛ به جیگزا ارسال نمی‌شن.","Preview mode: your answers are converted into a file on your device and are not sent to JIGSAW.","نسخة تجريبية: تتحول الإجابات إلى ملف على جهازكم ولا تُرسل إلى جيغسو.")}</p>
+                  <div className="quiz-actions"><button type="button" className="quiz-back" data-quiz-back>{tr("مرحله قبل","Previous","السابق")}</button><button type="submit" className="quiz-next">{tr("دانلود شرح پروژه","Download my brief","تنزيل ملخّص المشروع")} <span aria-hidden="true">↓</span></button></div>
+                </section>
+                <p className="quiz-error" role="alert" hidden/>
+              </form>
+              <section className="quiz-success" hidden>
+                <svg viewBox="0 0 160 100" aria-hidden="true" className="quiz-connected"><path fill="#F5BD13" d="M0 10H80V33C108 24 108 66 80 57V90H0Z"/><path fill="#22221F" d="M80 10H160V90H80V57C108 66 108 24 80 33Z"/></svg>
+                <h2 tabIndex={-1}>{tr("یک قطعه دیگه آماده شد!","One more piece ready!","قطعة أخرى جاهزة!")}</h2>
+                <p>{tr("شرح پروژه آماده دانلود شده. هنوز پیامی ارسال نشده.","Your brief is ready to download. Nothing has been sent.","ملخصكم جاهز للتنزيل. لم تُرسل أي رسالة.")}</p>
+                <div className="quiz-actions"><button type="button" className="quiz-back" data-quiz-edit>{tr("ویرایش پاسخ‌ها","Edit answers","تعديل الإجابات")}</button><button type="button" className="quiz-next" data-quiz-close>{tr("بازگشت به صفحه تماس","Back to contact","العودة إلى التواصل")}</button></div>
+              </section>
+            </div>
+          </dialog>
         </div>
       )
     </>
