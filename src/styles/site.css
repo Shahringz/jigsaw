@@ -1340,7 +1340,7 @@ html[dir=rtl] .connection-page .quiz-step h2,html[dir=rtl] .connection-page .qui
 .connection-page .quiz-intro{color:#4b494a;font-size:clamp(.88rem,1.25vw,1rem);line-height:1.7;margin-bottom:25px}
 .quiz-options{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
 .quiz-option{display:flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid #c8c7c3;min-height:44px;background:#fff;text-align:start;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
-.quiz-option:has(input:checked){background:#f5bd13;border-color:#22221f}
+.quiz-option.is-selected{background:#f5bd13;border-color:#22221f}
 .quiz-option:focus-within{outline:2px solid #ae373a;outline-offset:2px}
 .quiz-option:hover{border-color:#22221f;transform:translateY(-2px)}
 .quiz-option input{width:17px;height:17px;flex:none;accent-color:#22221f;margin:0}
@@ -1374,10 +1374,22 @@ html[dir=rtl] .connection-page .quiz-step h2,html[dir=rtl] .connection-page .qui
 .connection-card{text-align:center;display:flex;flex-direction:column;align-items:center;padding:clamp(25px,4vw,56px)}
 .connection-card .connection-kicker{justify-content:center;text-align:center}
 .connection-card h1{width:100%;text-align:center;margin-block:22px;font-size:clamp(2.35rem,5.1vw,5.1rem)}
-.connection-card h1[dir="rtl"]{font-family:Estedad,Tahoma,sans-serif;font-size:clamp(1.7rem,3.5vw,3.8rem);line-height:1.4;letter-spacing:0}
+.connection-card h1[dir="rtl"]{font-family:var(--display);font-size:clamp(1.7rem,3.5vw,3.8rem);line-height:1.4;letter-spacing:0}
 .connection-card h1[lang="ar"]{font-size:clamp(2rem,4.25vw,4.4rem)}
 .connection-card .connection-card-copy{margin-inline:auto;text-align:center;max-width:30ch}
 .connection-card .connection-primary{justify-content:center}
 .connection-word span{opacity:var(--letter-opacity,1);transform:translateY(var(--letter-y,0%));will-change:transform,opacity}
 @media(max-width:700px){.connection-card{padding:25px 18px}.connection-card h1{font-size:clamp(2.1rem,9vw,3.6rem)}.connection-card h1[dir="rtl"]{font-size:clamp(1.55rem,6.1vw,2.7rem)}.connection-card h1[lang="ar"]{font-size:clamp(1.9rem,7.1vw,3.1rem)}}
 @media(prefers-reduced-motion:reduce){.connection-word span{opacity:1!important;transform:none!important;will-change:auto}}
+
+/* Locale-aware type across the whole site, with bundled local fallbacks. */
+:root[lang="fa"]{--type:"Digi Hamishe",Estedad,Tahoma,sans-serif;--display:"Digi Hamishe",Estedad,Tahoma,sans-serif}
+:root[lang="ar"]{--type:"IBM Plex Sans Arabic",Estedad,Tahoma,sans-serif;--display:"IBM Plex Sans Arabic",Estedad,Tahoma,sans-serif}
+.lang,.language-picker{font-family:var(--type)}
+[lang="ar"] bdi[lang="fa"],bdi[lang="fa"]{font-family:"Digi Hamishe",Estedad,Tahoma,sans-serif}
+bdi[lang="ar"]{font-family:"IBM Plex Sans Arabic",Estedad,Tahoma,sans-serif}
+bdi[lang="en"]{font-family:Manrope,Arial,sans-serif}
+.connection-quiz[open]{display:block}
+.connection-quiz.quiz-fallback[open]{z-index:10000}
+.connection-card h1[lang="ar"]{font-family:var(--display)}
+@supports not (clip-path:polygon(0 0,100% 0,100% 100%,0 100%)){.connection-quiz[open]{animation:quiz-step-in .35s ease both}}
