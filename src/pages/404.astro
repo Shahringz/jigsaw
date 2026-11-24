@@ -32,6 +32,18 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
     document.addEventListener('DOMContentLoaded', () => {
       const t = translations[lang];
       for (const [id,value] of Object.entries({'error-kicker':t.kicker,'error-title':t.title,'error-description':t.message,'error-home-label':t.home,'error-contact':t.contact})) document.getElementById(id).textContent=value;
+      const headline = document.getElementById('error-title');
+      const words = t.title.split(' ');
+      const cut = Math.ceil(words.length / 2);
+      headline.replaceChildren();
+      [words.slice(0,cut).join(' '),words.slice(cut).join(' ')].filter(Boolean).forEach((phrase,i)=>{
+        if(i) headline.append(' ');
+        const span=document.createElement('span');
+        span.className='title-phrase';
+        span.textContent=phrase;
+        span.style.setProperty('--phrase-delay', i*100+'ms');
+        headline.append(span);
+      });
       document.getElementById('error-home').href=t.href;
       document.getElementById('error-contact').href=t.contactHref;
       // On the static 404, preserve the missing route when switching language.
@@ -42,6 +54,7 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
       }
       const visibleHeader = document.querySelector('[data-error-header="'+lang+'"]');
       const menus = visibleHeader.querySelectorAll('details');
+      document.querySelector('.error-layout').classList.add('motion-ready');
       document.addEventListener('click', e => {
         if (!(e.target instanceof Element)) return;
         for (const menu of menus) if (!menu.contains(e.target) || e.target.closest('a')) menu.open=false;
@@ -60,7 +73,7 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
     <div class="error-copy">
       <div class="error-heading">
         <p class="error-kicker" id="error-kicker">{translations.fa.kicker}</p>
-        <div class="error-code" dir="ltr" aria-label="404">4<span class="zero">0</span>4</div>
+        <div class="error-code" dir="ltr" aria-label="404"><span class="error-digit" aria-hidden="true">4</span><span class="error-digit zero" aria-hidden="true">0</span><span class="error-digit" aria-hidden="true">4</span></div>
         <h1 class="error-title" id="error-title">{translations.fa.title}</h1>
       </div>
       <div class="error-details">
@@ -78,20 +91,20 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
           <path class="art-track" d="M280 112 A163 163 0 0 1 475 115 M295 342 Q305 382 350 401"/>
           <rect class="art-mark" x="316" y="94" width="13" height="13" fill="#AE373A"/>
           <rect class="art-mark" x="344" y="395" width="13" height="13" fill="#AE373A"/>
-          <g class="hand-left" fill="#F5BD13">
+          <g class="hand-left-entry"><g class="hand-left" fill="#F5BD13">
             <path d="M0 48 L184 125 L153 202 L0 138 Z"/>
             <path d="M194 130 L207 136 L175 213 L162 207 Z"/>
             <path d="M216 140 L237 151 L280 134 Q294 129 309 135 L367 156 Q379 161 373 173 Q370 183 355 181 L306 169 L278 185 L314 230 L357 239 Q372 243 371 253 L370 258 L310 248 L285 226 L280 233 L306 255 L369 266 Q383 269 381 282 L380 285 L304 273 L278 251 L273 258 L300 281 L359 290 Q372 293 369 305 L369 308 L293 295 Q280 293 268 282 L220 241 L184 218 Z"/>
             <path d="M268 186 L303 167 L307 174 L272 194 Z" fill="#FFFFFF"/>
-          </g>
-          <g class="hand-right" fill="#22221F">
+          </g></g>
+          <g class="hand-right-entry"><g class="hand-right" fill="#22221F">
             <path d="M720 350 L590 394 L619 476 L720 442 Z"/>
             <path d="M581 397 L568 401 L597 484 L610 479 Z"/>
             <path d="M559 406 L536 413 L516 380 L474 355 Q460 348 454 357 Q448 367 460 378 L489 400 L490 426 L461 445 L432 438 L400 403 Q391 394 381 402 Q373 410 382 420 L420 462 L454 471 L450 478 L413 469 L369 422 Q360 413 350 421 Q342 429 351 440 L404 493 L448 503 L446 510 L398 499 L346 449 Q337 440 328 449 Q320 457 329 467 L388 525 L448 538 L502 521 L586 470 Z"/>
-          </g>
-          <g class="piece-float"><g transform="translate(455 265) rotate(24) scale(.82)">
-            <path d="M-57 -57 H-17 A23 23 0 1 1 17 -57 H57 V-17 A23 23 0 1 0 57 17 V57 H-57 V17 A23 23 0 1 0 -57 -17 Z" fill="#F5BD13"/>
           </g></g>
+          <g class="piece-entry"><g class="piece-response"><g class="piece-float"><g transform="translate(455 265) rotate(24) scale(.82)">
+            <path d="M-57 -57 H-17 A23 23 0 1 1 17 -57 H57 V-17 A23 23 0 1 0 57 17 V57 H-57 V17 A23 23 0 1 0 -57 -17 Z" fill="#F5BD13"/>
+          </g></g></g></g>
           <g class="art-mark" fill="#AE373A" transform="translate(535 190)"><path d="M0 0 L9 -27 L17 -24 L6 2Z M14 13 L40 -3 L45 5 L18 19Z M18 31 L46 34 L45 42 L17 38Z"/></g>
         </g>
       </svg>
@@ -103,11 +116,15 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
     art.addEventListener('pointermove',e=>{
       if(e.pointerType==='touch'||reduced.matches)return;
       const r=art.getBoundingClientRect();
-      art.style.setProperty('--mx',((e.clientX-r.left)/r.width-.5)*8+'px');
-      art.style.setProperty('--my',((e.clientY-r.top)/r.height-.5)*6+'px');
+      const x=Math.max(-.5,Math.min(.5,(e.clientX-r.left)/r.width-.5));
+      const y=Math.max(-.5,Math.min(.5,(e.clientY-r.top)/r.height-.5));
+      art.style.setProperty('--mx',x*12+'px');
+      art.style.setProperty('--my',y*8+'px');
+      art.style.setProperty('--px',x*5+'px');
+      art.style.setProperty('--py',y*4+'px');
     },{passive:true});
     art.addEventListener('pointerleave',()=>{
-      art.style.setProperty('--mx','0px');art.style.setProperty('--my','0px');
+      for(const prop of ['--mx','--my','--px','--py'])art.style.setProperty(prop,'0px');
     });
   </script>
 </body>
@@ -135,16 +152,46 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
   .handoff-art{position:relative;width:100%;min-width:0;direction:ltr}
   .handoff-art svg{display:block;width:100%;height:auto;overflow:hidden}
   .art-track{fill:none;stroke:#4b494a;stroke-width:1.4;stroke-linecap:round}
-  .hand-left{animation:reach-left 5.8s ease-in-out infinite;transform-origin:center}
-  .hand-right{animation:reach-right 5.8s ease-in-out infinite;transform-origin:center}
-  .piece-float{transform-box:fill-box;transform-origin:center;animation:piece-float 5.8s ease-in-out infinite}
-  .art-mark{animation:mark-pulse 5.8s ease-in-out infinite}
+  /* Independent entrance and idle layers: no competing transforms. */
+  .title-phrase{display:inline-block;max-width:100%}
+  .motion-ready{--motion-ease:cubic-bezier(.22,1,.36,1)}
+  .motion-ready .error-kicker{animation:copy-in .48s var(--motion-ease) .06s backwards}
+  .motion-ready .error-digit{display:inline-block;animation:digit-in .72s var(--motion-ease) .15s backwards}
+  .motion-ready .error-digit:nth-child(2){animation-delay:.22s}
+  .motion-ready .error-digit:nth-child(3){animation-delay:.29s}
+  .motion-ready .title-phrase{animation:copy-in .66s var(--motion-ease) calc(.66s + var(--phrase-delay,0ms)) backwards}
+  .motion-ready .error-rule{transform-origin:left;animation:rule-in .55s var(--motion-ease) .85s backwards}
+  html[dir=rtl] .motion-ready .error-rule{transform-origin:right}
+  .motion-ready .error-description{animation:copy-in .6s var(--motion-ease) .88s backwards}
+  .motion-ready .error-home{animation:copy-in .55s var(--motion-ease) 1.02s backwards}
+  .motion-ready .error-contact{animation:copy-in .55s var(--motion-ease) 1.14s backwards}
+  .motion-ready .error-actions:focus-within a{animation:none}
+  .motion-ready .hand-left-entry{animation:enter-left .95s var(--motion-ease) .25s backwards}
+  .motion-ready .hand-right-entry{animation:enter-right 1s var(--motion-ease) .36s backwards}
+  .motion-ready .piece-entry{transform-box:fill-box;transform-origin:center;animation:piece-in .8s var(--motion-ease) .52s backwards}
+  .hand-left,.hand-right{transform-box:fill-box;transform-origin:center}
+  .motion-ready .hand-left{animation:reach-left 5.8s ease-in-out 1.36s infinite}
+  .motion-ready .hand-right{animation:reach-right 5.8s ease-in-out 1.36s infinite}
+  .piece-float{transform-box:fill-box;transform-origin:center}
+  .motion-ready .piece-float{animation:piece-float 5.8s ease-in-out 1.36s infinite}
+  .piece-response{transform:translate(var(--px,0px),var(--py,0px));transition:transform .36s ease-out}
+  .motion-ready .art-mark{animation:mark-pulse 5.8s ease-in-out 1.36s infinite}
+  .motion-ready .art-track{animation:track-in .9s var(--motion-ease) .58s backwards}
   .art-parallax{transform:translate(var(--mx,0px),var(--my,0px));transition:transform .32s ease-out}
-  @keyframes reach-left{0%,100%{transform:translate(-8px,0)}50%{transform:translate(3px,1px)}}
-  @keyframes reach-right{0%,100%{transform:translate(8px,0)}50%{transform:translate(-3px,-1px)}}
-  @keyframes piece-float{0%,100%{transform:translateY(-3px) rotate(-2deg)}50%{transform:translateY(4px) rotate(2deg)}}
+  .error-home:active{transform:translateY(1px)}
+  .error-contact{transition:color .2s,border-color .2s}
+  @keyframes copy-in{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes digit-in{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+  @keyframes rule-in{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:scaleX(1)}}
+  @keyframes enter-left{from{opacity:0;transform:translate(-78px,-10px)}to{opacity:1;transform:translate(0,0)}}
+  @keyframes enter-right{from{opacity:0;transform:translate(78px,10px)}to{opacity:1;transform:translate(0,0)}}
+  @keyframes piece-in{from{opacity:0;transform:translateY(10px) scale(.88)}to{opacity:1;transform:translateY(0) scale(1)}}
+  @keyframes track-in{from{opacity:0}to{opacity:1}}
+  @keyframes reach-left{0%,100%{transform:translate(0,0)}50%{transform:translate(-25px,-5px) rotate(-1deg)}}
+  @keyframes reach-right{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,5px) rotate(1deg)}}
+  @keyframes piece-float{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-7px) rotate(-2deg)}75%{transform:translateY(6px) rotate(2deg)}}
   @keyframes mark-pulse{0%,100%{opacity:1}50%{opacity:.72}}
-  @media(prefers-reduced-motion:reduce){.handoff-art *,.error-home,.error-arrow{animation:none!important;transition:none!important}.art-parallax{transform:none}}
+  @media(prefers-reduced-motion:reduce){.error-layout *, .error-layout *::before,.error-layout *::after{animation:none!important;transition:none!important}.art-parallax,.piece-response{transform:none}}
   @media(max-width:900px){.error-layout{grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:15px}.error-code{font-size:clamp(90px,13vw,142px)}.error-title{font-size:clamp(29px,4vw,44px)}}
   @media(max-width:680px){.error-layout{grid-template-columns:1fr;align-content:start;gap:18px;padding-block:30px 42px;min-height:calc(100svh - 76px);overflow:visible}.error-copy{display:contents}.error-heading{grid-row:1}.handoff-art{grid-row:2;width:min(100%,460px);justify-self:center}.error-details{grid-row:3}.error-code{font-size:clamp(100px,26vw,150px);margin-bottom:16px}.error-kicker{margin-bottom:13px}.error-title{max-width:none;font-size:clamp(30px,8.5vw,43px);margin-bottom:0}.error-rule{margin-bottom:12px}.error-description{margin-bottom:19px}.error-actions{gap:12px 20px}.error-home{min-height:46px}}
   html[dir=rtl] .error-title{letter-spacing:0;line-height:1.5}
