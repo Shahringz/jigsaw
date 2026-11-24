@@ -1,7 +1,9 @@
 import { Cover, Trace, ProjectEntry } from "./Artwork";
+import type { CSSProperties } from "react";
 import data from "../data/copy.json";
 import {
   languages,
+  assetHref,
   translator,
   pageHref,
   type Locale,
@@ -278,15 +280,58 @@ export function StudioContent({
         </div>
       )}
       {page === "contact" && (
-        <div className="wrap inner contact">
-          {intro(
-            tr(
-              "می‌تونیم بهتون کمک کنیم؟",
-              "Can we help you?",
-              "هل يمكننا مساعدتكم؟",
-            ),
-            data.contactIntro[i],
-          )}
+        <div className="connection-page" data-connection>
+          <section className="connection-stage" aria-label={tr("شروع گفت‌وگو","Start a conversation","ابدأوا الحوار")}>
+            <div className="wrap connection-stage-inner">
+              <div className="connection-scene">
+                <div className="connection-photo-motion">
+                  <figure className="connection-photo">
+                    <img src={assetHref("media/jigsaw-900.webp")} srcSet={[360,600,900].map(n => assetHref("media/jigsaw-"+n+".webp")+" "+n+"w").join(", ")} sizes="(max-width: 700px) 80vw, 42vw" width="900" height="1200" fetchPriority="high" alt={tr("تصویرسازی هویت بصری جیگزا","JIGSAW brand illustration","رسم الهوية البصرية لجيغسو")} />
+                  </figure>
+                </div>
+                <div className="connection-card-motion">
+                  <div className="connection-card" dir={languages[language].direction}>
+                    <p className="connection-kicker"><i aria-hidden="true"/>{tr("تماس با ما","Contact us","تواصل معنا")}</p>
+                    <h1 lang="en" dir="ltr"><span>Can we</span><span>help you?</span></h1>
+                    <p className="connection-card-copy">{tr("از ایده‌هاتون برامون بگید. از همین‌جا شروع می‌کنیم.","Tell us what you have in mind. Let’s start here.","أخبرونا بما يدور في أذهانكم. لنبدأ من هنا.")}</p>
+                    <a className="connection-primary" href="#contact-form">{tr("بیا صحبت کنیم","Let's talk","لنتحدّث")} <span aria-hidden="true">↗</span></a>
+                  </div>
+                </div>
+              </div>
+              <div className="connection-word-wrap">
+                <div className="connection-word" dir="ltr" aria-label="JIGSAW" role="img">
+                  {"JIGSAW".split("").map((letter,n)=><span key={n} aria-hidden="true" style={{"--letter":n} as CSSProperties}>{letter}</span>)}
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="wrap connection-paths" aria-labelledby="connection-paths-title">
+            <div className="connection-section-heading" data-contact-reveal>
+              <small>01 / {tr("مسیرهای ارتباطی","Ways to connect","طرق التواصل")}</small>
+              <h2 id="connection-paths-title">{tr("از کجا شروع کنیم؟","How should we connect?","من أين نبدأ؟")}</h2>
+              <p>{tr("هر گفت‌وگویی مسیر خودش رو داره.","Every conversation has its own starting point.","لكل حوار نقطة بداية.")}</p>
+            </div>
+            <div className="connection-grid">
+              {[
+                {id:"project",title:tr("شروع یک پروژه","Start a project","ابدأ مشروعاً"),text:tr("درباره ایده یا کسب‌وکارتون حرف بزنیم.","Tell us about your idea or business.","لنتحدّث عن فكرتكم أو عملكم."),href:"#contact-form"},
+                {id:"phone",title:tr("تماس تلفنی","Call us","اتصلوا بنا"),text:tr("برای یک گفت‌وگوی مستقیم.","For a direct conversation.","لحوار مباشر."),href:null},
+                {id:"whatsapp",title:"WhatsApp",text:tr("برای یک پیام کوتاه و راحت.","For a quick, easy message.","لرسالة سريعة وسهلة."),href:null},
+                {id:"email",title:tr("ارسال ایمیل","Email us","راسلونا"),text:tr("برای معرفی، فایل یا مکاتبات.","For introductions, files or correspondence.","للتعريف أو الملفات أو المراسلات."),href:null},
+                {id:"team",title:tr("همکاری با تیم جیگزا","Join our team","انضموا إلى فريقنا"),text:tr("جایی برای آدم‌های خلاق.","A place for creative people.","مكان للمبدعين."),href:null},
+                {id:"partner",title:tr("پیشنهاد شراکت","Become a partner","اقترحوا شراكة"),text:tr("ببینیم چه چیزی می‌تونیم با هم بسازیم.","Let’s see what we can build together.","لنكتشف ما يمكننا بناؤه معاً."),href:url("contact")+"?interest=partnership#contact-form"}
+              ].map((item,n)=>{
+                const inside=<><span className="connection-route-index">0{n+1}</span><span className={"connection-route-art route-"+item.id} aria-hidden="true"><i/><b/></span><div><h3>{item.title}</h3><p>{item.text}</p></div><span className="connection-route-tail">{item.href?"↗":tr("به‌زودی","Coming soon","قريباً")}</span></>;
+                const className="connection-route connection-route-"+item.id;
+                return item.href?<a key={item.id} className={className} href={item.href} data-astro-reload={item.id==="partner"?"true":undefined} data-contact-reveal>{inside}</a>:<div key={item.id} className={className+" is-pending"} data-contact-reveal>{inside}</div>;
+              })}
+            </div>
+          </section>
+          <section className="wrap inner contact connection-form" id="contact-form" aria-labelledby="connection-form-title">
+            <div className="connection-section-heading" data-contact-reveal>
+              <small>02 / {tr("شرح پروژه","Project brief","ملخص المشروع")}</small>
+              <h2 id="connection-form-title">{tr("از ایده‌تون بگید.","Tell us your story.","حدّثونا عن فكرتكم.")}</h2>
+              <p>{data.contactIntro[i]}</p>
+            </div>
           <form id="enquiry">
             <p className="notice">
               {tr(
@@ -425,8 +470,9 @@ export function StudioContent({
             </button>
             <p role="status" id="status" />
           </form>
+          </section>
         </div>
-      )}
+      )
     </>
   );
 }
