@@ -1393,3 +1393,5 @@ bdi[lang="en"]{font-family:Manrope,Arial,sans-serif}
 .connection-quiz.quiz-fallback[open]{z-index:10000}
 .connection-card h1[lang="ar"]{font-family:var(--display)}
 @supports not (clip-path:polygon(0 0,100% 0,100% 100%,0 100%)){.connection-quiz[open]{animation:quiz-step-in .35s ease both}}
+
+.connection-quiz:not([open]){display:none!important}
