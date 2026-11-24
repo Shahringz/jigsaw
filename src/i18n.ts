@@ -39,3 +39,9 @@ export const networkSections = {
   ventures: ['برندهای در حال توسعه', 'Brands in development', 'علامات قيد التطوير'],
   partnership: ['پیشنهاد شراکت', 'Propose a partnership', 'اقترح شراكة'],
 };
+
+export const blogCategories = {
+  studio: ['تجربه‌های جیگزا', 'Studio experiences', 'تجارب جيغسو'],
+  campaigns: ['تحلیل کمپین‌ها', 'Campaign analysis', 'تحليل الحملات'],
+  research: ['پژوهش و آموزش', 'Research and education', 'البحث والتعليم'],
+} as const;
