@@ -148,6 +148,49 @@ function initPoster(signal) {
   update();
 }
 
+
+function initConnection(signal) {
+  const page=document.querySelector("[data-connection]");
+  if (!page || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const stage=page.querySelector(".connection-stage");
+  const word=page.querySelector(".connection-word");
+  const photo=page.querySelector(".connection-photo");
+  const card=page.querySelector(".connection-card");
+  const letters=[...word.querySelectorAll("span")];
+  const clamp=v=>Math.max(0,Math.min(1,v));
+  let raf=null;
+  const update=()=>{
+    raf=null;
+    const r=stage.getBoundingClientRect();
+    const progress=clamp((80-r.top)/Math.max(1,r.height*.58));
+    const compact=innerWidth<=700;
+    photo.style.setProperty("--photo-y",(-progress*(compact?12:42))+"px");
+    photo.style.setProperty("--photo-r",(-5+progress*3)+"deg");
+    card.style.setProperty("--card-y",(-progress*(compact?9:27))+"px");
+    card.style.setProperty("--card-r",(5-progress*3)+"deg");
+    const w=word.parentElement.getBoundingClientRect();
+    const reveal=clamp((innerHeight-w.top)/(Math.max(w.height,120)+70));
+    word.style.setProperty("--word-y",((1-reveal)*(compact?22:85))+"px");
+    letters.forEach((letter,i)=>{
+      const p=clamp((reveal-i*.035)/.78);
+      letter.style.setProperty("--letter-y",((1-p)*(compact?14:55))+"px");
+    });
+  };
+  const queue=()=>{if(raf===null)raf=requestAnimationFrame(update);};
+  if ("IntersectionObserver" in window) {
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("contact-visible");observer.unobserve(entry.target);}});
+    },{threshold:.08});
+    page.querySelectorAll("[data-contact-reveal]").forEach(el=>observer.observe(el));
+    signal.addEventListener("abort",()=>observer.disconnect(),{once:true});
+  } else page.querySelectorAll("[data-contact-reveal]").forEach(el=>el.classList.add("contact-visible"));
+  page.classList.add("connection-ready");
+  window.addEventListener("scroll",queue,{passive:true,signal});
+  window.addEventListener("resize",queue,{signal});
+  signal.addEventListener("abort",()=>{if(raf!==null)cancelAnimationFrame(raf);},{once:true});
+  update();
+}
+
 function expandSection(page, hash) {
   const disclosure = page.getElementById(hash.slice(1))?.closest("details");
   if (disclosure) disclosure.open = true;
@@ -163,6 +206,7 @@ document.addEventListener("astro:page-load", () => {
   pageListeners = new AbortController();
   initPage(pageListeners.signal);
   initPoster(pageListeners.signal);
+  initConnection(pageListeners.signal);
   expandSection(document, location.hash);
 });
 window.addEventListener("hashchange", () => expandSection(document, location.hash));
