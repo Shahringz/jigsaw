@@ -1218,3 +1218,11 @@ details[open] > summary .plus {
 @media (prefers-reduced-motion: reduce) {
   .chevron { transition: none; }
 }
+
+/* Editorial categories and development status */
+.journal-category { scroll-margin-block-start: 1rem; margin-block: 2rem; }
+.journal-category > h2 { font-size: clamp(1.15rem, 2vw, 1.5rem); margin-block-end: 1rem; }
+.venture-list li { align-items: start; flex-wrap: wrap; }
+.venture-list li > div { flex: 1 1 13rem; min-width: 0; }
+.venture-list p { margin-block: .4rem 0; }
+.venture-status { font-size: .8rem; border: 1px solid var(--line); border-radius: 999px; padding: .2rem .6rem; white-space: nowrap; }
