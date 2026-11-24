@@ -1249,7 +1249,7 @@ details[open] > summary .plus {
 .connection-primary:hover{background:#fff}
 .connection-primary:hover span,.connection-route[href]:hover .connection-route-tail{transform:translate(3px,-3px)}
 .connection-word-wrap{position:relative;z-index:1;margin-top:clamp(-155px,-10vw,-55px);padding-block:10px 0;pointer-events:none}
-.connection-word{display:flex;justify-content:center;font:700 clamp(3.5rem,15.9vw,15rem)/.9 Sora,Arial,sans-serif;letter-spacing:-.075em;white-space:nowrap;transform:translateY(var(--word-y,0px));color:#22221f}
+.connection-word{display:flex;justify-content:center;font:700 clamp(3.5rem,23vw,21rem)/.9 Sora,Arial,sans-serif;letter-spacing:-.075em;white-space:nowrap;transform:translateY(var(--word-y,0px));color:#22221f}
 .connection-word span{display:inline-block;transform:translateY(var(--letter-y,0px))}
 .connection-paths{padding-block:clamp(65px,8vw,125px)}
 .connection-section-heading{display:grid;gap:15px;align-content:start;max-width:760px;margin-bottom:28px}
@@ -1261,7 +1261,7 @@ html[dir=rtl] .connection-section-heading h2{letter-spacing:0;line-height:1.45}
 .connection-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .connection-route{min-height:215px;border:1px solid #d3d2ce;display:grid;grid-template-columns:1fr auto;align-content:space-between;gap:20px;padding:clamp(18px,2.3vw,30px);position:relative;overflow:hidden;background:#fff}
 .connection-route-project{background:#f5bd13;border-color:#f5bd13;grid-column:span 2}
-.connection-route-partner{background:#22221f;color:#fff;border-color:#22221f}
+.connection-route-partner{background:#22221f;color:#fff;border-color:#22221f;grid-column:1/-1;min-height:175px}
 .connection-route h3{font-size:clamp(1.1rem,1.8vw,1.7rem);line-height:1.35}
 .connection-route p{font-size:.95rem;line-height:1.6;margin-top:8px}
 .connection-route-index{font-size:.78rem;font-weight:700}
@@ -1299,6 +1299,6 @@ html[dir=rtl] .connection-section-heading h2{letter-spacing:0;line-height:1.45}
 @keyframes connection-card-in{from{opacity:0;transform:translateX(65px) rotate(4deg)}to{opacity:1;transform:none}}
 @keyframes connection-copy-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @media(max-width:900px){.connection-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.connection-form form{max-width:none}.connection-form .connection-section-heading{margin-bottom:26px}}
-@media(max-width:700px){.connection-stage-inner{padding-top:32px}.connection-scene{display:block;padding:12px 5% 24px}.connection-photo-motion{width:80%}.connection-card-motion{width:86%;margin-left:14%;margin-top:-22%}.connection-card{padding:25px}.connection-card h1{font-size:clamp(2.15rem,9vw,3.6rem)}.connection-word-wrap{margin-top:-20px}.connection-word{font-size:16.6vw}.connection-grid{gap:8px}.connection-route{min-height:195px;padding:14px;gap:15px}.connection-route-art{transform:scale(.85);transform-origin:top right}.connection-route h3{font-size:1.05rem}.connection-route p{font-size:.84rem}.connection-route-tail{font-size:1.15rem}.connection-route.is-pending .connection-route-tail{font-size:.68rem}}
+@media(max-width:700px){.connection-stage-inner{padding-top:32px}.connection-scene{display:block;padding:12px 5% 24px}.connection-photo-motion{width:80%}.connection-card-motion{width:86%;margin-left:14%;margin-top:-22%}.connection-card{padding:25px}.connection-card h1{font-size:clamp(2.15rem,9vw,3.6rem)}.connection-word-wrap{margin-top:-20px}.connection-word{font-size:23vw}.connection-grid{gap:8px}.connection-route{min-height:195px;padding:14px;gap:15px}.connection-route-art{transform:scale(.85);transform-origin:top right}.connection-route h3{font-size:1.05rem}.connection-route p{font-size:.84rem}.connection-route-tail{font-size:1.15rem}.connection-route.is-pending .connection-route-tail{font-size:.68rem}}
 @media(max-width:350px){.connection-grid{grid-template-columns:1fr}.connection-route-project{grid-column:auto}.connection-route{min-height:170px}}
 @media(prefers-reduced-motion:reduce){.connection-page *{animation:none!important;transition:none!important}.connection-page [data-contact-reveal]{opacity:1!important;transform:none!important}.connection-photo{transform:rotate(-3deg)}.connection-card{transform:rotate(3deg)}.connection-word,.connection-word span{transform:none}}
