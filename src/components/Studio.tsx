@@ -56,23 +56,23 @@ export function StudioContent({
                   </span>
                 )}
                 <h1>
-                  {tr("می‌تونیم", "Can we", "هل يمكننا")}{" "}
-                  <em>{tr("بهتون کمک کنیم؟", "help you?", "مساعدتكم؟")}</em>
+                  {tr("می‌تونیم", "Can we", "كيف نقدر")}{" "}
+                  <em>{tr("بهتون کمک کنیم؟", "help you?", "نساعدكم؟")}</em>
                 </h1>
                 <p>
                   {tr(
-                    "شما ریزه‌کاری‌های کارتون رو می‌شناسید. ما کمک می‌کنیم مشتری‌تون هم اون‌ها رو ببینه. گاهی با یه عکس که جزئیات محصول رو نشون می‌ده، گاهی با سایتی که انتخاب رو براش راحت‌تر می‌کنه.",
-                    "You know the details that make your work good. We help your customers see them, from the first image that catches their eye to the question they ask before choosing.",
-                    "أنتم تعرفون التفاصيل التي تميّز عملكم. نساعد عملاءكم على رؤيتها، من صورة تُظهر دقة المنتج إلى موقع يسهّل عليهم الاختيار.",
+                    "شما بهتر از هر کسی ریزه‌کاری‌های کارتون رو می‌شناسید. ما کمک می‌کنیم مشتری‌تون هم اون‌ها رو ببینه؛ از یه عکس که جزئیات محصول رو نشون می‌ده تا یه سایت که انتخاب رو راحت‌تر می‌کنه.",
+                    "You know what makes your work special. We help your customers see it, from a photo that catches the little details to a website that makes choosing easier.",
+                    "أنتم أدرى بالتفاصيل اللي تميّز شغلكم. وإحنا نساعد جمهوركم يشوفها، من صورة تبرز تفاصيل المنتج إلى موقع يسهّل عليهم الاختيار.",
                   )}
                 </p>
                 <div className="actions">
                   {go(
                     "contact",
                     tr(
-                      "دربارهٔ پروژه‌م حرف بزنیم",
+                      "بیاید درباره پروژه‌م گپ بزنیم",
                       "Let’s talk about my project",
-                      "لنتحدّث عن مشروعي",
+                      "خلّونا نتكلم عن مشروعي",
                     ),
                   )}
                   {go(
@@ -102,9 +102,9 @@ export function StudioContent({
                 {
                   id: "identity",
                   title: tr(
-                    "برندم به هویت روشن‌تری نیاز دارد",
-                    "My brand needs a clearer identity",
-                    "علامتي تحتاج إلى هوية أوضح",
+                    "می‌خوام برندم هویت مشخص‌تری داشته باشه",
+                    "I want a stronger brand identity",
+                    "أبي هوية أوضح لعلامتي",
                   ),
                   body: tr(
                     "جایگاه، لحن و هویت بصری برند",
@@ -115,9 +115,9 @@ export function StudioContent({
                 {
                   id: "film",
                   title: tr(
-                    "می‌خواهم محصول یا خدمتم بهتر معرفی شود",
-                    "I want to show what we do",
-                    "أريد تقديم منتجي أو خدمتي بصورة أوضح",
+                    "می‌خوام محصول یا خدمتم بهتر دیده بشه",
+                    "I want people to see what we do best",
+                    "أبي الناس تعرف قيمة اللي نقدّمه",
                   ),
                   body: tr(
                     "روایت، عکاسی، فیلم و کمپین",
@@ -128,9 +128,9 @@ export function StudioContent({
                 {
                   id: "web",
                   title: tr(
-                    "وب‌سایتم باید مسیر مشتری را ساده‌تر کند",
-                    "Our website should be easier to use",
-                    "أريد أن أسهّل تجربة عملائي على الموقع",
+                    "می‌خوام سایتم برای مشتری راحت‌تر باشه",
+                    "I want a website that’s easier to use",
+                    "أبي موقع يسهّل تجربة عملائي",
                   ),
                   body: tr(
                     "از اولین سؤال تا ثبت درخواست",
@@ -164,9 +164,9 @@ export function StudioContent({
             <div className="wrap block">
               <h2>
                 {tr(
-                  "هر کسب‌وکاری جزئیات خودش را دارد",
-                  "The details change with the industry",
-                  "لكل قطاع تفاصيله",
+                  "هر کسب‌وکاری دنیای خودشو داره",
+                  "Every business has its own story",
+                  "لكل مجال تفاصيله",
                 )}
               </h2>
               <div className="industries">
@@ -201,7 +201,7 @@ export function StudioContent({
             </p>
             {go(
               "process",
-              tr("شیوهٔ همکاری با جیگزا", "See how we work", "كيف نعمل معاً"),
+              tr("ببینید چطور کنار هم کار می‌کنیم", "See how we work together", "شوفوا كيف نشتغل مع بعض"),
             )}
           </div>
         </div>
@@ -210,9 +210,9 @@ export function StudioContent({
         <div className="wrap inner">
           {intro(
             tr(
-              "برای پروژه‌تان به چه چیزی نیاز دارید؟",
-              "What does your project need?",
-              "ما الذي يحتاجه مشروعكم؟",
+              "پروژه‌تون به چی نیاز داره؟",
+              "What can we make together?",
+              "إيش يحتاج مشروعكم؟",
             ),
             data.serviceIntro[i],
           )}
@@ -230,9 +230,9 @@ export function StudioContent({
                   {go(
                     "contact",
                     tr(
-                      "گفت‌وگو دربارهٔ این خدمت",
-                      "Discuss this service",
-                      "لنتحدّث عن هذه الخدمة",
+                      "درباره‌ش گپ بزنیم",
+                      "Let’s talk about it",
+                      "خلّونا نتكلم عنها",
                     ),
                     "textlink",
                     "?interest=" + s.id,
@@ -247,9 +247,9 @@ export function StudioContent({
         <div className="wrap inner">
           {intro(
             tr(
-              "از اولین سؤال تا تحویل پروژه",
-              "From the first question to handover",
-              "من السؤال الأول إلى التسليم",
+              "از اولین گپ تا تحویل پروژه",
+              "From our first chat to the finished work",
+              "من أول لقاء إلى تسليم المشروع",
             ),
             data.processIntro[i],
           )}
@@ -262,7 +262,7 @@ export function StudioContent({
             ))}
           </ol>
           <h2 className="faqtitle">
-            {tr("پرسش‌های رایج", "Common questions", "أسئلة شائعة")}
+            {tr("شاید این سؤال‌ها رو هم داشته باشید", "A few things you might be wondering", "أسئلة يمكن تكون في بالكم")}
           </h2>
           <div className="service-list">
             {data.faq.map((s) => (
