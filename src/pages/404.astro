@@ -11,7 +11,7 @@ const translations = {
 const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+'/404/'])) as Record<Locale,string>;
 ---
 <!doctype html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" class="error-document">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -127,10 +127,10 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
 </body>
 </html>
 <style is:global>
-  html:has(.error-layout),body:has(.error-layout){background:#fff}
+  html.error-document,html.error-document body{background:#fff}
   [data-error-header]{display:none}
   html[lang=fa] [data-error-header=fa],html[lang=en] [data-error-header=en],html[lang=ar] [data-error-header=ar]{display:block}
-  .error-layout{width:min(1240px,90%);margin-inline:auto;min-height:calc(100svh - 76px);display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);align-items:center;gap:clamp(20px,3vw,48px);padding-block:clamp(36px,7vh,85px);overflow:hidden}
+  .error-layout{width:min(1240px,90%);margin-inline:auto;min-height:calc(100vh - 76px);min-height:calc(100svh - 76px);display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);align-items:center;gap:clamp(20px,3vw,48px);padding-block:clamp(36px,7vh,85px);overflow:hidden}
   .error-copy{min-width:0;position:relative;z-index:1}
   .error-code-row{display:flex;align-items:baseline;gap:clamp(8px,1.2vw,18px);margin:0 0 25px;max-width:100%}
   .error-kicker{font-size:clamp(1.1rem,2vw,1.75rem);font-weight:700;line-height:1.25;margin:0;white-space:nowrap;color:#22221f}
