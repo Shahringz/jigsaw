@@ -34,7 +34,7 @@ const release = process.env.GITHUB_SHA || 'local';
     {locales.filter(locale => !alternates || alternates[locale]).map((locale) => <link rel="alternate" hreflang={locale} href={absolutePage(locale)} />)}
     <link rel="alternate" hreflang="x-default" href={absolutePage(alternates && !alternates[defaultLocale] ? lang : defaultLocale)} />
     <link rel="icon" type="image/webp" href={assetHref('media/mark.webp')} />
-    <link rel="preload" as="font" type="font/woff2" href={headingFont} crossorigin="anonymous" />
+    <link rel="preload" as="font" type={headingFont.endsWith(".ttf") ? "font/ttf" : "font/woff2"} href={headingFont} crossorigin="anonymous" />
     <style is:inline set:html={`
       @font-face {
         font-family: Estedad;
