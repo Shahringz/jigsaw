@@ -148,6 +148,157 @@ function initPoster(signal) {
   update();
 }
 
+
+function initConnection(signal) {
+  const page=document.querySelector("[data-connection]");
+  if (!page || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const stage=page.querySelector(".connection-stage");
+  const word=page.querySelector(".connection-word");
+  const photo=page.querySelector(".connection-photo");
+  const card=page.querySelector(".connection-card");
+  const letters=[...word.querySelectorAll("span")];
+  const clamp=v=>Math.max(0,Math.min(1,v));
+  let raf=null;
+  const update=()=>{
+    raf=null;
+    const r=stage.getBoundingClientRect();
+    const progress=clamp((80-r.top)/Math.max(1,r.height*.58));
+    const compact=innerWidth<=700;
+    photo.style.setProperty("--photo-y",(-progress*(compact?12:42))+"px");
+    photo.style.setProperty("--photo-r",(-5+progress*3)+"deg");
+    card.style.setProperty("--card-y",(-progress*(compact?9:27))+"px");
+    card.style.setProperty("--card-r",(5-progress*3)+"deg");
+    const w=word.parentElement.getBoundingClientRect();
+    const reveal=clamp((innerHeight-w.top)/(Math.max(w.height,120)+70));
+    word.style.setProperty("--word-y",((1-reveal)*(compact?22:85))+"px");
+    letters.forEach((letter,i)=>{
+      const p=clamp((reveal-i*.035)/.78);
+      letter.style.setProperty("--letter-y",((1-p)*(compact?14:55))+"px");
+    });
+  };
+  const queue=()=>{if(raf===null)raf=requestAnimationFrame(update);};
+  if ("IntersectionObserver" in window) {
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("contact-visible");observer.unobserve(entry.target);}});
+    },{threshold:.08});
+    page.querySelectorAll("[data-contact-reveal]").forEach(el=>observer.observe(el));
+    signal.addEventListener("abort",()=>observer.disconnect(),{once:true});
+  } else page.querySelectorAll("[data-contact-reveal]").forEach(el=>el.classList.add("contact-visible"));
+  page.classList.add("connection-ready");
+  window.addEventListener("scroll",queue,{passive:true,signal});
+  window.addEventListener("resize",queue,{signal});
+  signal.addEventListener("abort",()=>{if(raf!==null)cancelAnimationFrame(raf);},{once:true});
+  update();
+}
+
+
+function initContactQuiz(signal) {
+  const dialog=document.querySelector("#connection-quiz");
+  if (!dialog || typeof dialog.showModal!=="function") return;
+  const form=dialog.querySelector("#connection-quiz-form");
+  const steps=[...form.querySelectorAll("[data-quiz-step]")];
+  const topics=[...form.querySelectorAll("[name=topics]")];
+  const error=dialog.querySelector(".quiz-error");
+  const success=dialog.querySelector(".quiz-success");
+  const counter=dialog.querySelector(".quiz-counter");
+  const bars=[...dialog.querySelectorAll(".quiz-progress i")];
+  let step=1, opener=null;
+  const get=name=>form.elements.namedItem(name);
+  const normalize=value=>value.trim().replace(/[۰-۹]/g,d=>String("۰۱۲۳۴۵۶۷۸۹".indexOf(d))).replace(/[٠-٩]/g,d=>String("٠١٢٣٤٥٦٧٨٩".indexOf(d)));
+  const phoneValue=()=>{
+    let value=normalize(get("phone").value).replace(/[\s()-]/g,"");
+    const code=get("country").value;
+    if(value && !value.startsWith("+") && code && code!=="other") value=code+value.replace(/^0/,"");
+    return value;
+  };
+  function showError(message){error.textContent=message;error.hidden=!message;}
+  function showStep(n,focus=true){
+    step=n;form.hidden=false;success.hidden=true;showError("");
+    steps.forEach((section,i)=>section.hidden=i!==n-1);
+    counter.textContent="0"+n+" / 03";
+    bars.forEach((bar,i)=>bar.classList.toggle("is-active",i<n));
+    dialog.setAttribute("aria-labelledby","quiz-heading-"+n);
+    dialog.scrollTop=0;
+    if(focus)steps[n-1].querySelector("h2").focus({preventScroll:true});
+  }
+  function validStep(n){
+    showError("");
+    if(n===1){
+      if(!topics.some(t=>t.checked)){showError(dialog.dataset.topicRequired);topics[0].focus();return false;}
+      return true;
+    }
+    if(n===2){
+      for(const name of ["firstName","lastName"]){
+        const field=get(name);field.value=field.value.trim();
+        if(!field.reportValidity())return false;
+      }
+      const email=get("email"),phone=get("phone");
+      email.value=email.value.trim();
+      if(email.value&&!email.reportValidity())return false;
+      const value=phoneValue();
+      if((!email.value&&!value)||(value&&!/^\+?[0-9]{7,15}$/.test(value))){
+        showError(dialog.dataset.contactRequired);(value?phone:email).focus();return false;
+      }
+      return true;
+    }
+    return get("reference").reportValidity();
+  }
+  function open(topic,source){
+    if(topic){const option=topics.find(t=>t.value===topic);if(option)option.checked=true;}
+    if(dialog.open)return;
+    opener=source||document.activeElement;
+    showStep(1,false);
+    dialog.showModal();
+    document.documentElement.classList.add("connection-quiz-open");
+    steps[0].querySelector("h2").focus({preventScroll:true});
+  }
+  document.querySelectorAll("[data-open-quiz]").forEach(link=>link.addEventListener("click",event=>{
+    if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+    event.preventDefault();open(link.dataset.openQuiz,link);
+  },{signal}));
+  dialog.addEventListener("click",event=>{
+    const button=event.target.closest("button");
+    if(!button)return;
+    if(button.hasAttribute("data-quiz-close"))dialog.close();
+    else if(button.hasAttribute("data-quiz-next")&&validStep(step))showStep(Math.min(3,step+1));
+    else if(button.hasAttribute("data-quiz-back"))showStep(Math.max(1,step-1));
+    else if(button.hasAttribute("data-quiz-edit"))showStep(3);
+  },{signal});
+  dialog.addEventListener("close",()=>{
+    document.documentElement.classList.remove("connection-quiz-open");
+    opener?.focus?.({preventScroll:true});
+  },{signal});
+  signal.addEventListener("abort",()=>{
+    if(dialog.open)dialog.close();
+    document.documentElement.classList.remove("connection-quiz-open");
+  },{once:true});
+  form.addEventListener("input",()=>showError(""),{signal});
+  form.addEventListener("submit",event=>{
+    event.preventDefault();
+    if(!validStep(step))return;
+    if(step<3){showStep(step+1);return;}
+    const topicList=topics.filter(t=>t.checked).map(t=>t.closest("label").innerText.trim());
+    const label=field=>field.closest("label").firstChild.textContent.trim();
+    const lines=[ "JIGSAW — Project brief",topicList.join(" / ") ];
+    for(const name of ["firstName","lastName","business","email","phone","brief","reference"]){
+      const field=get(name), value=name==="phone"?phoneValue():field.value.trim();
+      if(value)lines.push(label(field)+" — "+value);
+    }
+    const blob=new Blob(["\uFEFF"+lines.join("\n\n")],{type:"text/plain;charset=utf-8"});
+    const href=URL.createObjectURL(blob),link=document.createElement("a");
+    link.href=href;link.download="JIGSAW-brief.txt";document.body.append(link);link.click();link.remove();
+    setTimeout(()=>URL.revokeObjectURL(href),1000);
+    form.hidden=true;success.hidden=false;counter.textContent="03 / 03";
+    dialog.setAttribute("aria-labelledby","quiz-success-heading");
+    const heading=success.querySelector("h2");heading.id="quiz-success-heading";heading.focus({preventScroll:true});
+    dialog.scrollTop=0;
+  },{signal});
+  const params=new URLSearchParams(location.search);
+  const interest=params.get("interest"), legacy=params.get("service");
+  const preselected=interest?topics.find(t=>t.value===interest):legacy!==null?topics.find(t=>t.dataset.legacyService===legacy&&legacy!==""):null;
+  if(preselected)open(preselected.value,null);
+}
+
 function expandSection(page, hash) {
   const disclosure = page.getElementById(hash.slice(1))?.closest("details");
   if (disclosure) disclosure.open = true;
@@ -163,6 +314,8 @@ document.addEventListener("astro:page-load", () => {
   pageListeners = new AbortController();
   initPage(pageListeners.signal);
   initPoster(pageListeners.signal);
+  initConnection(pageListeners.signal);
+  initContactQuiz(pageListeners.signal);
   expandSection(document, location.hash);
 });
 window.addEventListener("hashchange", () => expandSection(document, location.hash));
