@@ -3,9 +3,9 @@ import { SiteHeader } from '../components/Shell';
 import { assetHref, pageHref, locales, type Locale } from '../i18n';
 import '../styles/site.css';
 const translations = {
-  fa: { dir:'rtl', kicker:'صفحه پیدا نشد', title:'می‌تونیم بهتون کمک کنیم؟', message:'انگار یکی از قطعه‌های پازل گم شده. بیاید برگردیم به مسیر درست.', home:'بازگشت به صفحه اصلی', contact:'تماس با ما', href:pageHref('fa'), contactHref:pageHref('fa','contact') },
-  en: { dir:'ltr', kicker:'Page not found', title:'Can we help you?', message:'Looks like a piece is missing. Let’s get you back on track.', home:'Back to home', contact:'Get in touch', href:pageHref('en'), contactHref:pageHref('en','contact') },
-  ar: { dir:'rtl', kicker:'الصفحة غير موجودة', title:'هل يمكننا مساعدتكم؟', message:'يبدو أن إحدى قطع الأحجية مفقودة. لنعد إلى المسار الصحيح.', home:'العودة إلى الرئيسية', contact:'تواصل معنا', href:pageHref('ar'), contactHref:pageHref('ar','contact') },
+  fa: { dir:'rtl', kicker:'خطای', title:'صفحه پیدا نشد', message:'انگار یکی از قطعه‌های پازل گم شده. بیاید برگردیم به مسیر درست.', home:'بازگشت به صفحه اصلی', contact:'تماس با ما', href:pageHref('fa'), contactHref:pageHref('fa','contact') },
+  en: { dir:'ltr', kicker:'Error', title:'Page not found', message:'Looks like a piece is missing. Let’s get you back on track.', home:'Back to home', contact:'Get in touch', href:pageHref('en'), contactHref:pageHref('en','contact') },
+  ar: { dir:'rtl', kicker:'خطأ', title:'الصفحة غير موجودة', message:'يبدو أن إحدى قطع الأحجية مفقودة. لنعد إلى المسار الصحيح.', home:'العودة إلى الرئيسية', contact:'تواصل معنا', href:pageHref('ar'), contactHref:pageHref('ar','contact') },
 };
 const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+'/404/'])) as Record<Locale,string>;
 ---
@@ -28,22 +28,15 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
     const lang = parts[0] === 'en' || parts[0] === 'ar' ? parts[0] : 'fa';
     document.documentElement.lang = lang;
     document.documentElement.dir = translations[lang].dir;
-    document.title = translations[lang].kicker + ' | JIGSAW';
+    document.title = '404 — ' + translations[lang].title + ' | JIGSAW';
     document.addEventListener('DOMContentLoaded', () => {
       const t = translations[lang];
       for (const [id,value] of Object.entries({'error-kicker':t.kicker,'error-title':t.title,'error-description':t.message,'error-home-label':t.home,'error-contact':t.contact})) document.getElementById(id).textContent=value;
       const headline = document.getElementById('error-title');
-      const words = t.title.split(' ');
-      const cut = Math.ceil(words.length / 2);
-      headline.replaceChildren();
-      [words.slice(0,cut).join(' '),words.slice(cut).join(' ')].filter(Boolean).forEach((phrase,i)=>{
-        if(i) headline.append(' ');
-        const span=document.createElement('span');
-        span.className='title-phrase';
-        span.textContent=phrase;
-        span.style.setProperty('--phrase-delay', i*100+'ms');
-        headline.append(span);
-      });
+      const span=document.createElement('span');
+      span.className='title-phrase';
+      span.textContent=t.title;
+      headline.replaceChildren(span);
       document.getElementById('error-home').href=t.href;
       document.getElementById('error-contact').href=t.contactHref;
       // On the static 404, preserve the missing route when switching language.
@@ -72,8 +65,10 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
   <main class="error-layout" id="main">
     <div class="error-copy">
       <div class="error-heading">
-        <p class="error-kicker" id="error-kicker">{translations.fa.kicker}</p>
-        <div class="error-code" dir="ltr" aria-label="404"><span class="error-digit" aria-hidden="true">4</span><span class="error-digit zero" aria-hidden="true">0</span><span class="error-digit" aria-hidden="true">4</span></div>
+        <div class="error-code-row">
+          <div class="error-code" dir="ltr" role="img" aria-label="404"><span class="error-digit" aria-hidden="true">4</span><span class="error-digit" aria-hidden="true">0</span><span class="error-digit" aria-hidden="true">4</span></div>
+          <p class="error-kicker" id="error-kicker">{translations.fa.kicker}</p>
+        </div>
         <h1 class="error-title" id="error-title">{translations.fa.title}</h1>
       </div>
       <div class="error-details">
@@ -135,11 +130,11 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
   html[lang=fa] [data-error-header=fa],html[lang=en] [data-error-header=en],html[lang=ar] [data-error-header=ar]{display:block}
   .error-layout{width:min(1240px,90%);margin-inline:auto;min-height:calc(100svh - 76px);display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);align-items:center;gap:clamp(20px,3vw,48px);padding-block:clamp(36px,7vh,85px);overflow:hidden}
   .error-copy{min-width:0;position:relative;z-index:1}
-  .error-kicker{display:flex;align-items:center;gap:9px;margin:0 0 17px;font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
-  .error-kicker:before{content:'';width:11px;height:11px;background:#ae373a;flex:none}
-  .error-code{font-family:Sora,Arial,sans-serif;font-size:clamp(100px,12.5vw,194px);font-weight:700;line-height:.89;letter-spacing:-.065em;margin:0 0 27px;display:flex;align-items:center;direction:ltr;width:max-content}
-  .error-code .zero{color:#f5bd13}
-  .error-title{font-size:clamp(30px,4vw,59px);line-height:1.12;letter-spacing:-.055em;font-weight:800;margin:0 0 17px;max-width:16ch}
+  .error-code-row{display:flex;align-items:baseline;gap:clamp(8px,1.2vw,18px);margin:0 0 25px;max-width:100%}
+  .error-kicker{font-size:clamp(1.1rem,2vw,1.75rem);font-weight:700;line-height:1.25;margin:0;white-space:nowrap;color:#22221f}
+  html[dir=rtl] .error-kicker{order:-1}
+  .error-code{font-family:Sora,Arial,sans-serif;font-size:clamp(92px,10.5vw,168px);font-weight:700;line-height:.89;letter-spacing:-.065em;margin:0;display:flex;align-items:center;direction:ltr;width:max-content;color:#22221f;flex:none}
+  .error-title{font-size:clamp(32px,3.6vw,56px);line-height:1.18;letter-spacing:-.045em;font-weight:800;margin:0 0 19px;max-width:100%}
   .error-rule{width:46px;height:5px;background:#ae373a;margin-block:0 18px}
   .error-description{font-size:clamp(16px,1.5vw,20px);line-height:1.6;max-width:34ch;margin:0 0 26px;color:#4b494a}
   .error-actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px 22px}
@@ -155,7 +150,7 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
   /* Independent entrance and idle layers: no competing transforms. */
   .title-phrase{display:inline-block;max-width:100%}
   .motion-ready{--motion-ease:cubic-bezier(.22,1,.36,1)}
-  .motion-ready .error-kicker{animation:copy-in .48s var(--motion-ease) .06s backwards}
+  .motion-ready .error-kicker{animation:copy-in .48s var(--motion-ease) .36s backwards}
   .motion-ready .error-digit{display:inline-block;animation:digit-in .72s var(--motion-ease) .15s backwards}
   .motion-ready .error-digit:nth-child(2){animation-delay:.22s}
   .motion-ready .error-digit:nth-child(3){animation-delay:.29s}
@@ -192,11 +187,10 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
   @keyframes piece-float{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-7px) rotate(-2deg)}75%{transform:translateY(6px) rotate(2deg)}}
   @keyframes mark-pulse{0%,100%{opacity:1}50%{opacity:.72}}
   @media(prefers-reduced-motion:reduce){.error-layout *, .error-layout *::before,.error-layout *::after{animation:none!important;transition:none!important}.art-parallax,.piece-response{transform:none}}
-  @media(max-width:900px){.error-layout{grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:15px}.error-code{font-size:clamp(90px,13vw,142px)}.error-title{font-size:clamp(29px,4vw,44px)}}
-  @media(max-width:680px){.error-layout{grid-template-columns:1fr;align-content:start;gap:18px;padding-block:30px 42px;min-height:calc(100svh - 76px);overflow:visible}.error-copy{display:contents}.error-heading{grid-row:1}.handoff-art{grid-row:2;width:min(100%,460px);justify-self:center}.error-details{grid-row:3}.error-code{font-size:clamp(100px,26vw,150px);margin-bottom:16px}.error-kicker{margin-bottom:13px}.error-title{max-width:none;font-size:clamp(30px,8.5vw,43px);margin-bottom:0}.error-rule{margin-bottom:12px}.error-description{margin-bottom:19px}.error-actions{gap:12px 20px}.error-home{min-height:46px}}
+  @media(max-width:900px){.error-layout{grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:15px}.error-code{font-size:clamp(74px,10.5vw,116px)}.error-title{font-size:clamp(29px,3.8vw,44px)}}
+  @media(max-width:680px){.error-layout{grid-template-columns:1fr;align-content:start;gap:18px;padding-block:30px 42px;min-height:calc(100svh - 76px);overflow:visible}.error-copy{display:contents}.error-heading{grid-row:1}.handoff-art{grid-row:2;width:min(100%,460px);justify-self:center}.error-details{grid-row:3}.error-code-row{margin-bottom:16px}.error-code{font-size:clamp(92px,24vw,140px)}.error-kicker{font-size:clamp(1.1rem,4.5vw,1.5rem)}.error-title{max-width:none;font-size:clamp(30px,8.5vw,43px);margin-bottom:0}.error-rule{margin-bottom:12px}.error-description{margin-bottom:19px}.error-actions{gap:12px 20px}.error-home{min-height:46px}}
   html[dir=rtl] .error-title{letter-spacing:0;line-height:1.5}
   html[dir=rtl] .error-kicker{letter-spacing:0}
-  html[dir=rtl] .error-code{margin-inline-end:auto}
   html[dir=rtl] .error-arrow{display:inline-block;transform:scaleX(-1)}
   html[dir=rtl] .error-home:hover .error-arrow{transform:scaleX(-1) translateX(4px)}
 </style>
