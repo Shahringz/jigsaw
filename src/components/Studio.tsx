@@ -400,7 +400,7 @@ export function StudioContent({
             </div>
           </dialog>
         </div>
-      )
+      )}
     </>
   );
 }
