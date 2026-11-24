@@ -1,9 +1,9 @@
 ---
 import { assetHref, pageHref } from '../i18n';
 const translations = {
-  fa: { dir: 'rtl', title: 'صفحه پیدا نشد', message: 'شاید آدرس تغییر کرده یا این صفحه دیگه وجود نداره.', home: 'بازگشت به صفحه اصلی', href: pageHref('fa') },
-  en: { dir: 'ltr', title: 'Page not found', message: 'The address may have changed, or this page may no longer exist.', home: 'Back to home', href: pageHref('en') },
-  ar: { dir: 'rtl', title: 'الصفحة غير موجودة', message: 'ربما تغيّر العنوان أو لم تعد هذه الصفحة موجودة.', home: 'العودة إلى الصفحة الرئيسية', href: pageHref('ar') },
+  fa: { dir: 'rtl', title: 'صفحه پیدا نشد', message: 'به نظر می‌رسه یکی از قطعه‌های پازل گم شده.', home: 'بازگشت به صفحه اصلی', href: pageHref('fa') },
+  en: { dir: 'ltr', title: 'Page not found', message: 'Looks like a piece of the puzzle is missing.', home: 'Back to home', href: pageHref('en') },
+  ar: { dir: 'rtl', title: 'الصفحة غير موجودة', message: 'يبدو أن إحدى قطع الأحجية مفقودة.', home: 'العودة إلى الصفحة الرئيسية', href: pageHref('ar') },
 };
 ---
 <!doctype html>
@@ -43,31 +43,34 @@ const translations = {
     <main>
       <a id="brand-home" class="brand" href={translations.fa.href} dir="ltr"><img src={assetHref('media/mark.webp')} width="32" height="32" alt="" /> JIGSAW</a>
       <div class="puzzle-stage" id="puzzle-stage" aria-hidden="true">
-        <svg class="puzzle-fallback" viewBox="-250 300 1586 760" fill="none" focusable="false" preserveAspectRatio="xMidYMid meet">
+        <svg class="puzzle-fallback" viewBox="0 0 1000 420" fill="none" focusable="false" preserveAspectRatio="xMidYMid meet">
           <defs>
-            <radialGradient id="handoff-halo">
-              <stop stop-color="#f5bd13" stop-opacity=".18"/>
-              <stop offset="1" stop-color="#f5bd13" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="piece-face" x1="0" y1="0" x2="1" y2="1">
-              <stop stop-color="#ffe17a"/><stop offset=".42" stop-color="#f5bd13"/><stop offset="1" stop-color="#c88b00"/>
-            </linearGradient>
+            <linearGradient id="left-face" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#f5bd13"/><stop offset="1" stop-color="#d79b00"/></linearGradient>
+            <linearGradient id="right-face" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#77746e"/><stop offset="1" stop-color="#454344"/></linearGradient>
+            <linearGradient id="piece-face" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe17c"/><stop offset=".45" stop-color="#f5bd13"/><stop offset="1" stop-color="#ce9100"/></linearGradient>
+            <radialGradient id="handoff-halo"><stop stop-color="#f5bd13" stop-opacity=".12"/><stop offset="1" stop-color="#f5bd13" stop-opacity="0"/></radialGradient>
+            <clipPath id="left-clip"><polygon points="-120,160 90,195 155,165 210,110 270,94 330,96 399,112 419,127 412,144 392,149 326,132 285,142 257,166 310,158 343,170 359,193 353,211 337,215 316,194 284,187 312,211 318,230 303,241 289,235 266,212 280,243 269,256 251,251 238,241 249,270 327,260 378,225 399,224 410,240 403,256 349,300 300,313 215,302 145,270 -120,295"/></clipPath>
+            <clipPath id="right-clip"><polygon points="1120,102 914,149 858,116 791,100 738,108 682,132 624,164 617,178 628,189 650,187 704,162 734,171 746,196 703,219 661,218 629,205 610,209 605,223 619,237 661,253 705,256 686,270 647,262 629,268 631,285 677,300 720,294 752,278 744,294 707,310 707,322 726,331 760,320 805,286 848,261 910,252 1120,273"/></clipPath>
           </defs>
-          <circle cx="543" cy="420" r="205" fill="url(#handoff-halo)"/>
-          <!-- The polygon outlines are traced from the supplied JIGSAW artwork.
-               Keep the original handshake geometry and the source's two flat colors. -->
+          <circle cx="510" cy="205" r="200" fill="url(#handoff-halo)"/>
           <g class="graphic-hand-yellow">
-            <path d="M-600 235 L278 552 L388 486 L564 486 L389 602 L389 699 L498 700 L579 640 L653 640 L816 811 L763 861 L605 699 L592 709 L750 873 L703 919 L542 755 L531 769 L690 931 L643 978 L478 812 L467 824 L628 989 L572 1043 L502 972 L513 939 L464 892 L439 893 L447 883 L397 835 L374 834 L386 832 L388 825 L381 825 L317 763 L312 767 L264 721 L184 799 L-600 587 Z" fill="#eeb202"/>
+            <polygon points="-120,160 90,195 155,165 210,110 270,94 330,96 399,112 419,127 412,144 392,149 326,132 285,142 257,166 310,158 343,170 359,193 353,211 337,215 316,194 284,187 312,211 318,230 303,241 289,235 266,212 280,243 269,256 251,251 238,241 249,270 327,260 378,225 399,224 410,240 403,256 349,300 300,313 215,302 145,270 -120,295" fill="#986700" transform="translate(0 12)"/>
+            <polygon id="left-outline" points="-120,160 90,195 155,165 210,110 270,94 330,96 399,112 419,127 412,144 392,149 326,132 285,142 257,166 310,158 343,170 359,193 353,211 337,215 316,194 284,187 312,211 318,230 303,241 289,235 266,212 280,243 269,256 251,251 238,241 249,270 327,260 378,225 399,224 410,240 403,256 349,300 300,313 215,302 145,270 -120,295" fill="url(#left-face)" stroke="#f9c63b" stroke-width="1.2"/>
+            <g clip-path="url(#left-clip)">
+              <path d="M-20 180 L155 165 L210 110 L270 94 L285 142 L257 166 L195 206 L145 270 L90 195 Z" fill="#fff1a8" opacity=".09"/>
+              <path d="M145 270 L195 206 L238 241 L249 270 L327 260 L349 300 L300 313 L215 302 Z" fill="#a46c00" opacity=".15"/>
+            </g>
           </g>
-          <g class="graphic-hand-charcoal" fill="#4b494a" stroke="#f7f5ed" stroke-width="2.5" stroke-linejoin="miter" stroke-opacity=".65">
-            <path d="M1686 205 L836 536 L736 480 L611 480 L410 612 L409 679 L490 679 L583 610 L655 610 L827 788 L1686 452 Z"/>
-            <path d="M264 724 L143 840 L191 887 L311 768 Z"/>
-            <path d="M329 777 L207 899 L256 946 L380 826 Z"/>
-            <path d="M397 837 L272 959 L321 1006 L444 884 Z"/>
-            <path d="M464 895 L352 1003 L400 1049 L511 941 Z"/>
+          <g class="graphic-hand-charcoal">
+            <polygon points="1120,102 914,149 858,116 791,100 738,108 682,132 624,164 617,178 628,189 650,187 704,162 734,171 746,196 703,219 661,218 629,205 610,209 605,223 619,237 661,253 705,256 686,270 647,262 629,268 631,285 677,300 720,294 752,278 744,294 707,310 707,322 726,331 760,320 805,286 848,261 910,252 1120,273" fill="#2c2b29" transform="translate(0 12)"/>
+            <polygon id="right-outline" points="1120,102 914,149 858,116 791,100 738,108 682,132 624,164 617,178 628,189 650,187 704,162 734,171 746,196 703,219 661,218 629,205 610,209 605,223 619,237 661,253 705,256 686,270 647,262 629,268 631,285 677,300 720,294 752,278 744,294 707,310 707,322 726,331 760,320 805,286 848,261 910,252 1120,273" fill="url(#right-face)" stroke="#969087" stroke-width="1.2"/>
+            <g clip-path="url(#right-clip)">
+              <path d="M914 149 L858 116 L791 100 L738 108 L704 162 L734 171 L795 159 L848 261 L910 252 Z" fill="#f7f5ed" opacity=".07"/>
+              <path d="M848 261 L795 159 L746 196 L703 219 L705 256 L752 278 L805 286 Z" fill="#171715" opacity=".12"/>
+            </g>
           </g>
-          <g class="static-piece" transform="translate(543 405) rotate(-13)">
-            <path d="M-66 -66 H-20 C-29 -103 29 -103 20 -66 H66 V-20 C103 -29 103 29 66 20 V66 H20 C29 29 -29 29 -20 66 H-66 V20 C-29 29 -29 -29 -66 -20 Z" fill="#9e6c0b" transform="translate(4 13)"/>
+          <g class="static-piece" transform="translate(511 206) rotate(-12) scale(.74)">
+            <path d="M-66 -66 H-20 C-29 -103 29 -103 20 -66 H66 V-20 C103 -29 103 29 66 20 V66 H20 C29 29 -29 29 -20 66 H-66 V20 C-29 29 -29 -29 -66 -20 Z" fill="#a67105" transform="translate(6 12)"/>
             <path d="M-66 -66 H-20 C-29 -103 29 -103 20 -66 H66 V-20 C103 -29 103 29 66 20 V66 H20 C29 29 -29 29 -20 66 H-66 V20 C-29 29 -29 -29 -66 -20 Z" fill="url(#piece-face)" stroke="#ffe394" stroke-width="1.5"/>
           </g>
         </svg>
@@ -89,22 +92,49 @@ const translations = {
             const renderer = new T.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
             renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
             renderer.outputColorSpace = T.SRGBColorSpace;
+            renderer.toneMapping = T.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.05;
             renderer.setClearColor(0x22221f, 0);
             const scene = new T.Scene();
             const camera = new T.OrthographicCamera(-5, 5, 2.1, -2.1, .1, 50);
             camera.position.set(0, 0, 12);
-            const key = new T.DirectionalLight(0xffe9c5, 2.8);
+            const key = new T.DirectionalLight(0xffefd5, 2.1);
             key.position.set(-2, 5, 6);
-            scene.add(key, new T.HemisphereLight(0xfff5e5, 0x39312a, 1.4));
-            const rim = new T.DirectionalLight(0xffe7bb, 2.1);
+            scene.add(key, new T.HemisphereLight(0xf7f5ed, 0x4b4843, 1.35));
+            const rim = new T.DirectionalLight(0xffe7bb, 1.65);
             rim.position.set(4, 2, -3);
             scene.add(rim);
-            const centerLight = new T.PointLight(0xffc42a, 5, 4, 2);
+            const centerLight = new T.PointLight(0xffcf74, 1.6, 3, 2);
             centerLight.position.set(0, .12, .8);
             scene.add(centerLight);
 
-            // Only the central puzzle piece is rendered in Three.js.
-            // The flat artwork stays in SVG to preserve the brand's exact silhouettes.
+            // Extrude the exact validated graphic silhouettes, not anatomical hands.
+            // Use the same source points as the accessible SVG fallback.
+            function makeHand(id, color, edgeColor) {
+              const polygon = document.getElementById(id).points;
+              const shape = new T.Shape();
+              for (let i = 0; i < polygon.numberOfItems; i++) {
+                const point = polygon.getItem(i);
+                const px = (point.x - 500) / 100;
+                const py = (210 - point.y) / 100;
+                if (i === 0) shape.moveTo(px, py); else shape.lineTo(px, py);
+              }
+              shape.closePath();
+              const geo = new T.ExtrudeGeometry(shape, {
+                depth: .105, steps: 1, bevelEnabled: true,
+                bevelSegments: 2, bevelThickness: .016, bevelSize: .012
+              });
+              const face = new T.MeshStandardMaterial({color, roughness:.87, metalness:0});
+              const edge = new T.MeshStandardMaterial({color:edgeColor, roughness:.84, metalness:0});
+              const mesh = new T.Mesh(geo, [face, edge]);
+              mesh.position.z = -.22;
+              const group = new T.Group();
+              group.add(mesh);
+              scene.add(group);
+              return group;
+            }
+            const left = makeHand('left-outline', 0xeeb202, 0x9d6c04);
+            const right = makeHand('right-outline', 0x4b494a, 0x2d2c2b);
             const p = new T.Shape();
             p.moveTo(-1,-1);p.lineTo(-.3,-1);p.bezierCurveTo(-.47,-.48,.47,-.48,.3,-1);
             p.lineTo(1,-1);p.lineTo(1,-.3);p.bezierCurveTo(1.52,-.47,1.52,.47,1,.3);
@@ -119,7 +149,7 @@ const translations = {
             let targetX = 0, targetY = 0, x = 0, y = 0, raf = 0, stopped = false;
             const resize = () => {
               const w = Math.max(1, stage.clientWidth), h = Math.max(1, stage.clientHeight);
-              const aspect=w/h, artAspect=1586/760, halfWidth=4.55*Math.max(1,aspect/artAspect), halfHeight=halfWidth/aspect;
+              const aspect=w/h, artAspect=1000/420, halfWidth=5*Math.max(1,aspect/artAspect), halfHeight=halfWidth/aspect;
               camera.left=-halfWidth;camera.right=halfWidth;camera.top=halfHeight;camera.bottom=-halfHeight;
               camera.updateProjectionMatrix();
               renderer.setSize(w, h, false);
@@ -142,8 +172,13 @@ const translations = {
               x += (targetX - x) * .065;
               y += (targetY - y) * .065;
               const wave=Math.sin(t*1.05);
-              pivot.position.set(x*.09,275*9.1/1586+wave*.09,.38);
-              pivot.rotation.set(.22+y*.17,-.35+x*.24+Math.sin(t*.7)*.18,-.20+wave*.10);
+              const approach=(1-Math.cos(t*.85))*.5;
+              left.position.x=-.10+approach*.045;
+              right.position.x=.10-approach*.045;
+              left.rotation.x=-.075+y*.025;
+              right.rotation.x=-.075+y*.025;
+              pivot.position.set(.11+x*.045,.04+wave*.065,.24);
+              pivot.rotation.set(.18+y*.12,-.28+x*.17+Math.sin(t*.7)*.12,.20+wave*.045);
               centerLight.position.copy(pivot.position);
               centerLight.position.z+=.7;
               renderer.render(scene, camera);
@@ -188,11 +223,11 @@ const translations = {
   main { width:min(76rem,94vw); min-height:100vh; min-height:100svh; margin-inline:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1rem 0 2rem; }
   .brand { align-self:flex-start; display:inline-flex; align-items:center; gap:.55rem; color:inherit; font:700 1.35rem Sora,sans-serif; text-decoration:none; margin-block-end:.15rem; }
   .brand img { object-fit:contain; }
-  .puzzle-stage { position:relative; width:100%; aspect-ratio:2.1; max-height:48vh; overflow:hidden; isolation:isolate; background:radial-gradient(ellipse at 50% 25%,#493a22 0%,#2d2922 28%,#22221f 68%); }
+  .puzzle-stage { position:relative; width:min(100vw,1440px); aspect-ratio:2.65; max-height:48vh; overflow:hidden; isolation:isolate; background:radial-gradient(ellipse at 51% 48%,#3d3525 0%,#292721 32%,#22221f 69%); }
   .puzzle-fallback,.puzzle-stage canvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
   .puzzle-stage canvas { opacity:0; }
   .puzzle-stage.is-rendered canvas { opacity:1; }
-  .puzzle-stage.is-rendered .static-piece { visibility:hidden; }
+  .puzzle-stage.is-rendered .puzzle-fallback { visibility:hidden; }
   .graphic-hand-yellow { animation: yellow-approach 7s ease-in-out infinite; }
   .graphic-hand-charcoal { animation: charcoal-approach 7s ease-in-out infinite; }
   @keyframes yellow-approach { 0%,100% { transform:translateX(-8px); } 50% { transform:translateX(0); } }
@@ -206,5 +241,5 @@ const translations = {
   .button { background:#f5bd13; color:#22221f; padding:.7rem 1.45rem; border-radius:100px; font-weight:700; text-decoration:none; }
   .button:hover { background:#ffd153; }
   a:focus-visible { outline:3px solid #f5bd13; outline-offset:5px; }
-  @media(max-width:720px) { main { width:94vw; padding:1.3rem 0 2.5rem; } .brand { margin-inline-start:3vw; } .puzzle-stage { aspect-ratio:1.85; max-height:none; } .error-copy { width:90%; margin-top:0; } }
+  @media(max-width:720px) { main { width:94vw; padding:1.3rem 0 2.5rem; } .brand { margin-inline-start:3vw; } .puzzle-stage { width:100vw; aspect-ratio:2.1; max-height:none; } .error-copy { width:90%; margin-top:0; } }
 </style>
