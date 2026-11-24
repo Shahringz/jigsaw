@@ -1,6 +1,6 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
-import { assetHref, pageHref, translator, type Locale } from '../../../i18n';
+import { assetHref, pageHref, translator, blogCategories, languages, type Locale } from '../../../i18n';
 import Layout from '../../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
@@ -23,7 +23,7 @@ const tr = translator(lang);
 <Layout lang={lang} page="blog" metadata={[title + ' | JIGSAW', description]} alternates={alternates}>
   <article class="wrap inner post">
     <a class="textlink" href={pageHref(lang, 'blog')}>{tr('وبلاگ جیگزا', 'JIGSAW blog', 'مدوّنة جيغسو')}</a>
-    <div class="intro"><h1>{title}</h1><p>{description}</p><small>{author} · <time datetime={date.toISOString().slice(0, 10)}>{date.toLocaleDateString(lang, { dateStyle: 'long', timeZone: 'UTC' })}</time></small></div>
+    <div class="intro"><h1>{title}</h1><p>{description}</p><small>{blogCategories[post.data.category][languages[lang].index]} · {author} · <time datetime={date.toISOString().slice(0, 10)}>{date.toLocaleDateString(lang, { dateStyle: 'long', timeZone: 'UTC' })}</time></small></div>
     {image && <div class="post-art"><img src={assetHref(image)} alt={imageAlt ?? ''} width="600" height="800" /></div>}
     <div class="article-text"><Content />
       {relatedWork && <a class="textlink" href={pageHref(lang, 'work') + '#' + relatedWork}>{tr('دیدن اثر توی گالری', 'See the work in the gallery', 'شاهد العمل في المعرض')}</a>}
