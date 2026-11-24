@@ -1,22 +1,65 @@
 ---
-import { pageHref } from '../i18n';
+import { assetHref, pageHref } from '../i18n';
+const translations = {
+  fa: { dir: 'rtl', title: 'صفحه پیدا نشد', message: 'شاید آدرس تغییر کرده یا این صفحه دیگه وجود نداره.', home: 'بازگشت به صفحه اصلی', href: pageHref('fa') },
+  en: { dir: 'ltr', title: 'Page not found', message: 'The address may have changed, or this page may no longer exist.', home: 'Back to home', href: pageHref('en') },
+  ar: { dir: 'rtl', title: 'الصفحة غير موجودة', message: 'ربما تغيّر العنوان أو لم تعد هذه الصفحة موجودة.', home: 'العودة إلى الصفحة الرئيسية', href: pageHref('ar') },
+};
 ---
 <!doctype html>
 <html lang="fa" dir="rtl">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#22221f" />
     <title>صفحه پیدا نشد | JIGSAW</title>
+    <link rel="icon" type="image/webp" href={assetHref('media/mark.webp')} />
+    <style is:inline set:html={`
+      @font-face { font-family: Estedad; src: url("${assetHref('type/estedad-fa.woff2')}") format("woff2"); font-weight: 100 900; font-display: swap; }
+      @font-face { font-family: Sora; src: url("${assetHref('type/sora-bold.woff2')}") format("woff2"); font-weight: 700; font-display: swap; }
+      @font-face { font-family: Manrope; src: url("${assetHref('type/manrope.woff2')}") format("woff2"); font-weight: 200 800; font-display: swap; }
+    `}></style>
+    <script is:inline define:vars={{ translations }}>
+      (() => {
+        const prefix = location.pathname.split('/').filter(Boolean)[0];
+        const lang = prefix === 'en' || prefix === 'ar' ? prefix : 'fa';
+        const copy = translations[lang];
+        document.documentElement.lang = lang;
+        document.documentElement.dir = copy.dir;
+        document.title = copy.title + ' | JIGSAW';
+        document.addEventListener('DOMContentLoaded', () => {
+          document.getElementById('error-title').textContent = copy.title;
+          document.getElementById('error-message').textContent = copy.message;
+          const home = document.getElementById('error-home');
+          home.textContent = copy.home;
+          home.href = copy.href;
+          document.getElementById('brand-home').href = copy.href;
+        });
+      })();
+    </script>
   </head>
-  <body><main>
-    <b>JIGSAW</b>
-    <h1>صفحه پیدا نشد</h1>
-    <p>ممکن است آدرس تغییر کرده باشد.</p>
-    <a href={pageHref('fa')}>بازگشت به خانه</a>
-    <section lang="en" dir="ltr"><h2>Page not found</h2><a href={pageHref('en')}>Back to home</a></section>
-    <section lang="ar" dir="rtl"><h2>الصفحة غير موجودة</h2><a href={pageHref('ar')}>العودة إلى الرئيسية</a></section>
-  </main></body>
+  <body>
+    <main>
+      <a id="brand-home" class="brand" href={translations.fa.href} dir="ltr"><img src={assetHref('media/mark.webp')} width="32" height="32" alt="" /> JIGSAW</a>
+      <div class="error-code" aria-hidden="true" dir="ltr">404<span>.</span></div>
+      <h1 id="error-title">{translations.fa.title}</h1>
+      <p id="error-message">{translations.fa.message}</p>
+      <a class="button" id="error-home" href={translations.fa.href}>{translations.fa.home}</a>
+    </main>
+  </body>
 </html>
-<style>
-  body { background: #f7f5ed; color: #222; font: 1.15rem/2 system-ui; padding: 8vw; }
+<style is:global>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f7f5ed; color: #22221f; font: 1rem/1.8 Manrope, system-ui, sans-serif; }
+  html[dir="rtl"] body { font-family: Estedad, Tahoma, sans-serif; }
+  main { width: min(42rem, 86vw); min-height: 100vh; min-height: 100svh; margin-inline: auto; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding-block: 3rem; }
+  .brand { display: inline-flex; align-items: center; gap: .55rem; color: inherit; font: 700 1.35rem Sora, sans-serif; text-decoration: none; margin-block-end: 2.5rem; }
+  .brand img { object-fit: contain; }
+  .error-code { font: 700 clamp(5rem, 18vw, 10rem)/1 Sora, sans-serif; letter-spacing: -.07em; }
+  .error-code span { color: #f5bd13; }
+  h1 { font-size: clamp(1.6rem, 5vw, 2.8rem); line-height: 1.4; margin-block: 1rem .5rem; }
+  p { margin-block: 0 1.75rem; max-width: 45ch; }
+  .button { background: #f5bd13; color: #22221f; padding: .65rem 1.25rem; border-radius: 100px; font-weight: 700; text-decoration: none; }
+  a:focus-visible { outline: 3px solid #ae373a; outline-offset: 4px; }
 </style>
