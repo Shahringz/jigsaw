@@ -1368,3 +1368,16 @@ html[dir=rtl] .connection-page .quiz-step h2,html[dir=rtl] .connection-page .qui
 @media(max-width:900px){.quiz-side-art{left:-15%;opacity:.75}.quiz-piece-a{right:-13%}.quiz-piece-b{left:-14%}}
 @media(max-width:700px){.connection-form{display:block}.connection-brief-card{margin-top:20px}.quiz-shell{width:90%;padding-top:18px;justify-content:flex-start}.quiz-scenery .quiz-side-art{display:none}.quiz-piece{width:105px;opacity:.13}.quiz-piece-a{right:-42px;top:60px}.quiz-piece-b{left:-52px;bottom:-22px}.quiz-red-square{display:none}.quiz-options{gap:7px}.quiz-option{padding:9px 10px;max-width:100%}.quiz-option span{font-size:.83rem}.quiz-fields{gap:12px;grid-template-columns:1fr}.quiz-wide{grid-column:auto}.quiz-progress{margin-bottom:25px}.quiz-actions{margin-top:22px}.quiz-close{width:42px;height:42px}}
 @media(prefers-reduced-motion:reduce){.connection-quiz[open],.quiz-step,.quiz-success{animation:none!important;clip-path:none!important;transform:none!important}}
+
+/* Native-language contact hero and temporary yellow artwork. */
+.connection-photo-placeholder{display:block;width:100%;height:100%;background:#f5bd13}
+.connection-card{text-align:center;display:flex;flex-direction:column;align-items:center;padding:clamp(25px,4vw,56px)}
+.connection-card .connection-kicker{justify-content:center;text-align:center}
+.connection-card h1{width:100%;text-align:center;margin-block:22px;font-size:clamp(2.35rem,5.1vw,5.1rem)}
+.connection-card h1[dir="rtl"]{font-family:Estedad,Tahoma,sans-serif;font-size:clamp(1.7rem,3.5vw,3.8rem);line-height:1.4;letter-spacing:0}
+.connection-card h1[lang="ar"]{font-size:clamp(2rem,4.25vw,4.4rem)}
+.connection-card .connection-card-copy{margin-inline:auto;text-align:center;max-width:30ch}
+.connection-card .connection-primary{justify-content:center}
+.connection-word span{opacity:var(--letter-opacity,1);transform:translateY(var(--letter-y,0%));will-change:transform,opacity}
+@media(max-width:700px){.connection-card{padding:25px 18px}.connection-card h1{font-size:clamp(2.1rem,9vw,3.6rem)}.connection-card h1[dir="rtl"]{font-size:clamp(1.55rem,6.1vw,2.7rem)}.connection-card h1[lang="ar"]{font-size:clamp(1.9rem,7.1vw,3.1rem)}}
+@media(prefers-reduced-motion:reduce){.connection-word span{opacity:1!important;transform:none!important;will-change:auto}}

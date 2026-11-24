@@ -169,11 +169,15 @@ function initConnection(signal) {
     card.style.setProperty("--card-y",(-progress*(compact?9:27))+"px");
     card.style.setProperty("--card-r",(5-progress*3)+"deg");
     const w=word.parentElement.getBoundingClientRect();
-    const reveal=clamp((innerHeight-w.top)/(Math.max(w.height,120)+70));
-    word.style.setProperty("--word-y",((1-reveal)*(compact?22:85))+"px");
+    // Each letter rises independently from beneath the two hero layers.
+    // Finish within the visible scroll range, including smaller screens.
+    const reveal=clamp((innerHeight*.95-w.top)/Math.max(150,Math.min(innerHeight*.48,w.height*1.45)));
+    word.style.setProperty("--word-y","0px");
     letters.forEach((letter,i)=>{
-      const p=clamp((reveal-i*.035)/.78);
-      letter.style.setProperty("--letter-y",((1-p)*(compact?14:55))+"px");
+      const p=clamp((reveal-i*.135)/.325);
+      const ease=1-Math.pow(1-p,3);
+      letter.style.setProperty("--letter-y",((1-ease)*125)+"%");
+      letter.style.setProperty("--letter-opacity",String(clamp(p*5)));
     });
   };
   const queue=()=>{if(raf===null)raf=requestAnimationFrame(update);};
