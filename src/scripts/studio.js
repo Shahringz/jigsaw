@@ -198,7 +198,9 @@ function initConnection(signal) {
 
 function initContactQuiz(signal) {
   const dialog=document.querySelector("#connection-quiz");
-  if (!dialog || typeof dialog.showModal!=="function") return;
+  if (!dialog) return;
+  const nativeDialog=typeof dialog.showModal==="function";
+  if(!nativeDialog){dialog.classList.add("quiz-fallback");dialog.setAttribute("role","dialog");dialog.setAttribute("aria-modal","true");}
   const form=dialog.querySelector("#connection-quiz-form");
   const steps=[...form.querySelectorAll("[data-quiz-step]")];
   const topics=[...form.querySelectorAll("[name=topics]")];
@@ -207,6 +209,9 @@ function initContactQuiz(signal) {
   const counter=dialog.querySelector(".quiz-counter");
   const bars=[...dialog.querySelectorAll(".quiz-progress i")];
   let step=1, opener=null;
+  const isOpen=()=>dialog.hasAttribute("open");
+  const refreshTopics=()=>topics.forEach(t=>t.closest("label").classList.toggle("is-selected",t.checked));
+  const closeQuiz=()=>{if(nativeDialog){if(isOpen())dialog.close();}else{dialog.removeAttribute("open");document.documentElement.classList.remove("connection-quiz-open");opener?.focus?.({preventScroll:true});}};
   const get=name=>form.elements.namedItem(name);
   const normalize=value=>value.trim().replace(/[۰-۹]/g,d=>String("۰۱۲۳۴۵۶۷۸۹".indexOf(d))).replace(/[٠-٩]/g,d=>String("٠١٢٣٤٥٦٧٨٩".indexOf(d)));
   const phoneValue=()=>{
@@ -249,10 +254,11 @@ function initContactQuiz(signal) {
   }
   function open(topic,source){
     if(topic){const option=topics.find(t=>t.value===topic);if(option)option.checked=true;}
-    if(dialog.open)return;
+    refreshTopics();
+    if(isOpen())return;
     opener=source||document.activeElement;
     showStep(1,false);
-    dialog.showModal();
+    if(nativeDialog)dialog.showModal();else dialog.setAttribute("open","");
     document.documentElement.classList.add("connection-quiz-open");
     steps[0].querySelector("h2").focus({preventScroll:true});
   }
@@ -263,7 +269,7 @@ function initContactQuiz(signal) {
   dialog.addEventListener("click",event=>{
     const button=event.target.closest("button");
     if(!button)return;
-    if(button.hasAttribute("data-quiz-close"))dialog.close();
+    if(button.hasAttribute("data-quiz-close"))closeQuiz();
     else if(button.hasAttribute("data-quiz-next")&&validStep(step))showStep(Math.min(3,step+1));
     else if(button.hasAttribute("data-quiz-back"))showStep(Math.max(1,step-1));
     else if(button.hasAttribute("data-quiz-edit"))showStep(3);
@@ -273,10 +279,11 @@ function initContactQuiz(signal) {
     opener?.focus?.({preventScroll:true});
   },{signal});
   signal.addEventListener("abort",()=>{
-    if(dialog.open)dialog.close();
+    if(isOpen())closeQuiz();
     document.documentElement.classList.remove("connection-quiz-open");
   },{once:true});
-  form.addEventListener("input",()=>showError(""),{signal});
+  form.addEventListener("input",()=>{showError("");refreshTopics();},{signal});
+  if(!nativeDialog)document.addEventListener("keydown",event=>{if(event.key==="Escape"&&isOpen())closeQuiz();},{signal});
   form.addEventListener("submit",event=>{
     event.preventDefault();
     if(!validStep(step))return;

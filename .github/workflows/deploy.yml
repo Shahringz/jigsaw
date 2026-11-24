@@ -29,3 +29,43 @@ jobs:
     steps:
       - uses: actions/deploy-pages@v5
         id: deployment
+
+  verify-public-site:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify deployed revision in all three languages
+        shell: bash
+        run: |
+          for language in fa en ar; do
+            url="https://jigsawstudio.ir/$language/contact/?rev=$GITHUB_SHA"
+            found=false
+            for attempt in $(seq 1 12); do
+              if curl -fsSL --max-time 20 "$url" | grep -F "content=\"$GITHUB_SHA\"" >/dev/null; then
+                found=true
+                echo "Confirmed $language $GITHUB_SHA"
+                break
+              fi
+              sleep 10
+            done
+            if [ "$found" != true ]; then
+              echo "::error::Live revision not confirmed for $language"
+              exit 1
+            fi
+          done
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Install browser test tools
+        run: |
+          npm ci
+          npm install --no-save --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium firefox webkit
+      - name: Test published site in three browser engines
+        env:
+          SITE_URL: https://jigsawstudio.ir
+          EXPECTED_RELEASE: ${{ github.sha }}
+        run: node scripts/browser-smoke.mjs

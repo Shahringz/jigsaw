@@ -2,6 +2,7 @@
 import { SiteHeader } from '../components/Shell';
 import { assetHref, pageHref, locales, type Locale } from '../i18n';
 import '../styles/site.css';
+import { nativeFontCSS } from '../fonts';
 const translations = {
   fa: { dir:'rtl', kicker:'خطای', title:'صفحه پیدا نشد', message:'انگار یکی از قطعه‌های پازل گم شده. بیاید برگردیم به مسیر درست.', home:'بازگشت به صفحه اصلی', contact:'تماس با ما', href:pageHref('fa'), contactHref:pageHref('fa','contact') },
   en: { dir:'ltr', kicker:'Error', title:'Page not found', message:'Looks like a piece is missing. Let’s get you back on track.', home:'Back to home', contact:'Get in touch', href:pageHref('en'), contactHref:pageHref('en','contact') },
@@ -23,6 +24,7 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
     @font-face { font-family: Sora; src: url("${assetHref('type/sora-bold.woff2')}") format("woff2"); font-weight:700; font-display:swap; }
     @font-face { font-family: Manrope; src: url("${assetHref('type/manrope.woff2')}") format("woff2"); font-weight:200 800; font-display:swap; }
   `}></style>
+  <style is:inline set:html={nativeFontCSS}></style>
   <script is:inline define:vars={{ translations }}>
     const parts = location.pathname.split('/').filter(Boolean);
     const lang = parts[0] === 'en' || parts[0] === 'ar' ? parts[0] : 'fa';
