@@ -39,8 +39,12 @@ const partnerIntro = tr('تیم SBC در مسقط برای کسب‌وکارها
     <section class="network-row" id="ventures">
       <h2>{networkSections.ventures[i]}</h2>
       <ul class="venture-list">
-        <li><h3>{tr('نمشیران', 'Namshiran', 'نمشيران')}</h3>{lang !== 'en' && <bdi>Namshiran</bdi>}</li>
-        <li><h3>{tr('تتونیک', 'Tethonic', 'تِثونيك')}</h3>{lang !== 'en' && <bdi>Tethonic</bdi>}</li>
+        <li><div><h3>{tr('نمشیران', 'Namshiran', 'نمشيران')}</h3>{lang !== 'en' && <bdi>Namshiran</bdi>}
+          <p>{tr('یک تجربهٔ خرید آنلاین فارسی برای مد و پوشاک.', 'A Persian-language online fashion shopping experience.', 'تجربة تسوّق إلكترونية للأزياء باللغة الفارسية.')}</p></div>
+          <span class="venture-status">{tr('در حال توسعه', 'In development', 'قيد التطوير')}</span></li>
+        <li><div><h3>{tr('تتونیک', 'Tethonic', 'تِثونيك')}</h3>{lang !== 'en' && <bdi>Tethonic</bdi>}
+          <p>{tr('پروژه‌ای در حوزهٔ خدمات دارایی دیجیتال برای بازار خلیج فارس.', 'A digital asset services project for the Gulf market.', 'مشروع لخدمات الأصول الرقمية في أسواق الخليج.')}</p></div>
+          <span class="venture-status">{tr('در حال توسعه', 'In development', 'قيد التطوير')}</span></li>
       </ul>
     </section>
     <section class="network-row partnership" id="partnership">
