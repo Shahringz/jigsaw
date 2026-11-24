@@ -4,9 +4,9 @@ import { assetHref, pageHref, locales, type Locale } from '../i18n';
 import '../styles/site.css';
 import { nativeFontCSS } from '../fonts';
 const translations = {
-  fa: { dir:'rtl', kicker:'خطای', title:'صفحه پیدا نشد', message:'انگار یکی از قطعه‌های پازل گم شده. بیاید برگردیم به مسیر درست.', home:'بازگشت به صفحه اصلی', contact:'تماس با ما', href:pageHref('fa'), contactHref:pageHref('fa','contact') },
+  fa: { dir:'rtl', kicker:'خطای', title:'صفحه پیدا نشد', message:'انگار یه قطعه از پازل گم شده. بیاید برگردیم به مسیر درست.', home:'بازگشت به صفحه اصلی', contact:'تماس با ما', href:pageHref('fa'), contactHref:pageHref('fa','contact') },
   en: { dir:'ltr', kicker:'Error', title:'Page not found', message:'Looks like a piece is missing. Let’s get you back on track.', home:'Back to home', contact:'Get in touch', href:pageHref('en'), contactHref:pageHref('en','contact') },
-  ar: { dir:'rtl', kicker:'خطأ', title:'الصفحة غير موجودة', message:'يبدو أن إحدى قطع الأحجية مفقودة. لنعد إلى المسار الصحيح.', home:'العودة إلى الرئيسية', contact:'تواصل معنا', href:pageHref('ar'), contactHref:pageHref('ar','contact') },
+  ar: { dir:'rtl', kicker:'خطأ', title:'الصفحة غير موجودة', message:'شكله في قطعة ناقصة من البازل. خلّونا نرجع للمسار الصحيح.', home:'العودة إلى الرئيسية', contact:'تواصل معنا', href:pageHref('ar'), contactHref:pageHref('ar','contact') },
 };
 const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+'/404/'])) as Record<Locale,string>;
 ---
