@@ -4,6 +4,7 @@ import { SiteHeader, SiteFooter } from '../components/Shell';
 import { assetHref, defaultLocale, languages, locales, pageHref, type Locale, type PageKey } from '../i18n';
 import data from '../data/copy.json';
 import '../styles/site.css';
+import { nativeFontCSS, nativeHeadingFont } from '../fonts';
 
 interface Props {
   lang: Locale;
@@ -17,7 +18,8 @@ const absolutePage = (locale: Locale) => new URL(alternates?.[locale] ?? pageHre
 const estedad = assetHref('type/estedad-fa.woff2');
 const sora = assetHref('type/sora-bold.woff2');
 const manrope = assetHref('type/manrope.woff2');
-const headingFont = languages[lang].direction === 'rtl' ? estedad : sora;
+const headingFont = nativeHeadingFont(lang);
+const release = process.env.GITHUB_SHA || 'local';
 ---
 <!doctype html>
 <html lang={lang} dir={languages[lang].direction} transition:animate="none">
@@ -25,6 +27,7 @@ const headingFont = languages[lang].direction === 'rtl' ? estedad : sora;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#20201d" />
+    <meta name="jigsaw-release" content={release} />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={absolutePage(lang)} />
@@ -52,6 +55,7 @@ const headingFont = languages[lang].direction === 'rtl' ? estedad : sora;
         font-display: swap;
       }
     `}></style>
+    <style is:inline set:html={nativeFontCSS}></style>
     <ClientRouter />
   </head>
   <body>
