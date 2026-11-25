@@ -1,4 +1,5 @@
 import { Cover, Trace, ProjectEntry } from "./Artwork";
+import { EditorialText } from "./EditorialText";
 import type { CSSProperties } from "react";
 import data from "../data/copy.json";
 import {
@@ -28,7 +29,7 @@ export function StudioContent({
   const intro = (title: string, body?: string) => (
     <div className="intro">
       <h1>{title}</h1>
-      {body && <p>{body}</p>}
+      {body && <p><EditorialText language={language} text={body}/></p>}
     </div>
   );
   return (
@@ -60,11 +61,11 @@ export function StudioContent({
                   <em>{tr("بهتون کمک کنیم؟", "help you?", "نساعدكم؟")}</em>
                 </h1>
                 <p>
-                  {tr(
+                  <EditorialText language={language} text={tr(
                     "شما بهتر از هر کسی ریزه‌کاری‌های کارتون رو می‌شناسید. ما کمک می‌کنیم مشتری‌تون هم اون‌ها رو ببینه؛ از یه عکس که جزئیات محصول رو نشون می‌ده تا یه سایت که انتخاب رو راحت‌تر می‌کنه.",
                     "You know what makes your work special. We help your customers see it, from a photo that catches the little details to a website that makes choosing easier.",
                     "أنتم أدرى بالتفاصيل اللي تميّز شغلكم. وإحنا نساعد جمهوركم يشوفها، من صورة تبرز تفاصيل المنتج إلى موقع يسهّل عليهم الاختيار.",
-                  )}
+                  )}/>
                 </p>
                 <div className="actions">
                   {go(
@@ -146,7 +147,7 @@ export function StudioContent({
                 >
                   <div>
                     <h3>{choice.title}</h3>
-                    <p>{choice.body}</p>
+                    <p><EditorialText language={language} text={choice.body}/></p>
                   </div>
                   <span className="plus" aria-hidden="true">
                     +
@@ -174,7 +175,7 @@ export function StudioContent({
                   <article key={j}>
                     <div className={"shape shape" + j} aria-hidden="true" />
                     <h3>{a[i][0]}</h3>
-                    <p>{a[i][1]}</p>
+                    <p><EditorialText language={language} text={a[i][1]}/></p>
                   </article>
                 ))}
               </div>
@@ -189,15 +190,15 @@ export function StudioContent({
             {data.about.slice(1).map((a) => (
               <section className="storyrow" key={a.title[1]}>
                 <h2>{a.title[i]}</h2>
-                <p>{a.body[i]}</p>
+                <p><EditorialText language={language} text={a.body[i]}/></p>
               </section>
             ))}
             <p>
-              {tr(
+              <EditorialText language={language} text={tr(
                 "با کسب‌وکارهای ایران، عمان و امارات همکاری می‌کنیم.",
                 "We work with businesses in Iran, Oman and the UAE.",
                 "نعمل مع شركات في إيران وعُمان والإمارات.",
-              )}
+              )}/>
             </p>
             {go(
               "process",
@@ -226,7 +227,7 @@ export function StudioContent({
                   </span>
                 </summary>
                 <div className="expanded">
-                  <p>{s.body[i]}</p>
+                  <p><EditorialText language={language} text={s.body[i]}/></p>
                   {go(
                     "contact",
                     tr(
@@ -257,7 +258,7 @@ export function StudioContent({
             {data.process.map((s) => (
               <li key={s[1][0]}>
                 <h2>{s[i][0]}</h2>
-                <p>{s[i][1]}</p>
+                <p><EditorialText language={language} text={s[i][1]}/></p>
               </li>
             ))}
           </ol>
@@ -273,7 +274,7 @@ export function StudioContent({
                     +
                   </span>
                 </summary>
-                <p className="expanded">{s[1][i]}</p>
+                <p className="expanded"><EditorialText language={language} text={s[1][i]}/></p>
               </details>
             ))}
           </div>
@@ -293,7 +294,7 @@ export function StudioContent({
                   <div className="connection-card" dir={languages[language].direction}>
                     <p className="connection-kicker"><i aria-hidden="true"/>{tr("بیاید با هم آشنا بشیم","Let’s get to know each other","خلّونا نتعارف")}</p>
                     <h1 lang={language} dir={languages[language].direction}><span>{tr("می‌تونیم","Can we","كيف نقدر")}</span><span>{tr("بهتون کمک کنیم؟","help you?","نساعدكم؟")}</span></h1>
-                    <p className="connection-card-copy">{tr("سه تا سؤال کوتاه، برای شروع یه آشنایی خوب. از ایده‌هاتون برامون بگید.","Three quick questions to break the ice. Tell us what’s on your mind.","ثلاثة أسئلة بسيطة نتعرّف فيها عليكم. شاركونا أفكاركم.")}</p>
+                    <p className="connection-card-copy"><EditorialText language={language} text={tr("سه تا سؤال کوتاه، برای شروع یه آشنایی خوب. از ایده‌هاتون برامون بگید.","Three quick questions to break the ice. Tell us what’s on your mind.","ثلاثة أسئلة بسيطة نتعرّف فيها عليكم. شاركونا أفكاركم.")}/></p>
                     <a className="connection-primary" href="#contact-form" data-open-quiz="">{tr("بیاید گپ بزنیم","Let’s talk","خلّونا نتكلم")} <span aria-hidden="true">↗</span></a>
                   </div>
                 </div>
@@ -309,7 +310,7 @@ export function StudioContent({
             <div className="connection-section-heading" data-contact-reveal>
               <small>01 / {tr("راه‌های ارتباطی","Get in touch","خلّونا على تواصل")}</small>
               <h2 id="connection-paths-title">{tr("چطوری با هم در ارتباط باشیم؟","How do you like to connect?","كيف تحبّون نتواصل؟")}</h2>
-              <p>{tr("هر جوری که راحت‌ترید، با ما در ارتباط باشید.","Whatever works for you, we’re all ears.","اختاروا الطريقة اللي تناسبكم.")}</p>
+              <p><EditorialText language={language} text={tr("هر جوری که راحت‌ترید، با ما در ارتباط باشید.","Whatever works for you, we’re all ears.","اختاروا الطريقة اللي تناسبكم.")}/></p>
             </div>
             <div className="connection-grid">
               {[
@@ -320,7 +321,7 @@ export function StudioContent({
                 {id:"team",title:tr("همکاری با تیم جیگزا","Join our team","انضموا إلى فريقنا"),text:tr("جای آدم‌های خلاق کنار ما خالیه.","Creative minds are always welcome.","نحب نتعرّف على المبدعين."),href:"#contact-form"},
                 {id:"partner",title:tr("پیشنهاد شراکت","Become a partner","اقترحوا شراكة"),text:tr("ببینیم چه چیز جالبی می‌تونیم با هم بسازیم.","Let’s build something great together.","خلّونا نشوف إيش نقدر ننجز مع بعض."),href:"#contact-form"}
               ].map((item,n)=>{
-                const inside=<><span className="connection-route-index">0{n+1}</span><span className={"connection-route-art route-"+item.id} aria-hidden="true"><i/><b/></span><div><h3>{item.title}</h3><p>{item.text}</p></div><span className="connection-route-tail">{item.href?"↗":tr("به‌زودی","Coming soon","قريباً")}</span></>;
+                const inside=<><span className="connection-route-index">0{n+1}</span><span className={"connection-route-art route-"+item.id} aria-hidden="true"><i/><b/></span><div><h3>{item.title}</h3><p><EditorialText language={language} text={item.text}/></p></div><span className="connection-route-tail">{item.href?"↗":tr("به‌زودی","Coming soon","قريباً")}</span></>;
                 const className="connection-route connection-route-"+item.id;
                 return item.href?<a key={item.id} className={className} href={item.href} data-open-quiz={item.id==="partner"?"partnership":item.id==="team"?"careers":""} data-contact-reveal>{inside}</a>:<div key={item.id} className={className+" is-pending"} data-contact-reveal>{inside}</div>;
               })}
@@ -330,14 +331,14 @@ export function StudioContent({
             <div className="connection-section-heading" data-contact-reveal>
               <small>02 / {tr("شرح پروژه","Project brief","ملخص المشروع")}</small>
               <h2 id="connection-form-title">{tr("از ایده‌تون بگید.","Tell us your story.","حدّثونا عن فكرتكم.")}</h2>
-              <p>{tr("لازم نیست همه‌چیز از قبل مشخص باشه. از همون جایی که هستید شروع کنیم.","You don’t need to have it all figured out. Let’s start where you are.","مو لازم تكون كل التفاصيل جاهزة. نبدأ من الفكرة اللي عندكم.")}</p>
+              <p><EditorialText language={language} text={tr("لازم نیست همه‌چیز از قبل مشخص باشه. از همون جایی که هستید شروع کنیم.","You don’t need to have it all figured out. Let’s start where you are.","مو لازم تكون كل التفاصيل جاهزة. نبدأ من الفكرة اللي عندكم.")}/></p>
             </div>
             <div className="connection-brief-card" data-contact-reveal>
               <span className="connection-brief-number" dir="ltr">01 — 03</span>
               <h3>{tr("سه قدم تا آشنایی.","Three steps to break the ice.","ثلاث خطوات ونتعارف.")}</h3>
-              <p>{tr("اول ببینیم چه کمکی ازمون برمیاد، بعد بیشتر با هم آشنا بشیم.","Tell us what you need, a bit about yourself and what you have in mind.","قولوا لنا كيف نقدر نساعدكم، وعرّفونا عليكم وعلى فكرتكم.")}</p>
+              <p><EditorialText language={language} text={tr("اول ببینیم چه کمکی ازمون برمیاد، بعد بیشتر با هم آشنا بشیم.","Tell us what you need, a bit about yourself and what you have in mind.","قولوا لنا كيف نقدر نساعدكم، وعرّفونا عليكم وعلى فكرتكم.")}/></p>
               <a className="connection-primary" href="#contact-form" data-open-quiz="">{tr("بزن بریم!","Let’s get started!","يلا نبدأ!")} <span aria-hidden="true">↗</span></a>
-              <p className="connection-brief-note">{tr("نسخه آزمایشی: پاسخ‌ها فقط به‌صورت فایل دانلود می‌شن و هنوز برای جیگزا ارسال نمی‌شن.","Preview: responses can be downloaded, but are not yet sent to JIGSAW.","نسخة تجريبية: يمكن تنزيل الإجابات، ولا تُرسل إلى جيغسو بعد.")}</p>
+              <p className="connection-brief-note"><EditorialText language={language} text={tr("نسخه آزمایشی: پاسخ‌ها فقط به‌صورت فایل دانلود می‌شن و هنوز برای جیگزا ارسال نمی‌شن.","Preview: responses can be downloaded, but are not yet sent to JIGSAW.","نسخة تجريبية: يمكن تنزيل الإجابات، ولا تُرسل إلى جيغسو بعد.")}/></p>
               <noscript>{tr("برای باز کردن پرسش‌نامه، جاوااسکریپت را فعال کنید.","Enable JavaScript to open the questionnaire.","فعّلوا جافاسكريبت لفتح الاستبيان.")}</noscript>
             </div>
           </section>
@@ -359,7 +360,7 @@ export function StudioContent({
                 <section className="quiz-step" data-quiz-step="1">
                   <p className="quiz-step-number" dir="ltr">01.</p>
                   <h2 id="quiz-heading-1" tabIndex={-1}>{tr("چطور می‌تونیم کمکتون کنیم؟","What can we help you with?","كيف نقدر نساعدكم؟")}</h2>
-                  <p className="quiz-intro">{tr("هر چندتا گزینه که به کارتون میاد انتخاب کنید.","Pick as many as you like.","اختاروا كل اللي يناسبكم.")}</p>
+                  <p className="quiz-intro"><EditorialText language={language} text={tr("هر چندتا گزینه که به کارتون میاد انتخاب کنید.","Pick as many as you like.","اختاروا كل اللي يناسبكم.")}/></p>
                   <div className="quiz-options">
                     {[...data.services.map((service,n)=>({id:service.id,title:service.title[i],legacy:String(n)})),{id:"partnership",title:tr("پیشنهاد شراکت تجاری","Business partnership","اقتراح شراكة"),legacy:""},{id:"careers",title:tr("همکاری با تیم جیگزا","Join the JIGSAW team","انضموا إلى فريق جيغسو"),legacy:""},{id:"samples",title:tr("دیدن نمونه‌کار مرتبط","Request relevant work","طلب أعمال مشابهة"),legacy:"related"},{id:"unsure",title:tr("هنوز نمی‌دونم از کجا شروع کنم!","I’m not sure where to start!","ما أعرف من وين أبدأ!"),legacy:""},{id:"hello",title:tr("فقط اومدم سلام کنم!","Just here to say hi!","بس حبيت أسلّم!"),legacy:""}].map(item=><label className="quiz-option" key={item.id}><input type="checkbox" name="topics" value={item.id} data-legacy-service={item.legacy}/><span>{item.title}</span></label>)}
                   </div>
@@ -368,7 +369,7 @@ export function StudioContent({
                 <section className="quiz-step" data-quiz-step="2" hidden>
                   <p className="quiz-step-number" dir="ltr">02.</p>
                   <h2 id="quiz-heading-2" tabIndex={-1}>{tr("یکم بیشتر با هم آشنا بشیم.","Let’s get to know you.","خلّونا نتعرّف عليكم أكثر.")}</h2>
-                  <p className="quiz-intro">{tr("اسم‌تون و یه راه برای ارتباط باهاتون کافیه.","A name and a way to reach you are all we need.","اسمكم وطريقة نتواصل فيها معكم، وهذا يكفي.")}</p>
+                  <p className="quiz-intro"><EditorialText language={language} text={tr("اسم‌تون و یه راه برای ارتباط باهاتون کافیه.","A name and a way to reach you are all we need.","اسمكم وطريقة نتواصل فيها معكم، وهذا يكفي.")}/></p>
                   <div className="quiz-fields">
                     <label>{tr("نام","First name","الاسم")}<input name="firstName" autoComplete="given-name" required maxLength={100}/></label>
                     <label>{tr("نام خانوادگی","Last name","اسم العائلة")}<input name="lastName" autoComplete="family-name" required maxLength={100}/></label>
@@ -381,12 +382,12 @@ export function StudioContent({
                 <section className="quiz-step" data-quiz-step="3" hidden>
                   <p className="quiz-step-number" dir="ltr">03.</p>
                   <h2 id="quiz-heading-3" tabIndex={-1}>{tr("چیز دیگه‌ای هست که بخواید بگید؟","Anything else on your mind?","في شي ثاني حابين تقولونه؟")}</h2>
-                  <p className="quiz-intro">{tr("از ایده‌هاتون برامون بگید؛ چند خط هم کافیه.","A few lines about your idea would be lovely.","شاركونا فكرتكم، حتى لو بكلمتين.")}</p>
+                  <p className="quiz-intro"><EditorialText language={language} text={tr("از ایده‌هاتون برامون بگید؛ چند خط هم کافیه.","A few lines about your idea would be lovely.","شاركونا فكرتكم، حتى لو بكلمتين.")}/></p>
                   <div className="quiz-fields">
                     <label className="quiz-wide">{tr("پیام شما (اختیاری)","Your message (optional)","رسالتكم (اختياري)")}<textarea name="brief" rows={4} maxLength={5000} placeholder={tr("خب، از کجا شروع کنیم؟","So, where do we start?","من وين نبدأ؟")}/></label>
                     <label className="quiz-wide">{tr("لینک نمونه‌کار یا رفرنس (اختیاری)","Portfolio or reference link (optional)","رابط الأعمال أو المرجع (اختياري)")}<input name="reference" type="url" dir="ltr" placeholder="https://" maxLength={2048}/></label>
                   </div>
-                  <p className="quiz-preview-note">{tr("نسخه آزمایشی: این اطلاعات فقط روی دستگاه شما به فایل تبدیل می‌شن؛ به جیگزا ارسال نمی‌شن.","Preview mode: your answers are converted into a file on your device and are not sent to JIGSAW.","نسخة تجريبية: تتحول الإجابات إلى ملف على جهازكم ولا تُرسل إلى جيغسو.")}</p>
+                  <p className="quiz-preview-note"><EditorialText language={language} text={tr("نسخه آزمایشی: این اطلاعات فقط روی دستگاه شما به فایل تبدیل می‌شن؛ به جیگزا ارسال نمی‌شن.","Preview mode: your answers are converted into a file on your device and are not sent to JIGSAW.","نسخة تجريبية: تتحول الإجابات إلى ملف على جهازكم ولا تُرسل إلى جيغسو.")}/></p>
                   <div className="quiz-actions"><button type="button" className="quiz-back" data-quiz-back>{tr("مرحله قبل","Previous","السابق")}</button><button type="submit" className="quiz-next">{tr("دانلود شرح پروژه","Download my brief","تنزيل ملخّص المشروع")} <span aria-hidden="true">↓</span></button></div>
                 </section>
                 <p className="quiz-error" role="alert" hidden/>
@@ -394,7 +395,7 @@ export function StudioContent({
               <section className="quiz-success" hidden>
                 <svg viewBox="0 0 160 100" aria-hidden="true" className="quiz-connected"><path fill="#F5BD13" d="M0 10H80V33C108 24 108 66 80 57V90H0Z"/><path fill="#22221F" d="M80 10H160V90H80V57C108 66 108 24 80 33Z"/></svg>
                 <h2 tabIndex={-1}>{tr("یه قطعه دیگه آماده شد!","One more piece in place!","قطعة جديدة في مكانها!")}</h2>
-                <p>{tr("شرح پروژه آماده دانلود شده. هنوز پیامی ارسال نشده.","Your brief is ready to download. Nothing has been sent.","ملخصكم جاهز للتنزيل. لم تُرسل أي رسالة.")}</p>
+                <p><EditorialText language={language} text={tr("شرح پروژه آماده دانلود شده. هنوز پیامی ارسال نشده.","Your brief is ready to download. Nothing has been sent.","ملخصكم جاهز للتنزيل. لم تُرسل أي رسالة.")}/></p>
                 <div className="quiz-actions"><button type="button" className="quiz-back" data-quiz-edit>{tr("ویرایش پاسخ‌ها","Edit answers","تعديل الإجابات")}</button><button type="button" className="quiz-next" data-quiz-close>{tr("بازگشت به صفحه تماس","Back to contact","العودة إلى التواصل")}</button></div>
               </section>
             </div>
