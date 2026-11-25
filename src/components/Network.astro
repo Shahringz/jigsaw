@@ -1,4 +1,5 @@
 ---
+import { EditorialText } from "./EditorialText";
 import { assetHref, pageHref, networkSections, navigationLabels, languages, translator, type Locale } from '../i18n';
 interface Props { lang: Locale; profile: boolean; }
 const { lang, profile } = Astro.props;
@@ -12,16 +13,16 @@ const partnerIntro = tr('تیم SBC در مسقط برای کسب‌وکارها
     <a class="textlink" href={pageHref(lang, 'network') + '#partners'}>{networkSections.partners[i]}</a>
     <div class="profile-heading">
       <img width="80" height="80" src={assetHref('media/sbc.svg')} alt="" />
-      <div><h1 lang="en" dir="ltr">Senior Block Chain LLC</h1><p>{tr('شریک تجاری جیگزا در عمان', 'Our business partner in Oman', 'شريك جيغسو في عُمان')}</p></div>
+      <div><h1 lang="en" dir="ltr">Senior Block Chain LLC</h1><p><EditorialText language={lang} text={tr('شریک تجاری جیگزا در عمان', 'Our business partner in Oman', 'شريك جيغسو في عُمان')}/></p></div>
     </div>
     <div class="article-text">
-      <p>{partnerIntro}</p>
-      <p>{tr('یکی از محصولاتشون SBC ERP هست. با این نرم‌افزار، بخش‌هایی مثل مالی، منابع انسانی و انبار می‌تونن توی یک سیستم مشترک کار کنن.', 'One of their products is SBC ERP. It brings finance, HR and inventory into a shared system so teams can work with the same information.', 'من منتجاتهم SBC ERP، نظام يجمع المالية والموارد البشرية والمخزون في مكان واحد، عشان الفرق تشتغل على نفس المعلومات.')}</p>
+      <p><EditorialText language={lang} text={partnerIntro}/></p>
+      <p><EditorialText language={lang} text={tr('یکی از محصولاتشون SBC ERP هست. با این نرم‌افزار، بخش‌هایی مثل مالی، منابع انسانی و انبار می‌تونن توی یک سیستم مشترک کار کنن.', 'One of their products is SBC ERP. It brings finance, HR and inventory into a shared system so teams can work with the same information.', 'من منتجاتهم SBC ERP، نظام يجمع المالية والموارد البشرية والمخزون في مكان واحد، عشان الفرق تشتغل على نفس المعلومات.')}/></p>
       <a class="textlink" href="https://sbc.om/">{tr('وب‌سایت رسمی SBC', 'Visit the SBC website', 'موقع SBC الرسمي')} · <bdi>sbc.om</bdi></a>
     </div>
   </> : <>
     <div class="intro"><h1>{navigationLabels.network[i]}</h1>
-      <p>{tr('بعضی کارها از یک همکاری شروع می‌شن، بعضی‌ها از ایده‌ای که توی استودیو شکل می‌گیره. اینجا می‌تونید هر دو رو دنبال کنید.', 'Some projects start with a partnership. Others begin as an idea inside the studio. You can follow both here.', 'بعض المشاريع تبدأ بشراكة، وبعضها بفكرة من داخل الاستوديو. هنا تقدرون تتابعون الاثنين.')}</p>
+      <p><EditorialText language={lang} text={tr('بعضی کارها از یک همکاری شروع می‌شن، بعضی‌ها از ایده‌ای که توی استودیو شکل می‌گیره. اینجا می‌تونید هر دو رو دنبال کنید.', 'Some projects start with a partnership. Others begin as an idea inside the studio. You can follow both here.', 'بعض المشاريع تبدأ بشراكة، وبعضها بفكرة من داخل الاستوديو. هنا تقدرون تتابعون الاثنين.')}/></p>
     </div>
     <nav class="section-links" aria-label={navigationLabels.network[i]}>
       {Object.entries(networkSections).map(([id, label]) => <a href={'#' + id}>{label[i]}</a>)}
@@ -31,7 +32,7 @@ const partnerIntro = tr('تیم SBC در مسقط برای کسب‌وکارها
       <a class="partner-card" href={profileUrl}>
         <div class="partner-brand" dir="ltr"><img src={assetHref('media/sbc.svg')} width="56" height="56" alt="" /><strong>SBC</strong></div>
         <div><h3 lang="en" dir="ltr">Senior Block Chain LLC</h3>
-          <p>{tr('شریک فعال جیگزا در مسقط، عمان', 'Active partner in Muscat, Oman', 'شريكنا الحالي في مسقط، عُمان')}</p>
+          <p><EditorialText language={lang} text={tr('شریک فعال جیگزا در مسقط، عمان', 'Active partner in Muscat, Oman', 'شريكنا الحالي في مسقط، عُمان')}/></p>
           <span class="textlink">{tr('آشنایی با SBC', 'Meet SBC', 'تعرّفوا إلى SBC')}</span>
         </div>
       </a>
@@ -40,16 +41,16 @@ const partnerIntro = tr('تیم SBC در مسقط برای کسب‌وکارها
       <h2>{networkSections.ventures[i]}</h2>
       <ul class="venture-list">
         <li><div><h3>{tr('نمشیران', 'Namshiran', 'نمشيران')}</h3>{lang !== 'en' && <bdi>Namshiran</bdi>}
-          <p>{tr('یه تجربه خرید آنلاین فارسی برای مد و پوشاک.', 'A Persian-language online fashion shopping experience.', 'تجربة تسوّق إلكترونية للأزياء باللغة الفارسية.')}</p></div>
+          <p><EditorialText language={lang} text={tr('یه تجربه خرید آنلاین فارسی برای مد و پوشاک.', 'A Persian-language online fashion shopping experience.', 'تجربة تسوّق إلكترونية للأزياء باللغة الفارسية.')}/></p></div>
           <span class="venture-status">{tr('در حال توسعه', 'In development', 'قيد التطوير')}</span></li>
         <li><div><h3>{tr('تتونیک', 'Tethonic', 'تِثونيك')}</h3>{lang !== 'en' && <bdi>Tethonic</bdi>}
-          <p>{tr('پروژه‌ای در زمینه خدمات دارایی دیجیتال برای بازار خلیج فارس.', 'A digital asset services project for the Gulf market.', 'مشروع لخدمات الأصول الرقمية في أسواق الخليج.')}</p></div>
+          <p><EditorialText language={lang} text={tr('پروژه‌ای در زمینه خدمات دارایی دیجیتال برای بازار خلیج فارس.', 'A digital asset services project for the Gulf market.', 'مشروع لخدمات الأصول الرقمية في أسواق الخليج.')}/></p></div>
           <span class="venture-status">{tr('در حال توسعه', 'In development', 'قيد التطوير')}</span></li>
       </ul>
     </section>
     <section class="network-row partnership" id="partnership">
       <h2>{tr('با هم چی می‌تونیم بسازیم؟', 'What could we build together?', 'إيش نقدر نبني مع بعض؟')}</h2>
-      <div><p>{tr('اگه کاری توی ذهنتونه که تخصص شما و جیگزا کنار هم به دردش می‌خوره، دوست داریم درباره‌ش بیشتر بدونیم.', 'Have something in mind that could use both your expertise and ours? We’d love to hear what you’re thinking.', 'عندكم فكرة تجمع خبرتكم مع خبرتنا؟ نحب نسمع عنها أكثر.')}</p>
+      <div><p><EditorialText language={lang} text={tr('اگه کاری توی ذهنتونه که تخصص شما و جیگزا کنار هم به دردش می‌خوره، دوست داریم درباره‌ش بیشتر بدونیم.', 'Have something in mind that could use both your expertise and ours? We’d love to hear what you’re thinking.', 'عندكم فكرة تجمع خبرتكم مع خبرتنا؟ نحب نسمع عنها أكثر.')}/></p>
       <a class="button" href={pageHref(lang, 'contact') + '?interest=partnership'}>{tr('دربارهٔ شراکت صحبت کنیم', 'Let’s talk about a partnership', 'خلّونا نتكلم عن الشراكة')}</a></div>
     </section>
   </>}

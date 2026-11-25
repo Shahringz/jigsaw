@@ -1,4 +1,5 @@
 import { Orbit } from "./Artwork";
+import { EditorialText } from "./EditorialText";
 import {
   assetHref,
   pageHref,
@@ -118,11 +119,11 @@ export function Gallery({ language }: Props) {
           {tr("تجربه‌های استودیو", "Studio experiments", "تجارب الاستوديو")}
         </h1>
         <p>
-          {tr(
+          <EditorialText language={language} text={tr(
             "از طراحی جلد جیگزا تا پوستر و موشن؛ هر اثر رو باز کنید تا از نزدیک ببینیدش.",
             "From cover design to posters and motion, take a closer look at what we’ve been making.",
             "من تصميم الغلاف إلى الملصق والموشن، خذوا جولة قريبة في تجاربنا.",
-          )}
+          )}/>
         </p>
       </div>
       <div
@@ -157,7 +158,7 @@ export function Gallery({ language }: Props) {
                   <span aria-hidden="true">+</span>
                 </div>
               </summary>
-              <p className="ex-description">{p.body[idx]}</p>
+              <p className="ex-description"><EditorialText language={language} text={p.body[idx]}/></p>
             </details>
           ))}
       </div>
@@ -184,7 +185,7 @@ export function Gallery({ language }: Props) {
               {tr("یادداشت طراحی", "Design notes", "ملاحظات التصميم")}
             </small>
             <h3>{stages[stage].title[idx]}</h3>
-            <p>{stages[stage].text[idx]}</p>
+            <p><EditorialText language={language} text={stages[stage].text[idx]}/></p>
             <div className="stage-controls">
               {stages.map((s, n) => (
                 <button

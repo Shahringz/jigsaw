@@ -1,4 +1,5 @@
 ---
+import { EditorialText } from "./EditorialText";
 import { getCollection } from 'astro:content';
 import { assetHref, pageHref, translator, blogCategories, languages, type Locale } from '../i18n';
 interface Props { lang: Locale }
@@ -11,7 +12,7 @@ const posts = (await getCollection('blog', post => post.id.startsWith(lang + '/'
 ---
 <div class="wrap inner">
   <div class="intro"><h1>{tr('وبلاگ جیگزا', 'JIGSAW blog', 'مدوّنة جيغسو')}</h1>
-    <p>{tr('اینجا از تصمیم‌های پشت طراحی‌ها، تجربه‌های تولید و چیزهایی که وسط کار یاد می‌گیریم می‌نویسیم.', 'A little insight into our design decisions, production and the things we learn along the way.', 'هنا نشارككم كواليس التصميم والإنتاج والأشياء اللي نتعلّمها وإحنا نشتغل.')}</p>
+    <p><EditorialText language={lang} text={tr('اینجا از تصمیم‌های پشت طراحی‌ها، تجربه‌های تولید و چیزهایی که وسط کار یاد می‌گیریم می‌نویسیم.', 'A little insight into our design decisions, production and the things we learn along the way.', 'هنا نشارككم كواليس التصميم والإنتاج والأشياء اللي نتعلّمها وإحنا نشتغل.')}/></p>
   </div>
   <nav class="section-links" aria-label={tr('دسته‌بندی مطالب', 'Article categories', 'تصنيفات المقالات')}>
     {categories.filter(category => posts.some(post => post.data.category === category)).map(category => <a href={'#' + category}>{blogCategories[category][i]}</a>)}
@@ -22,7 +23,7 @@ const posts = (await getCollection('blog', post => post.id.startsWith(lang + '/'
     <a href={pageHref(lang, 'blog') + id.split('/')[1] + '/'}>
       {data.image && <div class="journal-art"><img src={assetHref(data.image)} alt={data.imageAlt ?? ''} width="600" height="800" loading="lazy" /></div>}
       <div class="journal-summary"><time datetime={data.date.toISOString().slice(0,10)}>{data.date.toLocaleDateString(lang, { dateStyle: 'long', timeZone: 'UTC' })}</time>
-        <h2>{data.title}</h2><p>{data.description}</p>
+        <h2>{data.title}</h2><p><EditorialText language={lang} text={data.description}/></p>
         <span class="textlink">{tr('خوندن یادداشت', 'Read the note', 'اقرؤوا المقال')}</span></div>
     </a>
     </article>)}

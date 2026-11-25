@@ -1400,3 +1400,6 @@ bdi[lang="en"]{font-family:Manrope,Arial,sans-serif}
 :root[lang="ar"] .intro h1,:root[lang="ar"] .quiz-step h2{line-height:1.45;letter-spacing:0}
 :root[lang="fa"] .intro h1,:root[lang="fa"] .quiz-step h2{letter-spacing:0}
 button,input,textarea,select{font-family:inherit}
+
+/* Editorial emphasis: real Digi Hamishe Bold, inherited colour and sizing. */
+html[lang="fa"] .editorial-emphasis,html[lang="fa"] .article-text strong{font-weight:700;color:inherit;}
