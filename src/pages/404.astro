@@ -16,7 +16,7 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
 <html lang="fa" dir="rtl" class="error-document">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="jigsaw-release" content={release} />
   <meta name="robots" content="noindex, follow" />
   <meta name="theme-color" content="#22221f" />
@@ -26,7 +26,9 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
     @font-face { font-family: Estedad; src: url("${assetHref('type/estedad-fa.woff2')}") format("woff2"); font-weight:100 900; font-display:swap; }
     @font-face { font-family: Sora; src: url("${assetHref('type/sora-bold.woff2')}") format("woff2"); font-weight:700; font-display:swap; }
     @font-face { font-family: Manrope; src: url("${assetHref('type/manrope.woff2')}") format("woff2"); font-weight:200 800; font-display:swap; }
-  `}></style>
+  `}>  @media(max-width:760px){.error-layout{grid-template-columns:minmax(0,1fr);gap:18px;min-height:0}.error-copy{display:contents}.error-heading{grid-row:1}.handoff-art{grid-row:2;width:min(100%,440px);justify-self:center}.error-details{grid-row:3}.error-code{font-size:clamp(78px,23vw,140px)}.error-code-row{gap:8px}.error-kicker{font-size:1.15rem}.error-actions>a{max-width:100%}}
+  @media(max-width:360px){.error-code{font-size:clamp(68px,23vw,92px)}.error-kicker{font-size:1rem}.error-home{padding-inline:12px;gap:12px}}
+</style>
   <style is:inline set:html={nativeFontCSS}></style>
   <script is:inline define:vars={{ translations, errorNumbers }}>
     const parts = location.pathname.split('/').filter(Boolean);

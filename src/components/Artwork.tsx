@@ -27,7 +27,7 @@ export function Cover({ language }: { language: Locale }) {
                 "w",
             )
             .join(", ")}
-          sizes="(max-width: 720px) min(72vw, 325px), (max-width: 1050px) 35vw, 410px"
+          sizes="(max-width: 720px) min(52vw, 325px), (max-width: 1100px) 38vw, 410px"
           alt={tr(
             "جلد جیگزا؛ دو شخصیت قطعه‌های زرد و قرمز پازل را کنار هم می‌گذارند. شعار جلد «هر قطعه، در جای درست» است.",
             "JIGSAW cover. Two figures assemble yellow and red puzzle pieces above the line “Every piece in its place.”",

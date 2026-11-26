@@ -5,10 +5,13 @@ const locales=['fa','en','ar'];
 const routes=['about','services','work','process','contact','network','network/sbc','blog','blog/reading-the-cover'];
 const errors=[];
 const check=(v,message)=>{if(!v)throw new Error(message)};
-for(const [engine,launch] of Object.entries({chromium,firefox,webkit})){
+const viewports=[[320,568],[360,800],[390,844],[430,932],[768,1024],[820,1180],[1024,1366],[1366,1024],[844,390],[1024,768],[1280,800],[1440,900]];
+const engines=Object.entries({chromium,firefox,webkit}).filter(([name])=>!process.env.BROWSER_ENGINE||name===process.env.BROWSER_ENGINE);
+for(const [engine,launch] of engines){
   const browser=await launch.launch({headless:true});
-  for(const [width,height] of [[1440,900],[390,844]]){
-    const page=await browser.newPage({viewport:{width,height},reducedMotion:'no-preference'});
+  for(const [width,height] of viewports){
+    const page=await browser.newPage({viewport:{width,height},hasTouch:width<=1100,reducedMotion:'no-preference'});
+    page.setDefaultTimeout(10000);
     let jsErrors=[];
     page.on('pageerror',error=>jsErrors.push(error.message));
     for(const lang of locales){
@@ -41,11 +44,26 @@ for(const [engine,launch] of Object.entries({chromium,firefox,webkit})){
             const expected=lang==='fa'?'Digi Hamishe':'IBM Plex Sans Arabic';
             check(await page.evaluate(f=>document.fonts.check('700 24px "'+f+'"','۱۲۳ ابجد')&&[...document.fonts].some(x=>x.family.replace(/["']/g,'')===f&&x.status==='loaded'),expected),'Locale font not loaded: '+expected);
           }
+          await page.waitForTimeout(100);
           const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
           check(overflow<=3,'Horizontal page overflow: '+overflow+'px');
+          if(path===home){
+            const header=page.locator('header').first();
+            const mobile=header.locator('.mobile');
+            if(width<1280){
+              check(await mobile.isVisible(),'Mobile/tablet menu missing');
+              await mobile.locator('summary').first().click();
+              await mobile.locator('.dropdown').waitFor({state:'visible'});
+              const box=await mobile.locator('.dropdown').boundingBox();
+              check(box&&box.x>=-1&&box.x+box.width<=width+1,'Navigation clipped horizontally');
+              await mobile.locator('summary').first().click();
+            }else check(await header.locator('.desktop').isVisible(),'Desktop navigation missing');
+          }
           if(path===contact){
             await page.locator('.connection-primary').first().click();
             await page.locator('#connection-quiz[open]').waitFor({state:'visible'});
+            const quizOverflow=await page.locator('#connection-quiz').evaluate(el=>el.scrollWidth-el.clientWidth);
+            check(quizOverflow<=3,'Quiz horizontal overflow: '+quizOverflow+'px');
             await page.locator('[name="topics"]').first().check();
             await page.locator('[data-quiz-step="1"] [data-quiz-next]').click();
             await page.locator('[name="firstName"]').fill('Test');
@@ -59,12 +77,13 @@ for(const [engine,launch] of Object.entries({chromium,firefox,webkit})){
             await page.locator('.quiz-close').click();
             await page.locator('#connection-quiz').waitFor({state:'hidden'});
             await page.locator('.connection-word').scrollIntoViewIfNeeded();
+            await page.locator('.connection-word').evaluate(el=>el.scrollIntoView({block:'center'}));
             await page.waitForTimeout(300);
             check(await page.locator('.connection-word span').count()===6,'Wordmark missing');
           }
           check(!jsErrors.length,jsErrors.join('; '));
-          console.log('PASS',engine,width,path);
-        }catch(error){errors.push(engine+' '+width+' '+path+': '+error.message);}
+          console.log('PASS',engine,width+'x'+height,path);
+        }catch(error){errors.push(engine+' '+width+'x'+height+' '+path+': '+error.message);}
       }
     }
     await page.close();
