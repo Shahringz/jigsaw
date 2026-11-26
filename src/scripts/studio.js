@@ -1,3 +1,4 @@
+import { displayNumber } from "../i18n";
 function initPage(signal) {
   const locale = document.documentElement.lang;
   const fa = locale === "fa";
@@ -224,7 +225,7 @@ function initContactQuiz(signal) {
   function showStep(n,focus=true){
     step=n;form.hidden=false;success.hidden=true;showError("");
     steps.forEach((section,i)=>section.hidden=i!==n-1);
-    counter.textContent="0"+n+" / 03";
+    counter.textContent=displayNumber("0"+n+" / 03",document.documentElement.lang);
     bars.forEach((bar,i)=>bar.classList.toggle("is-active",i<n));
     dialog.setAttribute("aria-labelledby","quiz-heading-"+n);
     dialog.scrollTop=0;
@@ -299,7 +300,7 @@ function initContactQuiz(signal) {
     const href=URL.createObjectURL(blob),link=document.createElement("a");
     link.href=href;link.download="JIGSAW-brief.txt";document.body.append(link);link.click();link.remove();
     setTimeout(()=>URL.revokeObjectURL(href),1000);
-    form.hidden=true;success.hidden=false;counter.textContent="03 / 03";
+    form.hidden=true;success.hidden=false;counter.textContent=displayNumber("03 / 03",document.documentElement.lang);
     dialog.setAttribute("aria-labelledby","quiz-success-heading");
     const heading=success.querySelector("h2");heading.id="quiz-success-heading";heading.focus({preventScroll:true});
     dialog.scrollTop=0;

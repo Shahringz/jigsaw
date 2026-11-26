@@ -1,7 +1,7 @@
 ---
 import { EditorialText } from "./EditorialText";
 import { getCollection } from 'astro:content';
-import { assetHref, pageHref, translator, blogCategories, languages, type Locale } from '../i18n';
+import { assetHref, pageHref, translator, displayDate, blogCategories, languages, type Locale } from '../i18n';
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const tr = translator(lang);
@@ -22,7 +22,7 @@ const posts = (await getCollection('blog', post => post.id.startsWith(lang + '/'
     {posts.filter(post => post.data.category === category).map(({ id, data }) => <article class="journal-entry">
     <a href={pageHref(lang, 'blog') + id.split('/')[1] + '/'}>
       {data.image && <div class="journal-art"><img src={assetHref(data.image)} alt={data.imageAlt ?? ''} width="600" height="800" loading="lazy" /></div>}
-      <div class="journal-summary"><time datetime={data.date.toISOString().slice(0,10)}>{data.date.toLocaleDateString(lang, { dateStyle: 'long', timeZone: 'UTC' })}</time>
+      <div class="journal-summary"><time datetime={data.date.toISOString().slice(0,10)}>{displayDate(data.date, lang)}</time>
         <h2>{data.title}</h2><p><EditorialText language={lang} text={data.description}/></p>
         <span class="textlink">{tr('خوندن یادداشت', 'Read the note', 'اقرؤوا المقال')}</span></div>
     </a>

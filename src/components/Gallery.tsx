@@ -4,6 +4,7 @@ import {
   assetHref,
   pageHref,
   languages,
+  displayNumber,
   translator,
   type Locale,
 } from "../i18n";
@@ -194,7 +195,7 @@ export function Gallery({ language }: Props) {
                   aria-label={s.title[idx]}
                   onClick={() => setStage(n)}
                 >
-                  {tr(["۱", "۲", "۳"][n], String(n + 1), ["١", "٢", "٣"][n])}
+                  {displayNumber(n + 1, language)}
                 </button>
               ))}
             </div>
