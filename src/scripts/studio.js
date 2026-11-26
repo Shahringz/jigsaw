@@ -14,6 +14,10 @@ function initPage(signal) {
   syncLanguageLinks();
   window.addEventListener("hashchange", syncLanguageLinks, { signal });
   const menus = document.querySelectorAll("header details");
+  const compactNav = matchMedia("(max-width: 1279px)");
+  const resetMenus = () => menus.forEach(menu => menu.open = false);
+  if(compactNav.addEventListener) compactNav.addEventListener("change", resetMenus, {signal});
+  else if(compactNav.addListener){compactNav.addListener(resetMenus);signal.addEventListener("abort",()=>compactNav.removeListener(resetMenus),{once:true});}
   document.addEventListener("click", (event) => {
     for (const menu of menus) {
       if (!menu.contains(event.target) || event.target.closest("a")) menu.open = false;
@@ -164,7 +168,7 @@ function initConnection(signal) {
     raf=null;
     const r=stage.getBoundingClientRect();
     const progress=clamp((80-r.top)/Math.max(1,r.height*.58));
-    const compact=innerWidth<=700;
+    const compact=innerWidth<=720;
     photo.style.setProperty("--photo-y",(-progress*(compact?12:42))+"px");
     photo.style.setProperty("--photo-r",(-5+progress*3)+"deg");
     card.style.setProperty("--card-y",(-progress*(compact?9:27))+"px");
