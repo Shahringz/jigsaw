@@ -1,4 +1,5 @@
 ---
+import SiteIcons from '../components/SiteIcons.astro';
 import { SiteHeader } from '../components/Shell';
 import { assetHref, pageHref, locales, displayNumber, type Locale } from '../i18n';
 import '../styles/site.css';
@@ -21,7 +22,7 @@ const alternates = Object.fromEntries(locales.map(locale => [locale, '/'+locale+
   <meta name="robots" content="noindex, follow" />
   <meta name="theme-color" content="#22221f" />
   <title>صفحه پیدا نشد | JIGSAW</title>
-  <link rel="icon" type="image/webp" href={assetHref('media/mark.webp')} />
+  <SiteIcons />
   <style is:inline set:html={`
     @font-face { font-family: Estedad; src: url("${assetHref('type/estedad-fa.woff2')}") format("woff2"); font-weight:100 900; font-display:swap; }
     @font-face { font-family: Sora; src: url("${assetHref('type/sora-bold.woff2')}") format("woff2"); font-weight:700; font-display:swap; }
