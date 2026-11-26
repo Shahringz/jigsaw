@@ -14,7 +14,7 @@ for(const [engine,launch] of Object.entries({chromium,firefox,webkit})){
     for(const lang of locales){
       const home=lang==='fa'?'/':'/'+lang+'/';
       const contact='/'+lang+'/contact/';
-      const urls=[home,...routes.map(route=>'/'+lang+'/'+route+'/'),'/'+lang+'/missing-page-typography-check/'];
+      const urls=[home,...(lang==='fa'?['/fa/']:[]),...routes.map(route=>'/'+lang+'/'+route+'/'),'/'+lang+'/missing-page-typography-check/'];
       for(const path of urls){
         try{
           jsErrors=[];
@@ -31,9 +31,11 @@ for(const [engine,launch] of Object.entries({chromium,firefox,webkit})){
             check(digitPattern.test(str)&&!forbidden.test(str),'Wrong display numerals: '+str);
           }
           if(!missing){
-            const fontFamily=await page.locator('main h1').first().evaluate(el=>getComputedStyle(el).fontFamily);
-            if(lang==='fa')check(fontFamily.includes('Digi Hamishe'),'Wrong Persian heading font');
-            if(lang==='ar')check(fontFamily.includes('IBM Plex Sans Arabic'),'Wrong Arabic heading font');
+            const heading=page.locator('main h1').first();
+            const fontFamily=await heading.evaluate(el=>getComputedStyle(el).fontFamily);
+            const explicitlyEnglish=await heading.getAttribute('lang')==='en';
+            if(lang==='fa'&&!explicitlyEnglish)check(fontFamily.includes('Digi Hamishe'),'Wrong Persian heading font');
+            if(lang==='ar'&&!explicitlyEnglish)check(fontFamily.includes('IBM Plex Sans Arabic'),'Wrong Arabic heading font');
           }
           if(lang==='fa'||lang==='ar'){
             const expected=lang==='fa'?'Digi Hamishe':'IBM Plex Sans Arabic';
