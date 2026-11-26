@@ -2,7 +2,7 @@ import { chromium, firefox, webkit } from 'playwright';
 const base = (process.env.SITE_URL || 'http://127.0.0.1:4173').replace(/\/$/,'');
 const revision=process.env.EXPECTED_RELEASE;
 const locales=['fa','en','ar'];
-const routes=['about','services','work','process','contact','network','network/sbc','blog'];
+const routes=['about','services','work','process','contact','network','network/sbc','blog','blog/reading-the-cover'];
 const errors=[];
 const check=(v,message)=>{if(!v)throw new Error(message)};
 for(const [engine,launch] of Object.entries({chromium,firefox,webkit})){
@@ -14,16 +14,35 @@ for(const [engine,launch] of Object.entries({chromium,firefox,webkit})){
     for(const lang of locales){
       const home=lang==='fa'?'/':'/'+lang+'/';
       const contact='/'+lang+'/contact/';
-      const urls=width===1440?[home,...routes.map(route=>'/'+lang+'/'+route+'/')]:[home,contact];
+      const urls=[home,...(lang==='fa'?['/fa/']:[]),...routes.map(route=>'/'+lang+'/'+route+'/'),'/'+lang+'/missing-page-typography-check/'];
       for(const path of urls){
         try{
           jsErrors=[];
           const response=await page.goto(base+path+(revision?'?rev='+revision:''),{waitUntil:'domcontentloaded',timeout:45000});
-          check(response?.ok(),'HTTP '+response?.status());
+          const missing=path.includes('missing-page-typography-check');
+          check(missing?response?.status()===404:response?.ok(),'HTTP '+response?.status());
           check(await page.locator('html').getAttribute('lang')===lang,'Wrong language');
           await page.locator('main').waitFor({state:'visible'});
           if(revision)check(await page.locator('meta[name="jigsaw-release"]').getAttribute('content')===revision,'Stale release');
           await page.evaluate(()=>document.fonts.ready);
+          const digitPattern=lang==='fa'?/[۰-۹]/:lang==='ar'?/[٠-٩]/:/[0-9]/;
+          const forbidden=lang==='en'?/[۰-۹٠-٩]/:lang==='fa'?/[0-9٠-٩]/:/[0-9۰-۹]/;
+          for(const str of await page.locator('.locale-number,.process-index,.stage-controls button,.error-code,time').allTextContents()){
+            check(digitPattern.test(str)&&!forbidden.test(str),'Wrong display numerals: '+str);
+          }
+          if(!missing){
+            const heading=page.locator('main h1').first();
+            const fontFamily=await heading.evaluate(el=>getComputedStyle(el).fontFamily);
+            const explicitlyEnglish=await heading.getAttribute('lang')==='en';
+            if(lang==='fa'&&!explicitlyEnglish)check(fontFamily.includes('Digi Hamishe'),'Wrong Persian heading font');
+            if(lang==='ar'&&!explicitlyEnglish)check(fontFamily.includes('IBM Plex Sans Arabic'),'Wrong Arabic heading font');
+          }
+          if(lang==='fa'||lang==='ar'){
+            const expected=lang==='fa'?'Digi Hamishe':'IBM Plex Sans Arabic';
+            check(await page.evaluate(f=>document.fonts.check('700 24px "'+f+'"','۱۲۳ ابجد')&&[...document.fonts].some(x=>x.family.replace(/["']/g,'')===f&&x.status==='loaded'),expected),'Locale font not loaded: '+expected);
+          }
+          const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+          check(overflow<=3,'Horizontal page overflow: '+overflow+'px');
           if(path===contact){
             await page.locator('.connection-primary').first().click();
             await page.locator('#connection-quiz[open]').waitFor({state:'visible'});
@@ -34,6 +53,7 @@ for(const [engine,launch] of Object.entries({chromium,firefox,webkit})){
             await page.locator('[name="email"]').fill('test@example.com');
             await page.locator('[data-quiz-step="2"] [data-quiz-next]').click();
             await page.locator('[data-quiz-step="3"]').waitFor({state:'visible'});
+            check(!forbidden.test(await page.locator('.quiz-counter').innerText()),'Wrong dynamic quiz numerals');
             await page.locator('[data-quiz-step="3"] [data-quiz-back]').click();
             check(await page.locator('[name="firstName"]').inputValue()==='Test','Answers lost');
             await page.locator('.quiz-close').click();

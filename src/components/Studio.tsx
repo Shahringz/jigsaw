@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import data from "../data/copy.json";
 import {
   languages,
+  displayNumber,
   assetHref,
   translator,
   pageHref,
@@ -20,6 +21,7 @@ export function StudioContent({
 }) {
   const i = languages[language].index;
   const tr = translator(language);
+  const num = (value: string | number) => displayNumber(value, language);
   const url = (p: PageKey) => pageHref(language, p);
   const go = (p: PageKey, text: string, style = "button", suffix = "") => (
     <a className={style} href={url(p) + suffix}>
@@ -254,9 +256,10 @@ export function StudioContent({
             ),
             data.processIntro[i],
           )}
-          <ol className="steps">
-            {data.process.map((s) => (
+          <ol className="steps localized-steps" role="list">
+            {data.process.map((s, n) => (
               <li key={s[1][0]}>
+                <span className="process-index" dir="ltr" aria-hidden="true">{num(n + 1)}.</span>
                 <h2>{s[i][0]}</h2>
                 <p><EditorialText language={language} text={s[i][1]}/></p>
               </li>
@@ -308,7 +311,7 @@ export function StudioContent({
           </section>
           <section className="wrap connection-paths" aria-labelledby="connection-paths-title">
             <div className="connection-section-heading" data-contact-reveal>
-              <small>01 / {tr("راه‌های ارتباطی","Get in touch","خلّونا على تواصل")}</small>
+              <small><bdi className="locale-number">{num("01")}</bdi> / {tr("راه‌های ارتباطی","Get in touch","خلّونا على تواصل")}</small>
               <h2 id="connection-paths-title">{tr("چطوری با هم در ارتباط باشیم؟","How do you like to connect?","كيف تحبّون نتواصل؟")}</h2>
               <p><EditorialText language={language} text={tr("هر جوری که راحت‌ترید، با ما در ارتباط باشید.","Whatever works for you, we’re all ears.","اختاروا الطريقة اللي تناسبكم.")}/></p>
             </div>
@@ -321,7 +324,7 @@ export function StudioContent({
                 {id:"team",title:tr("همکاری با تیم جیگزا","Join our team","انضموا إلى فريقنا"),text:tr("جای آدم‌های خلاق کنار ما خالیه.","Creative minds are always welcome.","نحب نتعرّف على المبدعين."),href:"#contact-form"},
                 {id:"partner",title:tr("پیشنهاد شراکت","Become a partner","اقترحوا شراكة"),text:tr("ببینیم چه چیز جالبی می‌تونیم با هم بسازیم.","Let’s build something great together.","خلّونا نشوف إيش نقدر ننجز مع بعض."),href:"#contact-form"}
               ].map((item,n)=>{
-                const inside=<><span className="connection-route-index">0{n+1}</span><span className={"connection-route-art route-"+item.id} aria-hidden="true"><i/><b/></span><div><h3>{item.title}</h3><p><EditorialText language={language} text={item.text}/></p></div><span className="connection-route-tail">{item.href?"↗":tr("به‌زودی","Coming soon","قريباً")}</span></>;
+                const inside=<><span className="connection-route-index locale-number" dir="ltr">{num(String(n + 1).padStart(2,"0"))}</span><span className={"connection-route-art route-"+item.id} aria-hidden="true"><i/><b/></span><div><h3 lang={item.id==="whatsapp"?"en":language} dir={item.id==="whatsapp"?"ltr":undefined}>{item.title}</h3><p><EditorialText language={language} text={item.text}/></p></div><span className="connection-route-tail">{item.href?"↗":tr("به‌زودی","Coming soon","قريباً")}</span></>;
                 const className="connection-route connection-route-"+item.id;
                 return item.href?<a key={item.id} className={className} href={item.href} data-open-quiz={item.id==="partner"?"partnership":item.id==="team"?"careers":""} data-contact-reveal>{inside}</a>:<div key={item.id} className={className+" is-pending"} data-contact-reveal>{inside}</div>;
               })}
@@ -329,12 +332,12 @@ export function StudioContent({
           </section>
           <section className="wrap inner contact connection-form" id="contact-form" aria-labelledby="connection-form-title">
             <div className="connection-section-heading" data-contact-reveal>
-              <small>02 / {tr("شرح پروژه","Project brief","ملخص المشروع")}</small>
+              <small><bdi className="locale-number">{num("02")}</bdi> / {tr("شرح پروژه","Project brief","ملخص المشروع")}</small>
               <h2 id="connection-form-title">{tr("از ایده‌تون بگید.","Tell us your story.","حدّثونا عن فكرتكم.")}</h2>
               <p><EditorialText language={language} text={tr("لازم نیست همه‌چیز از قبل مشخص باشه. از همون جایی که هستید شروع کنیم.","You don’t need to have it all figured out. Let’s start where you are.","مو لازم تكون كل التفاصيل جاهزة. نبدأ من الفكرة اللي عندكم.")}/></p>
             </div>
             <div className="connection-brief-card" data-contact-reveal>
-              <span className="connection-brief-number" dir="ltr">01 — 03</span>
+              <span className="connection-brief-number locale-number" dir="ltr">{num("01 — 03")}</span>
               <h3>{tr("سه قدم تا آشنایی.","Three steps to break the ice.","ثلاث خطوات ونتعارف.")}</h3>
               <p><EditorialText language={language} text={tr("اول ببینیم چه کمکی ازمون برمیاد، بعد بیشتر با هم آشنا بشیم.","Tell us what you need, a bit about yourself and what you have in mind.","قولوا لنا كيف نقدر نساعدكم، وعرّفونا عليكم وعلى فكرتكم.")}/></p>
               <a className="connection-primary" href="#contact-form" data-open-quiz="">{tr("بزن بریم!","Let’s get started!","يلا نبدأ!")} <span aria-hidden="true">↗</span></a>
@@ -353,12 +356,12 @@ export function StudioContent({
               <div className="quiz-top">
                 <span className="quiz-brand" dir="ltr">JIGSAW<span>.</span></span>
                 <button type="button" className="quiz-close" data-quiz-close aria-label={tr("بستن پرسش‌نامه","Close questionnaire","إغلاق الاستبيان")}>×</button>
-                <span className="quiz-counter" dir="ltr" aria-live="polite">01 / 03</span>
+                <span className="quiz-counter locale-number" dir="ltr" aria-live="polite">{num("01 / 03")}</span>
               </div>
               <div className="quiz-progress" aria-hidden="true"><i/><i/><i/></div>
               <form id="connection-quiz-form" noValidate>
                 <section className="quiz-step" data-quiz-step="1">
-                  <p className="quiz-step-number" dir="ltr">01.</p>
+                  <p className="quiz-step-number locale-number" dir="ltr">{num("01.")}</p>
                   <h2 id="quiz-heading-1" tabIndex={-1}>{tr("چطور می‌تونیم کمکتون کنیم؟","What can we help you with?","كيف نقدر نساعدكم؟")}</h2>
                   <p className="quiz-intro"><EditorialText language={language} text={tr("هر چندتا گزینه که به کارتون میاد انتخاب کنید.","Pick as many as you like.","اختاروا كل اللي يناسبكم.")}/></p>
                   <div className="quiz-options">
@@ -367,7 +370,7 @@ export function StudioContent({
                   <div className="quiz-actions"><button type="button" className="quiz-next" data-quiz-next>{tr("مرحله بعد","Next step","الخطوة التالية")} <span aria-hidden="true">↗</span></button></div>
                 </section>
                 <section className="quiz-step" data-quiz-step="2" hidden>
-                  <p className="quiz-step-number" dir="ltr">02.</p>
+                  <p className="quiz-step-number locale-number" dir="ltr">{num("02.")}</p>
                   <h2 id="quiz-heading-2" tabIndex={-1}>{tr("یکم بیشتر با هم آشنا بشیم.","Let’s get to know you.","خلّونا نتعرّف عليكم أكثر.")}</h2>
                   <p className="quiz-intro"><EditorialText language={language} text={tr("اسم‌تون و یه راه برای ارتباط باهاتون کافیه.","A name and a way to reach you are all we need.","اسمكم وطريقة نتواصل فيها معكم، وهذا يكفي.")}/></p>
                   <div className="quiz-fields">
@@ -375,12 +378,12 @@ export function StudioContent({
                     <label>{tr("نام خانوادگی","Last name","اسم العائلة")}<input name="lastName" autoComplete="family-name" required maxLength={100}/></label>
                     <label>{tr("نام مجموعه (اختیاری)","Business name (optional)","اسم الشركة (اختياري)")}<input name="business" autoComplete="organization" maxLength={150}/></label>
                     <label>{tr("ایمیل","Email","البريد الإلكتروني")}<input name="email" type="email" autoComplete="email" dir="ltr" placeholder="name@example.com" maxLength={254}/></label>
-                    <label className="quiz-wide">{tr("شماره تماس با کد کشور","Phone number with country code","رقم الهاتف مع رمز الدولة")}<span className="quiz-phone" dir="ltr"><select name="country" aria-label={tr("کد کشور","Country code","رمز الدولة")}><option value="">{tr("کد کشور","Country code","رمز الدولة")}</option><option value="+98">IR +98</option><option value="+968">OM +968</option><option value="+971">AE +971</option><option value="other">{tr("سایر (شماره کامل)","Other (full number)","أخرى (الرقم الكامل)")}</option></select><input name="phone" type="tel" autoComplete="tel" placeholder="+..." maxLength={32}/></span></label>
+                    <label className="quiz-wide">{tr("شماره تماس با کد کشور","Phone number with country code","رقم الهاتف مع رمز الدولة")}<span className="quiz-phone" dir="ltr"><select name="country" aria-label={tr("کد کشور","Country code","رمز الدولة")}><option value="">{tr("کد کشور","Country code","رمز الدولة")}</option><option value="+98">{tr("ایران","IR","إيران")} {num("+98")}</option><option value="+968">{tr("عمان","OM","عُمان")} {num("+968")}</option><option value="+971">{tr("امارات","AE","الإمارات")} {num("+971")}</option><option value="other">{tr("سایر (شماره کامل)","Other (full number)","أخرى (الرقم الكامل)")}</option></select><input name="phone" type="tel" autoComplete="tel" placeholder="+..." maxLength={32}/></span></label>
                   </div>
                   <div className="quiz-actions"><button type="button" className="quiz-back" data-quiz-back>{tr("مرحله قبل","Previous","السابق")}</button><button type="button" className="quiz-next" data-quiz-next>{tr("مرحله آخر","Final step","الخطوة الأخيرة")} <span aria-hidden="true">↗</span></button></div>
                 </section>
                 <section className="quiz-step" data-quiz-step="3" hidden>
-                  <p className="quiz-step-number" dir="ltr">03.</p>
+                  <p className="quiz-step-number locale-number" dir="ltr">{num("03.")}</p>
                   <h2 id="quiz-heading-3" tabIndex={-1}>{tr("چیز دیگه‌ای هست که بخواید بگید؟","Anything else on your mind?","في شي ثاني حابين تقولونه؟")}</h2>
                   <p className="quiz-intro"><EditorialText language={language} text={tr("از ایده‌هاتون برامون بگید؛ چند خط هم کافیه.","A few lines about your idea would be lovely.","شاركونا فكرتكم، حتى لو بكلمتين.")}/></p>
                   <div className="quiz-fields">

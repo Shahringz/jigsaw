@@ -1403,3 +1403,76 @@ button,input,textarea,select{font-family:inherit}
 
 /* Editorial emphasis: real Digi Hamishe Bold, inherited colour and sizing. */
 html[lang="fa"] .editorial-emphasis,html[lang="fa"] .article-text strong{font-weight:700;color:inherit;}
+
+/* JIGSAW type system: common roles, language-aware line height, real font weights. */
+:root{
+  --size-hero:clamp(2.5rem,4.65vw,4.8rem);
+  --size-h1:clamp(2.1rem,4vw,4rem);
+  --size-h2:clamp(1.7rem,3vw,2.9rem);
+  --size-h3:clamp(1.18rem,1.85vw,1.65rem);
+  --size-item:clamp(1.28rem,2.2vw,1.95rem);
+  --size-body:clamp(1rem,1.12vw,1.1rem);
+  --size-small:.875rem;
+  --size-label:.95rem;
+  --heading-leading:1.15;
+  --body-leading:1.7;
+  --heading-tracking:-.035em;
+  --weight-regular:400;
+  --weight-bold:700;
+}
+:root[lang="fa"],:root[lang="ar"]{
+  --heading-leading:1.4;
+  --body-leading:1.9;
+  --heading-tracking:0;
+  --size-hero:clamp(2.25rem,4.3vw,4.5rem);
+  --size-h1:clamp(2rem,3.8vw,3.8rem);
+}
+html h1,html h2,html h3{font-family:var(--display);font-weight:var(--weight-bold);line-height:var(--heading-leading);letter-spacing:var(--heading-tracking);overflow-wrap:break-word}
+html h1{font-size:var(--size-h1)}
+html h2{font-size:var(--size-h2)}
+html h3{font-size:var(--size-h3)}
+html .hero h1{font-size:var(--size-hero);line-height:var(--heading-leading);letter-spacing:var(--heading-tracking)}
+html .intro h1,html[dir="rtl"] .intro h1,html[lang="ar"] .intro h1{font-size:var(--size-h1);line-height:var(--heading-leading)}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{font-weight:700}
+html p,html[dir="rtl"] p{font-size:var(--size-body);font-weight:var(--weight-regular);line-height:var(--body-leading)}
+html strong,html .editorial-emphasis{font-weight:700}
+html .storyrow h2,html .steps h2,html .service-list h2,html .ex-caption h2,html .bench-text h3,html .network-row h3,html .journal-category>h2{font-size:var(--size-item);line-height:var(--heading-leading)}
+html .network-row h2,html .journal-summary h2,html .connection-section-heading h2,html[dir="rtl"] .connection-section-heading h2,html .connection-page .connection-brief-card h3{font-size:var(--size-h2);line-height:var(--heading-leading);letter-spacing:var(--heading-tracking)}
+html .connection-page .quiz-step h2,html .connection-page .quiz-success h2,html[dir="rtl"] .connection-page .quiz-step h2,html[dir="rtl"] .connection-page .quiz-success h2{font-size:var(--size-h1);line-height:var(--heading-leading);letter-spacing:var(--heading-tracking)}
+/* Card headlines have less available width than a full hero. */
+html .connection-card h1,html .connection-card h1[dir="rtl"],html .connection-card h1[lang="ar"]{font-size:clamp(1.85rem,3.45vw,3.7rem);font-family:var(--display);font-weight:700;line-height:var(--heading-leading);letter-spacing:var(--heading-tracking)}
+html .connection-card h1 span{max-width:100%;overflow-wrap:normal;text-wrap:balance}
+html .connection-page .connection-card-copy,html .connection-page .connection-section-heading p,html .connection-page .connection-brief-card p,html .connection-page .quiz-intro,html .connection-page .quiz-success p{font-size:var(--size-body);line-height:var(--body-leading);font-weight:400}
+html .connection-route h3{font-size:var(--size-h3);line-height:var(--heading-leading)}
+html .connection-route p{font-size:var(--size-body);line-height:var(--body-leading)}
+html .connection-page .connection-brief-note,html .connection-page .quiz-preview-note,html .connection-route.is-pending .connection-route-tail{font-size:var(--size-small);line-height:var(--body-leading)}
+html .connection-kicker,html .connection-section-heading small,html .quiz-counter,html .connection-route-index,html .connection-brief-number,html .quiz-fields label,html .quiz-option span{font-size:var(--size-label);font-weight:700;line-height:var(--heading-leading)}
+html .locale-number,html .process-index,html .quiz-counter,html .connection-page .quiz-step-number,html .stage-controls button{font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:0}
+html .connection-page .quiz-step-number{font-size:var(--size-item);line-height:var(--heading-leading)}
+html .button,html .connection-primary,html .quiz-next,html .quiz-back,html .textlink,html .footlink{font-size:var(--size-label);font-weight:700;line-height:var(--heading-leading)}
+html .bar nav,html .header-cta,html .language-picker,html .foot{font-size:var(--size-label)}
+html .quiz-fields input,html .quiz-fields textarea,html .quiz-fields select{font-size:1rem;font-weight:400;line-height:var(--body-leading)}
+html .quiz-fields input[type="email"],html .quiz-fields input[type="url"]{font-family:Manrope,Arial,sans-serif}
+html .connection-route h3[lang="en"],html .profile-heading h1[lang="en"],html .partner-card h3[lang="en"]{font-family:Sora,Arial,sans-serif;letter-spacing:-.025em;text-align:start}
+html[dir="rtl"] .connection-route h3[lang="en"]{text-align:right}
+html[dir="rtl"] .connection-route h3[lang="en"]{direction:ltr}
+html .localized-steps{list-style:none;padding-inline-start:0}
+html .localized-steps li{position:relative;padding-inline-start:2.25rem}
+html .process-index{position:absolute;inset-inline-start:0;top:25px;color:var(--red);font-size:var(--size-label)}
+html .quiz-option{min-width:0}
+html .connection-route>div{min-width:0}
+html .connection-route-tail{white-space:nowrap}
+html .connection-form{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)}
+@media(max-width:720px){
+  :root{--size-hero:clamp(2.2rem,8.3vw,3.4rem);--size-h1:clamp(1.9rem,6.8vw,2.8rem);--size-h2:clamp(1.55rem,5.8vw,2.2rem);--size-h3:clamp(1.12rem,4.3vw,1.4rem);--size-item:clamp(1.2rem,4.7vw,1.55rem);--size-body:1rem;--size-label:.94rem}
+  :root[lang="fa"],:root[lang="ar"]{--size-hero:clamp(2rem,7.6vw,3.15rem);--size-h1:clamp(1.8rem,6.5vw,2.7rem)}
+  html .connection-card h1,html .connection-card h1[dir="rtl"],html .connection-card h1[lang="ar"]{font-size:clamp(1.65rem,6.7vw,2.8rem)}
+  html .connection-route{min-height:200px;grid-template-columns:minmax(0,1fr) auto;gap:10px}
+  html .connection-route p{font-size:var(--size-small)}
+  html .connection-route h3{font-size:var(--size-h3)}
+  html .connection-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  html .connection-route-project,html .connection-route-partner{grid-column:1/-1}
+  html .connection-form{display:block}
+  html .connection-section-heading h2{overflow-wrap:break-word}
+}
+@media(max-width:420px){html .connection-grid{grid-template-columns:minmax(0,1fr)}html .connection-route{min-height:160px}}
