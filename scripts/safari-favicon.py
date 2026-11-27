@@ -1,36 +1,86 @@
-import json, os, time, urllib.request, urllib.error
-BASE="http://127.0.0.1:4444"
-SITE="https://jigsawstudio.ir"
+"""Native Safari smoke check. Use synchronous commands and bounded image polling."""
+import json
+import os
+import time
+import urllib.error
+import urllib.request
+
+BASE = "http://127.0.0.1:4444"
+SITE = "https://jigsawstudio.ir"
+REV = os.environ["EXPECTED_RELEASE"]
+
 def request(path, body=None, method=None):
-    r=urllib.request.Request(BASE+path, data=json.dumps(body).encode() if body is not None else None,headers={"Content-Type":"application/json"},method=method)
+    data = json.dumps(body).encode() if body is not None else None
+    req = urllib.request.Request(BASE+path, data=data, headers={"Content-Type":"application/json"}, method=method)
     try:
-        with urllib.request.urlopen(r, timeout=60) as response: return json.load(response)["value"]
-    except urllib.error.HTTPError as error:
-        raise RuntimeError(f"Safari WebDriver {error.code}: {error.read().decode(errors='replace')}") from error
-session=None
-for i in range(10):
-    try:
-        session=request("/session",{"capabilities":{"alwaysMatch":{"browserName":"safari"}}})["sessionId"]
-        break
-    except Exception as exc:
-        print(f"Safari startup attempt {i+1}/10: {exc}", flush=True)
-        if i==9: raise
-        time.sleep(2)
-try:
-    root="/session/"+session
-    for route in ["/","/fa/contact/","/en/contact/","/ar/contact/"]:
-        request(root+"/url",{"url":SITE+route+"?rev="+os.environ["EXPECTED_RELEASE"]})
-        result=request(root+"/execute/async",{"script":"""
-const done=arguments[arguments.length-1];
-const links=[...document.querySelectorAll('link[rel="icon"],link[rel="apple-touch-icon"],link[rel="mask-icon"]')];
-const png=links.find(l=>l.getAttribute('sizes')==='32x32'&&l.type==='image/png');
-if(!png){done({ok:false,reason:'Missing PNG favicon'});return;}
-const image=new Image();
-image.onload=()=>{const c=document.createElement('canvas');c.width=image.width;c.height=image.height;const ctx=c.getContext('2d');ctx.drawImage(image,0,0);const p=ctx.getImageData(0,0,c.width,c.height).data;done({ok:image.width===32&&image.height===32&&p[3]===0&&links.some(l=>l.rel==='apple-touch-icon')&&links.some(l=>l.rel==='mask-icon'),revision:document.querySelector('meta[name="jigsaw-release"]')?.content,userAgent:navigator.userAgent});};
-image.onerror=()=>done({ok:false,reason:'PNG did not load'});
+        with urllib.request.urlopen(req, timeout=100) as response:
+            return json.load(response)["value"]
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError(f"Safari WebDriver {exc.code}: {exc.read().decode(errors='replace')}") from exc
+
+def start_session():
+    for attempt in range(6):
+        try:
+            request("/status")
+            value = request("/session", {"capabilities":{"alwaysMatch":{"browserName":"safari","pageLoadStrategy":"normal"}}})
+            return value["sessionId"]
+        except Exception as exc:
+            print(f"Safari session attempt {attempt+1}/6: {exc}", flush=True)
+            if attempt == 5:
+                raise
+            time.sleep(4)
+
+def execute(root, script):
+    return request(root+"/execute/sync", {"script":script,"args":[]})
+
+def check_page(root, route):
+    request(root+"/url", {"url":SITE+route+"?rev="+REV})
+    meta = execute(root, """
+const links = [...document.querySelectorAll('link[rel="icon"],link[rel="apple-touch-icon"],link[rel="mask-icon"]')];
+const png = links.find(l=>l.getAttribute('sizes')==='32x32' && l.type==='image/png');
+const revision = document.querySelector('meta[name="jigsaw-release"]')?.content;
+if (!png) return {ok:false, reason:'Missing 32px PNG', revision};
+const image=document.createElement('img');
+image.id='jigsaw-safari-icon-probe';
+image.loading='eager';
+image.alt='';
+image.style.cssText='position:absolute;left:0;top:0;width:32px;height:32px;pointer-events:none;opacity:0.01';
+document.body.appendChild(image);
 image.src=png.href;
-""","args":[]})
-        assert result["ok"] and result["revision"]==os.environ["EXPECTED_RELEASE"],result
-        print("PASS Safari document and favicon decoding",route,result["userAgent"],flush=True)
+return {ok:links.some(l=>l.rel==='apple-touch-icon') && links.some(l=>l.rel==='mask-icon'), revision, url:png.href, userAgent:navigator.userAgent};
+""")
+    assert meta["ok"] and meta["revision"] == REV, (route, meta)
+    deadline = time.monotonic()+45
+    while time.monotonic()<deadline:
+        result=execute(root, """
+const image=document.getElementById('jigsaw-safari-icon-probe');
+if(!image || !image.complete) return {state:'loading'};
+if(!image.naturalWidth) return {state:'error',reason:'Image could not be decoded'};
+try {
+  const canvas=document.createElement('canvas');
+  canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;
+  const ctx=canvas.getContext('2d');
+  ctx.drawImage(image,0,0);
+  return {state:'ready',width:canvas.width,height:canvas.height,alpha:ctx.getImageData(0,0,1,1).data[3]};
+} catch(e) {return {state:'error',reason:String(e)};}
+""")
+        if result["state"]=="ready":
+            assert (result["width"],result["height"],result["alpha"]) == (32,32,0), (route,result)
+            print("PASS native Safari favicon decoding",route,meta["userAgent"],flush=True)
+            return
+        if result["state"]=="error":
+            raise AssertionError((route,result))
+        time.sleep(1)
+    raise TimeoutError(f"Safari image loading did not finish: {route}")
+
+session = start_session()
+root = "/session/"+session
+try:
+    request(root+"/timeouts", {"script":60000,"pageLoad":90000,"implicit":0})
+    for route in ["/","/fa/contact/","/en/contact/","/ar/contact/"]:
+        check_page(root,route)
 finally:
-    if session: request("/session/"+session,method="DELETE")
+    try:
+        request(root,method="DELETE")
+    except Exception as exc:
+        print("Safari cleanup:",exc,flush=True)

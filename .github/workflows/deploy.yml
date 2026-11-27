@@ -93,11 +93,15 @@ jobs:
     permissions:
       contents: read
     runs-on: macos-15
-    timeout-minutes: 8
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - name: Enable native Safari WebDriver
         run: sudo safaridriver --enable
+      - name: Prepare Safari application
+        run: |
+          open -a Safari
+          sleep 5
       - name: Open actual Safari and verify icon decoding
         env:
           EXPECTED_RELEASE: ${{ github.sha }}
