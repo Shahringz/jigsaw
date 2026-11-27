@@ -19,14 +19,14 @@ def request(path, body=None, method=None):
         raise RuntimeError(f"Safari WebDriver {exc.code}: {exc.read().decode(errors='replace')}") from exc
 
 def start_session():
-    for attempt in range(6):
+    for attempt in range(3):
         try:
             request("/status")
             value = request("/session", {"capabilities":{"alwaysMatch":{"browserName":"safari","pageLoadStrategy":"normal"}}})
             return value["sessionId"]
         except Exception as exc:
-            print(f"Safari session attempt {attempt+1}/6: {exc}", flush=True)
-            if attempt == 5:
+            print(f"Safari session attempt {attempt+1}/3: {exc}", flush=True)
+            if attempt == 2:
                 raise
             time.sleep(4)
 
@@ -77,6 +77,9 @@ session = start_session()
 root = "/session/"+session
 try:
     request(root+"/timeouts", {"script":60000,"pageLoad":90000,"implicit":0})
+    request(root+"/url", {"url":"about:blank"})
+    assert execute(root, "return 2+2") == 4, "Native Safari empty-page preflight failed"
+    print("PASS native Safari session preflight",flush=True)
     for route in ["/","/fa/contact/","/en/contact/","/ar/contact/"]:
         check_page(root,route)
 finally:

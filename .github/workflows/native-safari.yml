@@ -1,0 +1,43 @@
+name: Native Safari verification
+on:
+  workflow_run:
+    workflows: ["Deploy to GitHub Pages"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-safari-verification
+  cancel-in-progress: true
+jobs:
+  safari:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: macos-15-intel
+    timeout-minutes: 12
+    env:
+      EXPECTED_RELEASE: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
+      - name: Record actual macOS and Safari versions
+        run: |
+          uname -m
+          sw_vers
+          /usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' /Applications/Safari.app/Contents/Info.plist
+          /usr/bin/safaridriver --version
+      - name: Verify deployed assets before launching Safari
+        run: python3 scripts/verify-favicon.py
+      - name: Enable native Safari automation
+        run: sudo /usr/bin/safaridriver --enable
+      - name: Native Safari session preflight and favicon decoding
+        run: |
+          /usr/bin/safaridriver -p 4444 > /tmp/jigsaw-safari-driver.log 2>&1 &
+          driver_pid=$!
+          trap 'kill "$driver_pid" 2>/dev/null || true' EXIT
+          python3 scripts/safari-favicon.py
+      - name: Driver diagnostics
+        if: failure()
+        run: cat /tmp/jigsaw-safari-driver.log || true

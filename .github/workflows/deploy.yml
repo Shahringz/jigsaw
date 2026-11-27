@@ -75,6 +75,12 @@ jobs:
           EXPECTED_RELEASE: ${{ github.sha }}
           BROWSER_ENGINE: ${{ matrix.browser }}
         run: node scripts/browser-smoke.mjs
+      - name: Verify favicon rendering in WebKit
+        if: matrix.browser == 'webkit'
+        env:
+          SITE_URL: https://jigsawstudio.ir
+          EXPECTED_RELEASE: ${{ github.sha }}
+        run: node scripts/webkit-favicon.mjs
 
   live-assets:
     needs: deploy
@@ -88,26 +94,3 @@ jobs:
         env:
           EXPECTED_RELEASE: ${{ github.sha }}
         run: python3 scripts/verify-favicon.py
-  safari:
-    needs: live-assets
-    permissions:
-      contents: read
-    runs-on: macos-15
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-      - name: Enable native Safari WebDriver
-        run: sudo safaridriver --enable
-      - name: Prepare Safari application
-        run: |
-          open -a Safari
-          sleep 5
-      - name: Open actual Safari and verify icon decoding
-        env:
-          EXPECTED_RELEASE: ${{ github.sha }}
-        run: |
-          /usr/bin/safaridriver -p 4444 > /tmp/jigsaw-safari-driver.log 2>&1 &
-          python3 scripts/safari-favicon.py
-      - name: Driver diagnostics
-        if: failure()
-        run: cat /tmp/jigsaw-safari-driver.log || true
