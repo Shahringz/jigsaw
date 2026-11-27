@@ -19,9 +19,11 @@ def head(path):
     h=Head(); h.feed(fetch(path+"?rev="+REV)[0].decode()); return h
 for attempt in range(24):
     try:
-        assert all(head(p).revision==REV for p in ["/","/fa/contact/","/en/contact/","/ar/contact/"])
+        revisions = {p: head(p).revision for p in ["/","/fa/contact/","/en/contact/","/ar/contact/"]}
+        assert all(value==REV for value in revisions.values()), f"Expected {REV}; received {revisions}"
         break
     except Exception as exc:
+        print(f"Release check {attempt+1}/24: {exc}", flush=True)
         if attempt==23: raise
         time.sleep(10)
 for path in ["/","/fa/contact/","/en/contact/","/ar/contact/"]:

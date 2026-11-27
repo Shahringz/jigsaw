@@ -1,15 +1,19 @@
-import json, os, time, urllib.request
+import json, os, time, urllib.request, urllib.error
 BASE="http://127.0.0.1:4444"
 SITE="https://jigsawstudio.ir"
 def request(path, body=None, method=None):
     r=urllib.request.Request(BASE+path, data=json.dumps(body).encode() if body is not None else None,headers={"Content-Type":"application/json"},method=method)
-    with urllib.request.urlopen(r, timeout=60) as response: return json.load(response)["value"]
+    try:
+        with urllib.request.urlopen(r, timeout=60) as response: return json.load(response)["value"]
+    except urllib.error.HTTPError as error:
+        raise RuntimeError(f"Safari WebDriver {error.code}: {error.read().decode(errors='replace')}") from error
 session=None
 for i in range(10):
     try:
         session=request("/session",{"capabilities":{"alwaysMatch":{"browserName":"safari"}}})["sessionId"]
         break
-    except Exception:
+    except Exception as exc:
+        print(f"Safari startup attempt {i+1}/10: {exc}", flush=True)
         if i==9: raise
         time.sleep(2)
 try:

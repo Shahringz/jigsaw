@@ -75,3 +75,35 @@ jobs:
           EXPECTED_RELEASE: ${{ github.sha }}
           BROWSER_ENGINE: ${{ matrix.browser }}
         run: node scripts/browser-smoke.mjs
+
+  live-assets:
+    needs: deploy
+    permissions:
+      contents: read
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify live favicon files and declarations
+        env:
+          EXPECTED_RELEASE: ${{ github.sha }}
+        run: python3 scripts/verify-favicon.py
+  safari:
+    needs: live-assets
+    permissions:
+      contents: read
+    runs-on: macos-15
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable native Safari WebDriver
+        run: sudo safaridriver --enable
+      - name: Open actual Safari and verify icon decoding
+        env:
+          EXPECTED_RELEASE: ${{ github.sha }}
+        run: |
+          /usr/bin/safaridriver -p 4444 > /tmp/jigsaw-safari-driver.log 2>&1 &
+          python3 scripts/safari-favicon.py
+      - name: Driver diagnostics
+        if: failure()
+        run: cat /tmp/jigsaw-safari-driver.log || true
